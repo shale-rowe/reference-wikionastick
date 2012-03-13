@@ -314,7 +314,16 @@ By the way, if you want to change the menu width the CSS you need to add to [[Wo
 They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn\'t realize before that WoaS really only works at its best in /Firefox/.\n\
 ',
 '= Search in Wiki\n\
-\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E\n\
+\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
+\x3Cdiv id="woas_search_options"\x3E\n\
+\x3Cp\x3E*Include:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" /\x3E&nbsp;Help pages\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(true,\'woas_search_word\');woas.search_word=true"\x3E&nbsp;Words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(false,\'woas_search_word\');woas.search_word=false"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cp\x3E*Match:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_case" onclick="woas.search_case=!!this.checked"/\x3E&nbsp;Case\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_start" onclick="woas.search_start=!!this.checked"/\x3E&nbsp;Word start\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_end" onclick="woas.search_end=!!this.checked"/\x3E&nbsp;Word end\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cdiv id="woas_search_word"\x3E\n\
+\x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_inline" onclick="woas.search_inline=!!this.checked"/\x3E&nbsp;Within one line\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/\x3E Maximum context characters\x3C/label\x3E\n\
+\x3Clabel\x3E\x3Cinput id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/\x3E Maximum match characters between words\x3C/label\x3E\x3C/div\x3E\n\
+\x3C/div\x3E\n\
 \x3Cdiv id="woas_search_results"\x3E&nbsp;\x3C/div\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
 woas._search_load();\n\
@@ -3895,6 +3904,15 @@ img.woas_nav { /* woas logo */\n\
 /* PRINT  (at end of CSS) */\n\
 \n\
 /* SEARCH */\n\
+#woas_search_options {\n\
+	background-color: #f0f0f5;\n\
+	border: 1px solid black;\n\
+	margin-top: 1em;\n\
+	padding: 0px 1em;\n\
+}\n\
+#woas_search_word {\n\
+	margin: -0.75em 0px 1em 1em;\n\
+}\n\
 #woas_search_results {\n\
 	padding-top: 1.5em\n\
 }\n\
@@ -5156,6 +5174,13 @@ d$.hide = function(id) {
 
 d$.show = function(id, inline) {
 	d$(id).style.display = inline ? 'inline' : 'block';
+};
+
+d$.set = function(show, id, inline) {
+	if (show)
+		d$(id).style.display = inline ? 'inline' : 'block';
+	else
+		d$(id).style.display = 'none';
 };
 
 d$.is_visible = function(id) {
@@ -7420,28 +7445,52 @@ woas._cached_body_search = [];
 // last string searched
 woas._last_search = null;
 woas._reLastSearch = null;	// search highlighting regex
-woas._nearby_chars = 200;		// amount of nearby characters to display
+// PVHL: search options; will be moved to a search object later
+//   set defaults here or change with a plugin
+woas._nearby_chars = 200;	// amount of nearby characters to display
+woas._match_length = 200;	// will eventually limit total match; currently max between words
+woas.search_help = true;	// include WoaS::Help pages
+woas.search_word = true;	// match words in order, not exact phrase
+woas.search_case = false;	// must match case
+woas.search_inline = false;	// must ma
+woas.search_start = true;	// match must start at word boundary
+woas.search_end = false;		// match must end at word boundary
+woas.search_options = false	// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
-	var tmp, pt, i, l, reg, res_body;
-	this._last_search = str = this.trim(str);
-	str = (RegExp.escape(str)).replace(/\s+/g, "[\\s\\S]{0,"+this._nearby_chars+"}?");
-	this._reLastSearch = new RegExp(str, "gi");
+	var tmp, pt, ph, i, l, reg, res_body, pt_arr = [], pi,
+		bs = this.search_start ? '\\b' : '',
+		be = this.search_end ? '\\b' : '',
+		sc = 'g' + (this.search_case ? '' : 'i'),
+		si = this.search_inline ? '.' : '[\\s\\S]';
+	this._last_search = this.trim(str);
+	str = bs + RegExp.escape(this._last_search) + be;
+	if (this.search_word) {
+		str = str.replace(/\s+/g, be+si+"{0,"+this._match_length+"}?"+bs);
+	}
+	this._reLastSearch = new RegExp(str, sc);
 	// matches the search string and nearby text
 	reg = new RegExp( ".{0,"+this._nearby_chars+"}"+str+
-			".{0,"+this._nearby_chars+"}", "gi" );
+			".{0,"+this._nearby_chars+"}", sc);
 
-	for(i=0,l=pages.length; i < l; i++) {
+	// assemble titles so they can be sorted before searching
+	for (i = 0, l = pages.length; i < l; i++) {
 		pt = page_titles[i];
-
-		//TODO: implement searching in help pages
-		if (this.is_image(pt) || this.is_reserved(pt) && !this.tweak.edit_override)
+		ph = this.search_help && pt.indexOf('WoaS::Help::') === 0;
+		if (this.is_image(pt) || !ph && !this.tweak.edit_override && this.is_reserved(pt))
 			continue;
-
-		// this could be modified for wiki searching issues
-		tmp = this.get_src_page(i, true);
-		if (tmp===null)
+		// titles can't match, so adding 'i' won't affect sorting,
+		// but faster than looking up titles again
+		pt_arr.push(pt+'_'+i);
+	}
+	pt_arr.sort();
+	for (i = 0, l = pt_arr.length; i < l; i++) {
+		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
+		pi = pt.substr(tmp + 1);
+		pt = pt.substr(0, tmp);
+		tmp = this.get_src_page(pi, true);
+		if (tmp === null)
 			continue;
 	
 		// look for string in title
@@ -7454,6 +7503,7 @@ woas._cache_search = function( str ) {
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
 	}
+	pt_arr = null;
 };
 
 woas.special_tagged = function(filter_string) {
@@ -9755,7 +9805,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2520"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2522"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -14394,12 +14444,35 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
 	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
-	i, it, r, a, at, count;
+	i, it, r, a, at, count, tmp;
+
+	// Load options
+	d$.set(this.search_options, 'woas_search_options');
+	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
+	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
+	d$('woas_search_cb_phrase').checked = !woas.bool2chk(this.search_word);
+	d$.set(this.search_word, 'woas_search_word');
+	d$('woas_search_cb_case').checked = woas.bool2chk(this.search_case);
+	d$('woas_search_cb_inline').checked = woas.bool2chk(this.search_inline);
+	d$('woas_search_cb_start').checked = woas.bool2chk(this.search_start);
+	d$('woas_search_cb_end').checked = woas.bool2chk(this.search_end);
+	d$('woas_search_txt_context').value = this._nearby_chars;
+	d$('woas_search_txt_length').value = this._match_length;
+	d$('woas_search_txt_context').onfocus = d$('woas_search_txt_length').onfocus
+		= woas.ui.focus_textbox;
+	d$('woas_search_txt_context').onblur = d$('woas_search_txt_length').onblur
+		= woas.ui.blur_textbox;
+
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		tmp = this.xhtml_encode(this._last_search);
+		if (this.search_word) {
+			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
+					'span class="woas_search_highlight">');
+		}
 		P.body = '/%s <'+'span class="woas_search_highlight">' +
-			woas.xhtml_encode(woas._last_search) + '<'+'/span>/';
+			 tmp + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
 		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
 			P.body = P.body.sprintf('Results for');
