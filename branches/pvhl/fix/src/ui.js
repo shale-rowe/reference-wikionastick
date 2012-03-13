@@ -1018,12 +1018,35 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
 	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
-	i, it, r, a, at, count;
+	i, it, r, a, at, count, tmp;
+
+	// Load options
+	d$.set(this.search_options, 'woas_search_options');
+	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
+	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
+	d$('woas_search_cb_phrase').checked = !woas.bool2chk(this.search_word);
+	d$.set(this.search_word, 'woas_search_word');
+	d$('woas_search_cb_case').checked = woas.bool2chk(this.search_case);
+	d$('woas_search_cb_inline').checked = woas.bool2chk(this.search_inline);
+	d$('woas_search_cb_start').checked = woas.bool2chk(this.search_start);
+	d$('woas_search_cb_end').checked = woas.bool2chk(this.search_end);
+	d$('woas_search_txt_context').value = this._nearby_chars;
+	d$('woas_search_txt_length').value = this._match_length;
+	d$('woas_search_txt_context').onfocus = d$('woas_search_txt_length').onfocus
+		= woas.ui.focus_textbox;
+	d$('woas_search_txt_context').onblur = d$('woas_search_txt_length').onblur
+		= woas.ui.blur_textbox;
+
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		tmp = this.xhtml_encode(this._last_search);
+		if (this.search_word) {
+			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
+					'span class="woas_search_highlight">');
+		}
 		P.body = '/%s <'+'span class="woas_search_highlight">' +
-			woas.xhtml_encode(woas._last_search) + '<'+'/span>/';
+			 tmp + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
 		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
 			P.body = P.body.sprintf('Results for');

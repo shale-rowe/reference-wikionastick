@@ -105,28 +105,52 @@ woas._cached_body_search = [];
 // last string searched
 woas._last_search = null;
 woas._reLastSearch = null;	// search highlighting regex
-woas._nearby_chars = 200;		// amount of nearby characters to display
+// PVHL: search options; will be moved to a search object later
+//   set defaults here or change with a plugin
+woas._nearby_chars = 200;	// amount of nearby characters to display
+woas._match_length = 200;	// will eventually limit total match; currently max between words
+woas.search_help = true;	// include WoaS::Help pages
+woas.search_word = true;	// match words in order, not exact phrase
+woas.search_case = false;	// must match case
+woas.search_inline = false;	// must ma
+woas.search_start = true;	// match must start at word boundary
+woas.search_end = false;		// match must end at word boundary
+woas.search_options = false	// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
-	var tmp, pt, i, l, reg, res_body;
-	this._last_search = str = this.trim(str);
-	str = (RegExp.escape(str)).replace(/\s+/g, "[\\s\\S]{0,"+this._nearby_chars+"}?");
-	this._reLastSearch = new RegExp(str, "gi");
+	var tmp, pt, ph, i, l, reg, res_body, pt_arr = [], pi,
+		bs = this.search_start ? '\\b' : '',
+		be = this.search_end ? '\\b' : '',
+		sc = 'g' + (this.search_case ? '' : 'i'),
+		si = this.search_inline ? '.' : '[\\s\\S]';
+	this._last_search = this.trim(str);
+	str = bs + RegExp.escape(this._last_search) + be;
+	if (this.search_word) {
+		str = str.replace(/\s+/g, be+si+"{0,"+this._match_length+"}?"+bs);
+	}
+	this._reLastSearch = new RegExp(str, sc);
 	// matches the search string and nearby text
 	reg = new RegExp( ".{0,"+this._nearby_chars+"}"+str+
-			".{0,"+this._nearby_chars+"}", "gi" );
+			".{0,"+this._nearby_chars+"}", sc);
 
-	for(i=0,l=pages.length; i < l; i++) {
+	// assemble titles so they can be sorted before searching
+	for (i = 0, l = pages.length; i < l; i++) {
 		pt = page_titles[i];
-
-		//TODO: implement searching in help pages
-		if (this.is_image(pt) || this.is_reserved(pt) && !this.tweak.edit_override)
+		ph = this.search_help && pt.indexOf('WoaS::Help::') === 0;
+		if (this.is_image(pt) || !ph && !this.tweak.edit_override && this.is_reserved(pt))
 			continue;
-
-		// this could be modified for wiki searching issues
-		tmp = this.get_src_page(i, true);
-		if (tmp===null)
+		// titles can't match, so adding 'i' won't affect sorting,
+		// but faster than looking up titles again
+		pt_arr.push(pt+'_'+i);
+	}
+	pt_arr.sort();
+	for (i = 0, l = pt_arr.length; i < l; i++) {
+		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
+		pi = pt.substr(tmp + 1);
+		pt = pt.substr(0, tmp);
+		tmp = this.get_src_page(pi, true);
+		if (tmp === null)
 			continue;
 	
 		// look for string in title
@@ -139,6 +163,7 @@ woas._cache_search = function( str ) {
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
 	}
+	pt_arr = null;
 };
 
 woas.special_tagged = function(filter_string) {

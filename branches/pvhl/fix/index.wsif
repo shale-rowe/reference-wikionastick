@@ -222,7 +222,16 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Search in Wiki
-<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />
+<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />&nbsp;<input class="woas_button" type="button" value="Options" onclick="d$.toggle('woas_search_options');woas.search_options=d$.is_visible('woas_search_options')" />
+<div id="woas_search_options">
+<p>*Include:* <label><input type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" />&nbsp;Help pages</label></p>
+<p>*Search Type:* <label><input type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(true,'woas_search_word');woas.search_word=true">&nbsp;Words</label> &nbsp; <label><input type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(false,'woas_search_word');woas.search_word=false">&nbsp;Phrase</label></p>
+<p>*Match:* <label><input type="checkbox" id="woas_search_cb_case" onclick="woas.search_case=!!this.checked"/>&nbsp;Case</label> &nbsp; <label><input type="checkbox" id="woas_search_cb_start" onclick="woas.search_start=!!this.checked"/>&nbsp;Word start</label> &nbsp; <label><input type="checkbox" id="woas_search_cb_end" onclick="woas.search_end=!!this.checked"/>&nbsp;Word end</label></p>
+<div id="woas_search_word">
+<label><input type="checkbox" id="woas_search_cb_inline" onclick="woas.search_inline=!!this.checked"/>&nbsp;Within one line</label>
+<label><input id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/> Maximum context characters</label>
+<label><input id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/> Maximum match characters between words</label></div>
+</div>
 <div id="woas_search_results">&nbsp;</div>
 <script type="text/javascript">
 woas._search_load();
@@ -4267,6 +4276,15 @@ img.woas_nav { /* woas logo */
 /* PRINT  (at end of CSS) */
 
 /* SEARCH */
+#woas_search_options {
+	background-color: #f0f0f5;
+	border: 1px solid black;
+	margin-top: 1em;
+	padding: 0px 1em;
+}
+#woas_search_word {
+	margin: -0.75em 0px 1em 1em;
+}
 #woas_search_results {
 	padding-top: 1.5em
 }
