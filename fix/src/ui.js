@@ -1016,7 +1016,7 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 // display search results
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
-	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
+	var P = {body: ""}, hd = '<'+'p %sclass="woas_search_head">%s<'+'/p>\n',
 		i, it, r, a, at, count, total = 0, tmp;
 
 	// Load options
@@ -1059,7 +1059,7 @@ woas._search_load = function() {
 			// (1) prepare the title results
 			it = this._cached_title_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('Found in '+it+' title'+(it > 1 ? 's' : ''));
+				P.body += hd.sprintf('', 'Found in '+it+' title'+(it > 1 ? 's' : ''));
 				for(i=0;i<it;++i) {
 					P.body += "* [["+ this._cached_title_search[i] + "]]\n";
 					//woas.pager.bucket.add(this._cached_title_search[i]);
@@ -1069,8 +1069,7 @@ woas._search_load = function() {
 			// (2) parse the body snippets
 			it = this._cached_body_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('Found '+this._hl_marker+':1000000000:'+
-					' time'+this._hl_marker+':1000000001:'+' in '+it+' page'+(it > 1 ? 's' : ''));
+				P.body += hd.sprintf('id="woas_search_pages" ', '&nbsp;');
 				for(i = 0; i < it; ++i) {
 					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
 							+ this._hl_marker+":" + i + ":";
@@ -1088,8 +1087,6 @@ woas._search_load = function() {
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
 			r = "", count = 0;
-			if (i > 999999999)
-				return str;
 			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
@@ -1101,13 +1098,16 @@ woas._search_load = function() {
 			total += count;
 			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
 		});
-		// PVHL: This is better in my soon coming code
-		P.body = P.body.replace(this._hl_marker+':1000000000:', total);
-		P.body = P.body.replace(this._hl_marker+':1000000001:', total === 1 ? '' : 's');
 	}
 
 	// finally output XHTML content
 	woas.setHTMLDiv(d$('woas_search_results'), P.body);
+	// and update page totals
+	if (it > 0) {
+		woas.setHTMLDiv(d$('woas_search_pages'),
+			'Found '+total+' time'+(total > 1 ? 's' : '')+
+			' in '+it+' page'+(it > 1 ? 's' : ''));
+	}
 };
 
 var _servm_shown = false;
