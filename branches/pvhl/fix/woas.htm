@@ -71,14 +71,16 @@ body {
 	z-index: 100;
 	left: 0px;
 	top: 0px;
-	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	padding-top: 2em;
 	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center
 }
 #woas_debug_console {
 	width: 50%;
-	margin: 3em auto
+	margin: 5em auto
 }
 #woas_debug_log {
 	width: 100%
@@ -106,7 +108,7 @@ body {
 <script woas_permanent="1" src="src/editor.js" type="text/javascript"></script>
 </head>
 <body onload="woas._on_load()" onunload="woas._on_unload()">
-<div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
+<div id="loading_overlay"><noscript>WoaS requires Javascript: you must enable it to use this file.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
 <h2>Enter a password</h2>
 <p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
@@ -193,7 +195,7 @@ Wiki Code:
 </a>
 &nbsp;</div>
 <div id="woas_debug_console"><div id="woas_debug_log_container">
-<textarea id="woas_debug_log" rows="5" readonly="readonly" cols="0"></textarea></div><input id="woas_debug_log_clear" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" />
+<textarea id="woas_debug_log" rows="5" readonly="readonly" cols="0">Waiting for Javascript...</textarea></div><input id="woas_debug_log_clear" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" />
 </div></div></div>
 </div></div>
 <script type="text/javascript">

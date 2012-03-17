@@ -475,7 +475,7 @@ window.onresize = help_resize;\n"
 	//   to bother with right now; redesign coming in new version.
 	// params: back|close value, back|close title, back|close function, display title, body
 	popup_page: '<'+'div id="woas_help_top_wrap"><'+'div class="woas_help_top">\n\
-<'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()"\
+<'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()" \
 type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" onclick\
 ="help_go_index()" type="button" />%s<'+'/div><'+'/div><'+'div id="woas_help_body_wrap">\
 <'+'div id="woas_help_body">\n%s<'+'/div><'+'/div>',
