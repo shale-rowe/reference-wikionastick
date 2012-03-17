@@ -96,7 +96,7 @@ function FullTagThis(tag){
 
 function macroTagThis(tagone, tagtwo) {
 	tagtwo = typeof tagtwo === 'undefined' ? '' : '("' + tagtwo + '")'
-	TagThis('<<<' + tagone + tagtwo + ':\n', '\n>>>');
+	TagThis('<<' + tagone + tagtwo + ':\n', '\n>>');
 }
 
 function setUrl(starttag,centertag,endtag) {

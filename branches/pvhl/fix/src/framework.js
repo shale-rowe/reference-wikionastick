@@ -120,7 +120,7 @@ d$.show = function(id, inline) {
 	d$(id).style.display = inline ? 'inline' : 'block';
 };
 
-d$.set = function(show, id, inline) {
+d$.set = function(id, show, inline) {
 	if (show)
 		d$(id).style.display = inline ? 'inline' : 'block';
 	else

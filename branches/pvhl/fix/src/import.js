@@ -32,7 +32,7 @@ woas.importer = {
 					"i_config", "i_styles", "i_content"],
 	// default options
 	//  1 i_comment_js: false		- disable 'script' tags
-	//  2 i_comment_macros: false	- disable macro blocks '<<<...>>>'
+	//  2 i_comment_macros: false	- disable macro blocks '<<...>>'
 	//  4 i_no_woas: false			- do not import pages from WoaS:: namespace
 	//  8 i_config: false			- import configuration (XHTML only)
 	// 16 i_styles: false			- import stylesheet (XHTML only)

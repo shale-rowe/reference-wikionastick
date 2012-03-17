@@ -225,12 +225,13 @@ woas.page.boundary: DFQRCTsKlU
 <input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />&nbsp;<input class="woas_button" type="button" value="Options" onclick="d$.toggle('woas_search_options');woas.search_options=d$.is_visible('woas_search_options')" />
 <div id="woas_search_options">
 <p>*Include:* <label><input type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" />&nbsp;Help pages</label></p>
-<p>*Search Type:* <label><input type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(true,'woas_search_word');woas.search_word=true">&nbsp;Words</label> &nbsp; <label><input type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(false,'woas_search_word');woas.search_word=false">&nbsp;Phrase</label></p>
+<p>*Search Type:* <label><input type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set('woas_search_word',woas.search_word=true)">&nbsp;Ordered words</label> &nbsp; <label><input type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set('woas_search_word',woas.search_word=false)">&nbsp;Phrase</label></p>
 <p>*Match:* <label><input type="checkbox" id="woas_search_cb_case" onclick="woas.search_case=!!this.checked"/>&nbsp;Case</label> &nbsp; <label><input type="checkbox" id="woas_search_cb_start" onclick="woas.search_start=!!this.checked"/>&nbsp;Word start</label> &nbsp; <label><input type="checkbox" id="woas_search_cb_end" onclick="woas.search_end=!!this.checked"/>&nbsp;Word end</label></p>
+<div id="woas_search_match"><label><input id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/> Maximum context characters</label>
 <div id="woas_search_word">
+<label><input id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/> Maximum match characters between words</label>
 <label><input type="checkbox" id="woas_search_cb_inline" onclick="woas.search_inline=!!this.checked"/>&nbsp;Within one line</label>
-<label><input id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/> Maximum context characters</label>
-<label><input id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/> Maximum match characters between words</label></div>
+</div></div>
 </div>
 <div id="woas_search_results">&nbsp;</div>
 <script type="text/javascript">
@@ -1489,7 +1490,7 @@ To add Javascript to your page, you must enclose it inside script tags.
 
 <div class="woas_help_text">Use this code in a page, replacing YOUR_CODE_HERE with your Javascript code:</div>
 {{{
-<script type="text/javascript">
+<script>
 YOUR_CODE_HERE
 </script>
 }}}
@@ -1499,33 +1500,45 @@ You can include external Javascript on a page by placing the script file in the 
 
 <div class="woas_help_text">Use this code in a page, replacing SCRIPTNAME.JS with the name of your script:</div>
 {{{
-<script src="SCRIPTNAME.JS" type="text/javascript"></script>
+<script src="SCRIPTNAME.JS"></script>
 }}}
-<div class="woas_help_text">To include an external Javascript in a page.</div>
+<div class="woas_help_text">To include an external Javascript file in a page.</div>
 == Using the /Javascript::/ namespace in a link
-Using a Javascript expression contained in a link, WoaS can dynamically create a temporary page that only exists while it is being displayed and is not stored as a page in the wiki. It does this through the /Javascript::/ namespace. Everything following the namespace declaration will be evaluated as a Javascript expression. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.
+The /Javascript::/ namespace is used in two ways:
+* *To run a small piece of Javascript code* when the link that contains it is clicked.
+* *To dynamically create a temporary page* that only exists while it is being displayed and is not stored as a page in the wiki.
+Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.
 <<<woas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).>>>
-If the Javascript expression returns a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression returns an array and that array contains exactly two strings, then the first string will be used as the dynamic page's title (with /Javascript::/ added), and the second one will form the content of the page. Any other return types will be ignored, as will an empty content string. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.
+=== Running Code
+If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will be evaluated. This is useful if the link needs to have a 'side-effect'. Examples are showing an alert, perhaps containing dynamic values, or incrementing a counter in your code. It is best to use a label so that the code doesn't display as the link. A simple example is:
+{{{
+[[Javascript::alert('The time is '+new Date())|Time]]
+}}}
+And here is the link: [[Javascript::alert('The time is '+new Date())|Time]]. (The alert box this link creates may open behind the /Help/ window; it belongs to the main wiki page.)
+=== Creating a dynamic page
+If the Javascript expression evaluates to a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression evaluates to an array and that array contains exactly two strings, then the first string will be used as the dynamic page's title (with /Javascript::/ added), and the second one will form the content of the page. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.
 
 A simple (but useless) example is:
 {{{
 [[Javascript::'=Hi']]
 }}}
-This link should create a dynamic page in the main wiki: [[Javascript::'=hi']]. Note that the Javascript expression is used as the page title; usually not very useful! Another simple example (and equally useless, except we don't have the title this time; note the need for a space after the array's closing bracket):
+This link should create a dynamic page in the main wiki: [[Javascript::'=hi']]. Another simple (and equally useless) example:
 {{{
-[[Javascript::['','=Hi'] ]]
+[[Javascript::['Hello','=Hi'] ]]
 }}}
-And here's the link: [[Javascript::['','=Hi'] ]]. The space isn't needed if, as is usual, you are using a label after the page link; for example:
+<<<woas.note: Notice the space after the array's closing bracket>>>
+And here's the link: [[Javascript::['Hello','=Hi'] ]]. The space isn't needed if, as is usual, you are using a label after the page link; for example:
 {{{
-[[Javascript::['','Hello World']|A dynamic page]]
+[[Javascript::['Hi','Hello World']|A dynamic page]]
+[[$JS::['Hi','Hello World']|A dynamic page]]
 }}}
-These links should open in the main wiki window; the first uses /Javascript::/ in the page source, the second /$JS::/ (though you won't see this when hovering over the link if your /$JS/ Alias is set): [[Javascript::['','Hello World']|A dynamic page]], [[$JS::['','Hello World']|A dynamic page]].
+The first uses /Javascript::/ in the page address, the second /$JS::/. The links will both look the same when hovering over the link if the default /$JS/ Alias is still set; the second link will be broken if the alias is removed): [[Javascript::['Hi','Hello World']|A dynamic page]], [[$JS::['Hi','Hello World']|A dynamic page]].
 
 These simple examples could even contain a [[WoaS::Help::Links|link]] (note the use of {{{]\]}}} in the link):
 {{{
 [[Javascript::['Hello world','I am Hello World, not the [[Special::All Pages]\] page']|A pointless page]]
 }}}
-The above example as a [[Javascript::['Hello world','I am Hello World, not the [[Special::All Pages]\] page']|pointless page link]].
+The above example as a [[Javascript::['Hello world','I am Hello World, not the [[Special::All Pages]\] page']|pointless page link]]. If you choose this link the wiki will display the /All Pages/ listing; if you then click the back button, the previous page -- not the /Javascript::/ page -- will be displayed.
 
 Here is a slightly more useful example that uses a Javascript function:
 {{{
@@ -1562,10 +1575,12 @@ The Javascript function can also be passed dynamic content using one or more fun
 		  'I\'ve come to watch\n* your flowers\n* growing.'];
 	}
 </script>
-The link {{{[[Javascript::rhyme2('Lamppost')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2('Lamppost')|Rhymes]]. This one uses /$JS/: [[$JS::rhyme2('World')|Another rhyme]].
-
-Not that the above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters. Nevertheless, there are times when generating changable, dynamic text is perfectly suited to the /Javascript::/ namespace technique.
-
+The link {{{[[Javascript::rhyme2('Lamppost')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2('Lamppost')|Rhymes]]. This one uses /$JS/:
+{{{
+[[$JS::rhyme2('World')|Another rhyme]]
+}}}
+[[$JS::rhyme2('World')|Another rhyme]].
+<<<woas.note: The above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters; using a template would also allow the rhyme link to be transcluded. Nevertheless, there are times when generating changable, dynamic pages is perfectly suited to the /Javascript::/ namespace technique.>>>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Join lines of text
 woas.page.attributes: 0
@@ -4280,10 +4295,10 @@ img.woas_nav { /* woas logo */
 	background-color: #f0f0f5;
 	border: 1px solid black;
 	margin-top: 1em;
-	padding: 0px 1em;
+	padding: 0px 1em 1em;
 }
-#woas_search_word {
-	margin: -0.75em 0px 1em 1em;
+#woas_search_match {
+	margin: -.5em 0px 0px 1.25em
 }
 #woas_search_results {
 	padding-top: 1.5em
@@ -5059,7 +5074,10 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
+* Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax
+* Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.
+* Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon
+* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
 * fix File::x full-file display and links on page
 * fix Image::x page delete history issue and exported image gallery
 * remove list control from HTML export namespace listing pages (now normal list)
