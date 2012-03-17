@@ -538,18 +538,25 @@ woas.get_javascript_page = function(cr) {
 			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// safety check; returned value contains 'body' or ['title', 'body']
-	// body can be null if type is not array, otherwise type must be array and
-	// title can be empty, but body must exist (dynamic page creation)
-	if ((typeof text) === "undefined" ||
-			(!(text instanceof Array) && (typeof text) === "string") ||
-			((text instanceof Array) && text.length === 2 &&
-				(typeof text[0]) === 'string' && (typeof text[1]) === 'string'
-				&& text[1])) {
-		return text || null;
+	// returned value from eval is a string, ('body'), or array,
+	// ['title', 'body']; otherwise null is returned (no dynamic page created,
+	// though eval side-effects may have occurred). If type is array then title
+	// can be empty string, but body text must exist (dynamic page creation).
+	// Faulty strings and arrays are logged; everything else is ignored.
+	if (text instanceof Array) {
+		if (text.length === 2 && (typeof text[0]) === 'string' &&
+				(typeof text[1]) === 'string' && text[1] !== '') {
+			return text;
+		}
+	} else if ((typeof text) === 'string') {
+		if (text !== '') {
+			return text
+		}
+	} else {
+		return null;
 	}
 	this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) + this.i18n.JS_PAGE_FAIL3
-		.sprintf(text, text instanceof Array ? 'array' : typeof text));
+		.sprintf(text, text instanceof Array ? 'array' : 'text'));
 	return null;
 };
 
@@ -608,6 +615,10 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							}
 							// title allowed to be empty string: 'Javascript::'
 							cr = text[0] || '';
+							text = text[1];
+						} else {
+							// don't use the code as a title
+							cr = '';
 						}
 						break;
 					case "Special":

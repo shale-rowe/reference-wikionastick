@@ -18,7 +18,7 @@ _snippets: null,
 
 // these REs look for one optional (dynamic) newline at the end
 reComments: /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
-reMacros: /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
+reMacros: /<{2,3}([\s\S]*?)>{2,3}([ \t]*\n)?/g,
 reNowiki: /\{\{\{([ \t]*\n)?([\s\S]*?)(\n[ \t]*)?\}\}\}([ \t]*\n)?/g,
 reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?", "gi"),
 reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "gi"),
@@ -29,7 +29,7 @@ reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
-reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
+reDry: /(\{\{\{[\s\S]*?\}\}\}|<{2,3}[\s\S]*?>{2,3}|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
@@ -117,10 +117,8 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	if (label === undefined) {
 		label = '';
 	}
-	var that = woas.parser,
-		page = woas.title_unalias(target), // apply aliases to page title
-		hashloc = page.indexOf('#'),
-		r_label = (label === '') ? page : label,
+	var r_label, hashloc,
+		page = woas.title_unalias(target), // unalias page title
 		title = '', gotohash = '', str, wl, pg,
 		sLink = '<'+'a class="%s" title="%s"%s>%s<'+'\/a>',
 		sLinkBroken = '<'+'span class="woas_broken_link">%s<'+'\/span>',
@@ -139,8 +137,28 @@ _render_wiki_link: function(target, label, snippets, tags) {
 			if (!this.force_inline)
 				return '';
 			++this.inline_tags;
-			return that.marker + 'T' + inline_tags + ';';
+			return this.marker + 'T' + inline_tags + ';';
 		}
+	}
+
+	// real link found; fix page (Javascript::)
+	if (snippets.length) {
+		page = page.replace(this.reBaseSnippet, function (str, $1) {
+			return snippets[parseInt($1)];
+		});
+	}
+	hashloc = page.indexOf('#');
+	if (label === '') {
+		r_label = page;
+	} else {
+		// fix label formatting. Labels can now have HTML, nowiki, and macros in them!
+		if (snippets.length) {
+			label = label.replace(this.reBaseSnippet, function (str, $1) {
+				return snippets[parseInt($1)];
+			});
+		}
+		label = label.replace(this.reNL_MARKER, "");
+		r_label = label;
 	}
 
 	// check for protocol links
@@ -149,7 +167,7 @@ _render_wiki_link: function(target, label, snippets, tags) {
 		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return that.place_holder(snippets, str);
+		return this.place_holder(snippets, str);
 	}
 
 	// create section heading info
@@ -162,7 +180,7 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	if (!pg && !gotohash || /"/.test(pg)) {
 		// PVHL: " will break link - current code does not allow.
 		//  empty link - [[#]] ?
-		return that.place_holder(snippets,
+		return this.place_holder(snippets,
 			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
 			(label ? '|'+label : '')+']]');
 	}
@@ -172,10 +190,10 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	}
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
-		if (that.export_links) {
+		if (this.export_links) {
 			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
-				return that.place_holder(snippets, sLinkBroken.sprintf(r_label));
+				return this.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
 			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
 		} else {
@@ -183,14 +201,14 @@ _render_wiki_link: function(target, label, snippets, tags) {
 		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
-		if (that.export_links) {
+		if (this.export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return that.place_holder(snippets, str);
+	return this.place_holder(snippets, str);
 },
 
 _transclude: function (str, $1, img_gallery) {
@@ -316,7 +334,7 @@ import_disable: function(NP, js, macros) {
 		NP.body = NP.body.replace(this.reMacros, function(str, $1, $2) {
 			if (typeof $1 === 'undefined') { $1 = ''; } // IE
 			if (typeof $2 === 'undefined') { $2 = ''; }
-			return '<<< Macro disabled\n' + $1 + '>>>' + $2;
+			return '<< Macro disabled\n' + $1 + '>>' + $2;
 		});
 	}
 	// clear dynamic newlines

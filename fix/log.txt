@@ -7,7 +7,10 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
-* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
+* Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax
+* Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.
+* Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon
+* make search highlighting match the search results (no 'found 0 times'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)
 * fix File::x full-file display and links on page
 * fix Image::x page delete history issue and exported image gallery
 * remove list control from HTML export namespace listing pages (now normal list)

@@ -415,7 +415,6 @@ function cancel() {
 }
 
 // @module help_system
-// PVHL: TODO close window in unload function
 woas.help_system = {
 	// page names that need to be modified for help lookup: WoaS:: +
 	_help_lookup: ["Aliases", "CSS", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
@@ -1018,14 +1017,14 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
 	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
-	i, it, r, a, at, count, tmp;
+		i, it, r, a, at, count, total = 0, tmp;
 
 	// Load options
-	d$.set(this.search_options, 'woas_search_options');
+	d$.set('woas_search_options', this.search_options);
 	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
 	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
 	d$('woas_search_cb_phrase').checked = !woas.bool2chk(this.search_word);
-	d$.set(this.search_word, 'woas_search_word');
+	d$.set('woas_search_word', this.search_word);
 	d$('woas_search_cb_case').checked = woas.bool2chk(this.search_case);
 	d$('woas_search_cb_inline').checked = woas.bool2chk(this.search_inline);
 	d$('woas_search_cb_start').checked = woas.bool2chk(this.search_start);
@@ -1040,6 +1039,12 @@ woas._search_load = function() {
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		// position cursor back in search box with highlighted text
+		tmp = d$("string_to_search");
+		tmp.value = this._last_search;
+		tmp.focus();
+		tmp.select();
+
 		tmp = this.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
@@ -1064,7 +1069,8 @@ woas._search_load = function() {
 			// (2) parse the body snippets
 			it = this._cached_body_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('Found in '+it+' page'+(it > 1 ? 's' : ''));
+				P.body += hd.sprintf('Found '+this._hl_marker+':1000000000:'+
+					' time'+this._hl_marker+':1000000001:'+' in '+it+' page'+(it > 1 ? 's' : ''));
 				for(i = 0; i < it; ++i) {
 					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
 							+ this._hl_marker+":" + i + ":";
@@ -1076,15 +1082,14 @@ woas._search_load = function() {
 		}
 	}
 
-	// position cursor back in search box
-	d$("string_to_search").focus();
-	
 	if (P.body.length) {
 		// parse results before applying search terms highlighting
 		woas.parser.syntax_parse( P, [] );
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			r="",count=0;
+			r = "", count = 0;
+			if (i > 999999999)
+				return str;
 			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
@@ -1093,10 +1098,14 @@ woas._search_load = function() {
 							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
 						})+"<"+"/pre>";
 			}
+			total += count;
 			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
 		});
+		// PVHL: This is better in my soon coming code
+		P.body = P.body.replace(this._hl_marker+':1000000000:', total);
+		P.body = P.body.replace(this._hl_marker+':1000000001:', total === 1 ? '' : 's');
 	}
-	
+
 	// finally output XHTML content
 	woas.setHTMLDiv(d$('woas_search_results'), P.body);
 };

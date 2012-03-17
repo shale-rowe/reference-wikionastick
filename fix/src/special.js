@@ -98,7 +98,6 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-
 // cached search results
 woas._cached_title_search = [];
 woas._cached_body_search = [];
@@ -109,12 +108,12 @@ woas._reLastSearch = null;	// search highlighting regex
 //   set defaults here or change with a plugin
 woas._nearby_chars = 200;	// amount of nearby characters to display
 woas._match_length = 200;	// will eventually limit total match; currently max between words
-woas.search_help = true;	// include WoaS::Help pages
+woas.search_help = false;	// include WoaS::Help pages
 woas.search_word = true;	// match words in order, not exact phrase
 woas.search_case = false;	// must match case
-woas.search_inline = false;	// must ma
+woas.search_inline = false;	// match must be within a single line
 woas.search_start = true;	// match must start at word boundary
-woas.search_end = false;		// match must end at word boundary
+woas.search_end = false;	// match must end at word boundary
 woas.search_options = false	// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
@@ -145,6 +144,7 @@ woas._cache_search = function( str ) {
 		pt_arr.push(pt+'_'+i);
 	}
 	pt_arr.sort();
+	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
