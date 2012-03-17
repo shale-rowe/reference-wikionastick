@@ -1322,11 +1322,13 @@ The /Javascript::/ namespace is used in two ways:\n\
 Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
 \x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
 === Running Code\n\
-If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will be evaluated. This is useful if the link needs to have a \'side-effect\'. Examples are showing an alert, perhaps containing dynamic values, or incrementing a counter in your code. It is best to use a label so that the code doesn\'t display as the link. A simple example is:\n\
+If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will still be evaluated. This is useful if the link needs to have a \'side-effect\'. Examples are showing an alert, perhaps containing dynamic values, incrementing a counter in your code, or changing WoaS code settings. It is best to use a label so that the code doesn\'t display as the link.\n\
+\n\
+The following example will toggle the menu between fixed and scrolling. This might be a useful link to place in a menu if your content sometimes has long [[WoaS::Help::Namespaces#Namespace sub-menu|namespace menus]].\n\
 {{{\n\
-[[Javascript::alert(\'The time is \'+new Date())|Time]]\n\
+[[Javascript::woas.ui.set_menu(!woas.ui.display(\'fix_m\'))|Toggle fixed menu]]\n\
 }}}\n\
-And here is the link: [[Javascript::alert(\'The time is \'+new Date())|Time]]. (The alert box this link creates may open behind the /Help/ window; it belongs to the main wiki page.)\n\
+And here is the link: [[Javascript::woas.ui.set_menu(!woas.ui.display(\'fix_m\'))|Toggle fixed menu]].\n\
 === Creating a dynamic page\n\
 If the Javascript expression evaluates to a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression evaluates to an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
 \n\
@@ -4044,12 +4046,12 @@ img.woas_nav { /* woas logo */\n\
 /* WIKI LOADING OVERLAY */\n\
 #loading_overlay {\n\
 	position: absolute;\n\
-	width: 100%;\n\
-	height: 100%;\n\
-	padding-top: 25%;\n\
 	z-index: 100;\n\
 	left: 0px;\n\
 	top: 0px;\n\
+	width: 100%;\n\
+	height: 100%;\n\
+	padding-top: 25%;\n\
 	color: 	#000080; /* navy */\n\
 	font-size: large;\n\
 	text-align: center\n\
@@ -4097,7 +4099,7 @@ img.woas_nav { /* woas logo */\n\
 ',
 '/* Your CSS customization goes here */\n\
 ',
-'/* CSS used when loading/saving WoaS; readonly */\n\
+'/* Initial loading CSS used by erase wiki; no user edit */\n\
 body {\n\
 	margin: 0px;\n\
 	padding: 0px;\n\
@@ -4110,14 +4112,16 @@ body {\n\
 	z-index: 100;\n\
 	left: 0px;\n\
 	top: 0px;\n\
-	bottom: 0px;\n\
+	width: 100%;\n\
+	height: 100%;\n\
+	padding-top: 2em;\n\
 	color: 	#000080; /* navy */\n\
 	font-size: large;\n\
 	text-align: center\n\
 }\n\
 #woas_debug_console {\n\
 	width: 50%;\n\
-	margin: 3em auto\n\
+	margin: 5em auto\n\
 }\n\
 #woas_debug_log {\n\
 	width: 100%\n\
@@ -4768,14 +4772,16 @@ body {
 	z-index: 100;
 	left: 0px;
 	top: 0px;
-	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	padding-top: 2em;
 	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center
 }
 #woas_debug_console {
 	width: 50%;
-	margin: 3em auto
+	margin: 5em auto
 }
 #woas_debug_log {
 	width: 100%
@@ -5366,7 +5372,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2524"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2527"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5833,7 +5839,7 @@ function help_resize() {\n\
  body.style.height = document.body.offsetHeight - top + 'px';\n\
 }\n\
 window.onresize = help_resize;\n"),popup_page:'<'+'div id="woas_help_top_wrap"><'+'div class="woas_help_top">\n\
-<'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()"\
+<'+'input tabindex=2 class="woas_help_button" value="%s" title="%s" onclick="%s()" \
 type="button" /><'+'input tabindex=1 class="woas_help_button" value="Index" onclick\
 ="help_go_index()" type="button" />%s<'+'/div><'+'/div><'+'div id="woas_help_body_wrap">\
 <'+'div id="woas_help_body">\n%s<'+'/div><'+'/div>',going_back:false,previous_page:[],go_to:function(pg){if(!pg||pg.length!==2||!this.page_title&&!pg[0]){this.going_back=false;pg=null;return;}
@@ -5911,16 +5917,15 @@ Math.ceil(ratio*100)+"% done");};woas._progress_section=false;woas.progress_init
 this._progress_section=section;if(typeof section=="undefined")
 section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);if(this.ui.display('wait')){this.ui.display({wait:false});}
 this._progress_section=false;};function search_focus(focused){if(focused){woas.ui._textbox_enter_event=ssearch_do_search;woas.ui.focus_textbox();}else{woas.ui.blur_textbox();}}
-woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var P={body:""},hd='<'+'p class="woas_search_head">%s<'+'/p>\n',i,it,r,a,at,count,total=0,tmp;d$.set('woas_search_options',this.search_options);d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set('woas_search_word',this.search_word);d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search===null){}else{tmp=d$("string_to_search");tmp.value=this._last_search;tmp.focus();tmp.select();tmp=this.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,'<'+'/span> <'+'span class="woas_search_highlight">');}
+woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var P={body:""},hd='<'+'p %sclass="woas_search_head">%s<'+'/p>\n',i,it,r,a,at,count,total=0,tmp;d$.set('woas_search_options',this.search_options);d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set('woas_search_word',this.search_word);d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search===null){}else{tmp=d$("string_to_search");tmp.value=this._last_search;tmp.focus();tmp.select();tmp=this.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,'<'+'/span> <'+'span class="woas_search_highlight">');}
 P.body='/%s <'+'span class="woas_search_highlight">'+
-tmp+'<'+'/span>/';if(this._cached_title_search.length+this._cached_body_search.length!==0){P.body=P.body.sprintf('Results for');it=this._cached_title_search.length;if(it>0){P.body+=hd.sprintf('Found in '+it+' title'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="* [["+this._cached_title_search[i]+"]]\n";}}
-it=this._cached_body_search.length;if(it>0){P.body+=hd.sprintf('Found '+this._hl_marker+':1000000000:'+' time'+this._hl_marker+':1000000001:'+' in '+it+' page'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="\n* [["+this._cached_body_search[i].title+"]] - found "
+tmp+'<'+'/span>/';if(this._cached_title_search.length+this._cached_body_search.length!==0){P.body=P.body.sprintf('Results for');it=this._cached_title_search.length;if(it>0){P.body+=hd.sprintf('','Found in '+it+' title'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="* [["+this._cached_title_search[i]+"]]\n";}}
+it=this._cached_body_search.length;if(it>0){P.body+=hd.sprintf('id="woas_search_pages" ','&nbsp;');for(i=0;i<it;++i){P.body+="\n* [["+this._cached_body_search[i].title+"]] - found "
 +this._hl_marker+":"+i+":";}}}else{P.body=P.body.sprintf('No results found for');}}
-if(P.body.length){woas.parser.syntax_parse(P,[]);P.body=P.body.replace(this._hl_marker_rx,function(str,i){r="",count=0;if(i>999999999)
-return str;for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a){r+="<"+"pre class=\"woas_search_results\">"+
+if(P.body.length){woas.parser.syntax_parse(P,[]);P.body=P.body.replace(this._hl_marker_rx,function(str,i){r="",count=0;for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a){r+="<"+"pre class=\"woas_search_results\">"+
 woas._cached_body_search[i].matches[a].replace(woas._reLastSearch,function(str){++count;return'<'+'span class="woas_search_highlight">'+str+'<'+'/span>';})+"<"+"/pre>";}
-total+=count;return" <"+"strong>"+count+"<"+"/strong> time"+(count>1?'s':'')+": "+r;});P.body=P.body.replace(this._hl_marker+':1000000000:',total);P.body=P.body.replace(this._hl_marker+':1000000001:',total===1?'':'s');}
-woas.setHTMLDiv(d$('woas_search_results'),P.body);};var _servm_shown=false;function _servm_alert(){if(woas._server_mode){if(!_servm_shown){woas.alert(woas.i18n.SERVER_MODE);_servm_shown=true;}}}
+total+=count;return" <"+"strong>"+count+"<"+"/strong> time"+(count>1?'s':'')+": "+r;});}
+woas.setHTMLDiv(d$('woas_search_results'),P.body);if(it>0){woas.setHTMLDiv(d$('woas_search_pages'),'Found '+total+' time'+(total>1?'s':'')+' in '+it+' page'+(it>1?'s':''));}};var _servm_shown=false;function _servm_alert(){if(woas._server_mode){if(!_servm_shown){woas.alert(woas.i18n.SERVER_MODE);_servm_shown=true;}}}
 woas.update_view=function(){var v={view:true,edit:false};v.no_back=!this.history.has_backstack();v.no_fwd=!this.history.has_forstack();v.no_home=current===this.config.main_page;v.no_tools=current==="Special::Advanced";v.no_edit=!(this.config.permit_edits&&this.edit_allowed(current));v.locked=this.is_encrypted(current);v.unlocked=!v.locked;v.no_lock=!this.config.permit_edits||this.is_reserved(current);this.ui.display(v,true);};woas.ui._resize=(function(){var hh=-1;function resize(p){var hh_el=d$("woas_header"),hh_now;if(hh_el){hh_now=hh_el.offsetHeight;if(hh!==hh_now){hh=hh_now;d$("woas_content").style.paddingTop=hh_now+12+"px";}}
 if(woas.ui.edit_mode){var e=d$('woas_editor'),h=e.offsetHeight+
 document.documentElement.clientHeight-document.body.offsetHeight-1;if(woas.browser.ie&&Number(woas.browser.ie)<7){e.style.width=0;e.style.width=d$('woas_editor_sizer').offsetWidth+'px';}
@@ -5980,7 +5985,7 @@ function setTag(){var tag=prompt('Set tag:','');if(tag!==null)
 woas._editor.setSelectedText("[[Tag::",tag+"]]");}
 /* ]]> */ </script></head>
 <body onload="woas._on_load()" onunload="woas._on_unload()">
-<div id="loading_overlay"><noscript>If you are seeing this text, your browser is not javascript-enabled.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
+<div id="loading_overlay"><noscript>WoaS requires Javascript: you must enable it to use this file.</noscript><div id="woas_wait_text">Loading Wiki on a Stick...</div></div>
 <div id="woas_pwd_mask"><div id="woas_pwd_query">
 <h2>Enter a password</h2>
 <p><input id="woas_password" size="40" type="password" onkeydown="woas._password_ok(this, event)" /></p>
@@ -6067,7 +6072,7 @@ Wiki Code:
 </a>
 &nbsp;</div>
 <div id="woas_debug_console"><div id="woas_debug_log_container">
-<textarea id="woas_debug_log" rows="5" readonly="readonly" cols="0"></textarea></div><input id="woas_debug_log_clear" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" />
+<textarea id="woas_debug_log" rows="5" readonly="readonly" cols="0">Waiting for Javascript...</textarea></div><input id="woas_debug_log_clear" title="Clear debug log" onclick="d$('woas_debug_log').value=''" value="Clear" class="woas_button" type="button" />
 </div></div></div>
 </div></div>
 <script type="text/javascript">
