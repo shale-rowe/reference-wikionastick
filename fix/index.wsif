@@ -1510,11 +1510,13 @@ The /Javascript::/ namespace is used in two ways:
 Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.
 <<<woas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).>>>
 === Running Code
-If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will be evaluated. This is useful if the link needs to have a 'side-effect'. Examples are showing an alert, perhaps containing dynamic values, or incrementing a counter in your code. It is best to use a label so that the code doesn't display as the link. A simple example is:
+If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will still be evaluated. This is useful if the link needs to have a 'side-effect'. Examples are showing an alert, perhaps containing dynamic values, incrementing a counter in your code, or changing WoaS code settings. It is best to use a label so that the code doesn't display as the link.
+
+The following example will toggle the menu between fixed and scrolling. This might be a useful link to place in a menu if your content sometimes has long [[WoaS::Help::Namespaces#Namespace sub-menu|namespace menus]].
 {{{
-[[Javascript::alert('The time is '+new Date())|Time]]
+[[Javascript::woas.ui.set_menu(!woas.ui.display('fix_m'))|Toggle fixed menu]]
 }}}
-And here is the link: [[Javascript::alert('The time is '+new Date())|Time]]. (The alert box this link creates may open behind the /Help/ window; it belongs to the main wiki page.)
+And here is the link: [[Javascript::woas.ui.set_menu(!woas.ui.display('fix_m'))|Toggle fixed menu]].
 === Creating a dynamic page
 If the Javascript expression evaluates to a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression evaluates to an array and that array contains exactly two strings, then the first string will be used as the dynamic page's title (with /Javascript::/ added), and the second one will form the content of the page. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.
 
@@ -4416,12 +4418,12 @@ img.woas_nav { /* woas logo */
 /* WIKI LOADING OVERLAY */
 #loading_overlay {
 	position: absolute;
-	width: 100%;
-	height: 100%;
-	padding-top: 25%;
 	z-index: 100;
 	left: 0px;
 	top: 0px;
+	width: 100%;
+	height: 100%;
+	padding-top: 25%;
 	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center
@@ -4485,7 +4487,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-/* CSS used when loading/saving WoaS; readonly */
+/* Initial loading CSS used by erase wiki; no user edit */
 body {
 	margin: 0px;
 	padding: 0px;
@@ -4498,14 +4500,16 @@ body {
 	z-index: 100;
 	left: 0px;
 	top: 0px;
-	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	padding-top: 2em;
 	color: 	#000080; /* navy */
 	font-size: large;
 	text-align: center
 }
 #woas_debug_console {
 	width: 50%;
-	margin: 3em auto
+	margin: 5em auto
 }
 #woas_debug_log {
 	width: 100%
