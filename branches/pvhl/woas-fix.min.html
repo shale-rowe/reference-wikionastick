@@ -317,12 +317,13 @@ They should be specified in {{{em}}} values for best cross-browser compatibility
 \x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
 \x3Cdiv id="woas_search_options"\x3E\n\
 \x3Cp\x3E*Include:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" /\x3E&nbsp;Help pages\x3C/label\x3E\x3C/p\x3E\n\
-\x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(true,\'woas_search_word\');woas.search_word=true"\x3E&nbsp;Words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(false,\'woas_search_word\');woas.search_word=false"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=true)"\x3E&nbsp;Ordered words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=false)"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
 \x3Cp\x3E*Match:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_case" onclick="woas.search_case=!!this.checked"/\x3E&nbsp;Case\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_start" onclick="woas.search_start=!!this.checked"/\x3E&nbsp;Word start\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_end" onclick="woas.search_end=!!this.checked"/\x3E&nbsp;Word end\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cdiv id="woas_search_match"\x3E\x3Clabel\x3E\x3Cinput id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/\x3E Maximum context characters\x3C/label\x3E\n\
 \x3Cdiv id="woas_search_word"\x3E\n\
+\x3Clabel\x3E\x3Cinput id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/\x3E Maximum match characters between words\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_inline" onclick="woas.search_inline=!!this.checked"/\x3E&nbsp;Within one line\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/\x3E Maximum context characters\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/\x3E Maximum match characters between words\x3C/label\x3E\x3C/div\x3E\n\
+\x3C/div\x3E\x3C/div\x3E\n\
 \x3C/div\x3E\n\
 \x3Cdiv id="woas_search_results"\x3E&nbsp;\x3C/div\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -1301,7 +1302,7 @@ To add Javascript to your page, you must enclose it inside script tags.\n\
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your Javascript code:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript type="text/javascript"\x3E\n\
+\x3Cscript\x3E\n\
 YOUR_CODE_HERE\n\
 \x3C/script\x3E\n\
 }}}\n\
@@ -1311,33 +1312,45 @@ You can include external Javascript on a page by placing the script file in the 
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing SCRIPTNAME.JS with the name of your script:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript src="SCRIPTNAME.JS" type="text/javascript"\x3E\x3C/script\x3E\n\
+\x3Cscript src="SCRIPTNAME.JS"\x3E\x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript in a page.\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript file in a page.\x3C/div\x3E\n\
 == Using the /Javascript::/ namespace in a link\n\
-Using a Javascript expression contained in a link, WoaS can dynamically create a temporary page that only exists while it is being displayed and is not stored as a page in the wiki. It does this through the /Javascript::/ namespace. Everything following the namespace declaration will be evaluated as a Javascript expression. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
+The /Javascript::/ namespace is used in two ways:\n\
+* *To run a small piece of Javascript code* when the link that contains it is clicked.\n\
+* *To dynamically create a temporary page* that only exists while it is being displayed and is not stored as a page in the wiki.\n\
+Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
 \x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
-If the Javascript expression returns a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression returns an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. Any other return types will be ignored, as will an empty content string. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
+=== Running Code\n\
+If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will be evaluated. This is useful if the link needs to have a \'side-effect\'. Examples are showing an alert, perhaps containing dynamic values, or incrementing a counter in your code. It is best to use a label so that the code doesn\'t display as the link. A simple example is:\n\
+{{{\n\
+[[Javascript::alert(\'The time is \'+new Date())|Time]]\n\
+}}}\n\
+And here is the link: [[Javascript::alert(\'The time is \'+new Date())|Time]]. (The alert box this link creates may open behind the /Help/ window; it belongs to the main wiki page.)\n\
+=== Creating a dynamic page\n\
+If the Javascript expression evaluates to a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression evaluates to an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
 \n\
 A simple (but useless) example is:\n\
 {{{\n\
 [[Javascript::\'=Hi\']]\n\
 }}}\n\
-This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Note that the Javascript expression is used as the page title; usually not very useful! Another simple example (and equally useless, except we don\'t have the title this time; note the need for a space after the array\'s closing bracket):\n\
+This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Another simple (and equally useless) example:\n\
 {{{\n\
-[[Javascript::[\'\',\'=Hi\'] ]]\n\
+[[Javascript::[\'Hello\',\'=Hi\'] ]]\n\
 }}}\n\
-And here\'s the link: [[Javascript::[\'\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
+\x3C\x3C\x3Cwoas.note: Notice the space after the array\'s closing bracket\x3E\x3E\x3E\n\
+And here\'s the link: [[Javascript::[\'Hello\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
 {{{\n\
-[[Javascript::[\'\',\'Hello World\']|A dynamic page]]\n\
+[[Javascript::[\'Hi\',\'Hello World\']|A dynamic page]]\n\
+[[$JS::[\'Hi\',\'Hello World\']|A dynamic page]]\n\
 }}}\n\
-These links should open in the main wiki window; the first uses /Javascript::/ in the page source, the second /$JS::/ (though you won\'t see this when hovering over the link if your /$JS/ Alias is set): [[Javascript::[\'\',\'Hello World\']|A dynamic page]], [[$JS::[\'\',\'Hello World\']|A dynamic page]].\n\
+The first uses /Javascript::/ in the page address, the second /$JS::/. The links will both look the same when hovering over the link if the default /$JS/ Alias is still set; the second link will be broken if the alias is removed): [[Javascript::[\'Hi\',\'Hello World\']|A dynamic page]], [[$JS::[\'Hi\',\'Hello World\']|A dynamic page]].\n\
 \n\
 These simple examples could even contain a [[WoaS::Help::Links|link]] (note the use of {{{]\\]}}} in the link):\n\
 {{{\n\
 [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|A pointless page]]\n\
 }}}\n\
-The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]].\n\
+The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]]. If you choose this link the wiki will display the /All Pages/ listing; if you then click the back button, the previous page -- not the /Javascript::/ page -- will be displayed.\n\
 \n\
 Here is a slightly more useful example that uses a Javascript function:\n\
 {{{\n\
@@ -1374,10 +1387,12 @@ The Javascript function can also be passed dynamic content using one or more fun
 		  \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
 	}\n\
 \x3C/script\x3E\n\
-The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/: [[$JS::rhyme2(\'World\')|Another rhyme]].\n\
-\n\
-Not that the above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters. Nevertheless, there are times when generating changable, dynamic text is perfectly suited to the /Javascript::/ namespace technique.\n\
-',
+The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/:\n\
+{{{\n\
+[[$JS::rhyme2(\'World\')|Another rhyme]]\n\
+}}}\n\
+[[$JS::rhyme2(\'World\')|Another rhyme]].\n\
+\x3C\x3C\x3Cwoas.note: The above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters; using a template would also allow the rhyme link to be transcluded. Nevertheless, there are times when generating changable, dynamic pages is perfectly suited to the /Javascript::/ namespace technique.\x3E\x3E\x3E',
 'Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.\n\
 \x3C\x3C\x3Cwoas.note: Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.\x3E\x3E\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
@@ -3908,10 +3923,10 @@ img.woas_nav { /* woas logo */\n\
 	background-color: #f0f0f5;\n\
 	border: 1px solid black;\n\
 	margin-top: 1em;\n\
-	padding: 0px 1em;\n\
+	padding: 0px 1em 1em;\n\
 }\n\
-#woas_search_word {\n\
-	margin: -0.75em 0px 1em 1em;\n\
+#woas_search_match {\n\
+	margin: -.5em 0px 0px 1.25em\n\
 }\n\
 #woas_search_results {\n\
 	padding-top: 1.5em\n\
@@ -4463,7 +4478,10 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
-* make search highlighting match the search results (no \'found 0 times\'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)\n\
+* Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax\n\
+* Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.\n\
+* Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon\n\
+* make search highlighting match the search results (no \'found 0 times\'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)\n\
 * fix File::x full-file display and links on page\n\
 * fix Image::x page delete history issue and exported image gallery\n\
 * remove list control from HTML export namespace listing pages (now normal list)\n\
@@ -4816,7 +4834,7 @@ if(woas.browser.ie)
 woas.browser.trident=true;else if(woas.browser.chrome||woas.browser.safari){m=navigator.userAgent.match(/AppleWebKit\/(\S*)/);woas.browser.webkit=m[1];}else if(woas.browser.opera)
 woas.browser.presto=true;var is_windows=(navigator.appVersion.toLowerCase().indexOf("windows")!=-1);woas._server_mode=(document.location.toString().match(/^file:\/\//)?false:true);woas.use_java_io=!woas.browser.ie&&!woas.browser.firefox;if(woas.config.debug_mode){function d$(id){try{return document.getElementById(id);}catch(e){woas.crash("d$('"+id+"') invalid reference:\n\n"+e);}}}else{function d$(id){return document.getElementById(id);}}
 d$.checked=function(id){woas.cfg_changed=true;if(d$(id).checked)
-return true;return false;};d$.hide=function(id){d$(id).style.display='none';};d$.show=function(id,inline){d$(id).style.display=inline?'inline':'block';};d$.set=function(show,id,inline){if(show)
+return true;return false;};d$.hide=function(id){d$(id).style.display='none';};d$.show=function(id,inline){d$(id).style.display=inline?'inline':'block';};d$.set=function(id,show,inline){if(show)
 d$(id).style.display=inline?'inline':'block';else
 d$(id).style.display='none';};d$.is_visible=function(id){return!!d$(id).offsetWidth;};d$.toggle=function(id,inline){var d=d$(id);d.style.display=d.offsetWidth?'none':inline?'inline':'block';woas.ui._resize();};d$.toggle_cls=function(c,r){var o={};o[c]=!woas.ui.display(c);woas.ui.display(o);if(r){woas.ui._resize();}};woas.clone=function(obj){var nobj={};for(var i in obj){nobj[i]=obj[i];}
 return nobj;};if(typeof Array.prototype.push=="undefined"){Array.prototype.push=function(str){this[this.length]=str;};}
@@ -4976,7 +4994,7 @@ var last_script=rest_of_source.lastIndexOf('<'+'/script>');if(last_script===-1)l
 +'div id="woas_custom_accesskeys">&'+'nbsp;<'+'/div>\n<'+'/body>';source+=rest_of_source.replace(reEditorTA,'<'+'textarea id="woas_editor" rows="0" cols="0">&'+'nbsp;<'+'/textarea>').replace(reXHTMLFix,reXHTMLFix_hook);rest_of_source=null;if(!full){e_offset=source.indexOf("/* "+marker+"-DATA */",s_offset);if(e_offset===-1){this.alert(this.i18n.ERR_MARKER.sprintf("DATA"));return false;}
 e_offset+=3+marker.length+8+1;}
 return source.substring(e_offset);};var reMarker=/([^\-]*)\-(\d{7,7})$/;woas._inc_marker=function(old_marker){var m=old_marker.match(reMarker);if(m===null)
-return _random_string(10)+"-0000001";var n=new Number(m[2].replace(/^0+/,''))+1;n=n.toString();return m[1]+"-"+String("0").repeat(7-n.length)+n;};woas.remote_load=function(url){var HttpReq=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject('Microsoft.XMLHTTP');HttpReq.open('GET',url,false);HttpReq.setRequestHeader('Content-Type','text/plain');HttpReq.send(null);return HttpReq.responseText;};woas.parser={render_title:null,export_links:false,has_toc:null,toc:[],force_inline:false,inline_tags:0,_parsing_menu:false,_MAX_TRANSCLUSION_RECURSE:256,_transcluding:0,_snippets:null,reComments:/<\!--([\s\S]*?)-->([ \t]*\n)?/g,reMacros:/<<<([\s\S]*?)>>>([ \t]*\n)?/g,reNowiki:/\{\{\{([ \t]*\n)?([\s\S]*?)(\n[ \t]*)?\}\}\}([ \t]*\n)?/g,reScripts:new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?","gi"),reStyles:new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?","gi"),reTOC:/\[\[Special::TOC\]\]([ \t]*\n)?/,reAutoLinks:/(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,reBlkHtml:/^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,reDry:/(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,reHasDNL:/^([ \t]*\n)/,reHeading:/^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,reHtml:/([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<>]*>)+)([ \t]*\n)?/g,reListReap:/^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,reListItem:/^([\*#@]+)[ \t]([^\n]+)/gm,reNewlineBefore:/\n(<(?:[uo]l).*?>)/g,reNewlineAfter:/(<\/(?:h[1-6]|[uo]l)>)\n/g,reReapTablesNew:/^\{\|(.*)((?:\n\|.*)*)$/gm,reReapTablesNewSub1:/\n\|([+ \t-\|])(.*)/g,reReapTablesNewSub2:/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,reReapTablesNewSub3:/(\|\|\s*)$/,reReapTablesNewSub4:/\|\|\t/g,reReapTablesNewSub5:/\t\|\|/g,reReapTablesHead:/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/,reRuler:/^[ \t]*\-{3,}[ \t]*$/gm,reTransclusion:/\[\[Include::([\s\S]+?)\]\]/g,reWikiLink:/\[\[(.*?)(?:\|(.*?))??\]\]/g,_HR:"<"+"hr class=\"woas_ruler\" />",_get_tags:function(text,last_tag){var tags=[];if(text.substr(0,5)==="Tag::")
+return _random_string(10)+"-0000001";var n=new Number(m[2].replace(/^0+/,''))+1;n=n.toString();return m[1]+"-"+String("0").repeat(7-n.length)+n;};woas.remote_load=function(url){var HttpReq=window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject('Microsoft.XMLHTTP');HttpReq.open('GET',url,false);HttpReq.setRequestHeader('Content-Type','text/plain');HttpReq.send(null);return HttpReq.responseText;};woas.parser={render_title:null,export_links:false,has_toc:null,toc:[],force_inline:false,inline_tags:0,_parsing_menu:false,_MAX_TRANSCLUSION_RECURSE:256,_transcluding:0,_snippets:null,reComments:/<\!--([\s\S]*?)-->([ \t]*\n)?/g,reMacros:/<{2,3}([\s\S]*?)>{2,3}([ \t]*\n)?/g,reNowiki:/\{\{\{([ \t]*\n)?([\s\S]*?)(\n[ \t]*)?\}\}\}([ \t]*\n)?/g,reScripts:new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?","gi"),reStyles:new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?","gi"),reTOC:/\[\[Special::TOC\]\]([ \t]*\n)?/,reAutoLinks:/(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,reBlkHtml:/^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,reDry:/(\{\{\{[\s\S]*?\}\}\}|<{2,3}[\s\S]*?>{2,3}|<\!--[\s\S]*?-->)/g,reHasDNL:/^([ \t]*\n)/,reHeading:/^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,reHtml:/([ \t]*)((?:(?:[ \t]*)?<\/?([^<\/\s>]+)[^<>]*>)+)([ \t]*\n)?/g,reListReap:/^([\*#@])[ \t].*(?:\n\1+[ \t].+)*/gm,reListItem:/^([\*#@]+)[ \t]([^\n]+)/gm,reNewlineBefore:/\n(<(?:[uo]l).*?>)/g,reNewlineAfter:/(<\/(?:h[1-6]|[uo]l)>)\n/g,reReapTablesNew:/^\{\|(.*)((?:\n\|.*)*)$/gm,reReapTablesNewSub1:/\n\|([+ \t-\|])(.*)/g,reReapTablesNewSub2:/(\|\|)(\s{0,1})(\s?)(?=\|\|)/g,reReapTablesNewSub3:/(\|\|\s*)$/,reReapTablesNewSub4:/\|\|\t/g,reReapTablesNewSub5:/\t\|\|/g,reReapTablesHead:/^(\s*)(?:(=+)\s*)?(.*?)(\s*)$/,reRuler:/^[ \t]*\-{3,}[ \t]*$/gm,reTransclusion:/\[\[Include::([\s\S]+?)\]\]/g,reWikiLink:/\[\[(.*?)(?:\|(.*?))??\]\]/g,_HR:"<"+"hr class=\"woas_ruler\" />",_get_tags:function(text,last_tag){var tags=[];if(text.substr(0,5)==="Tag::")
 text=woas.trim(text.substring(5));else if(text.substr(0,6)==="Tags::"){text=woas.trim(text.substring(6));}else
 return tags;if(!text.length)
 return tags;var alltags=this.split_tags(text),tag;if(last_tag!==null)alltags=alltags.concat(this.split_tags(last_tag));for(var i=0;i<alltags.length;i++){tag=woas.trim(alltags[i]);if(tag.length&&tags.indexOf(tag)===-1)
@@ -4986,18 +5004,21 @@ cls=" woas_nowiki_multiline";tag="pre";}else{cls="woas_nowiki";tag="tt";}
 return this._raw_preformatted(tag,text,cls,add_style);},_raw_preformatted:function(tag,text,cls,add_style){add_style=add_style?' style="'+add_style+'"':'';if(woas.browser.ie){text=text.replace(/\n/g,'\r\n');}else{}
 return"<"+tag+" class=\""+cls+"\""+add_style+">"+
 woas.xhtml_encode(text)+"</"+tag+">";},_render_wiki_link:function(target,label,snippets,tags){if(label===undefined){label='';}
-var that=woas.parser,page=woas.title_unalias(target),hashloc=page.indexOf('#'),r_label=(label==='')?page:label,title='',gotohash='',str,wl,pg,sLink='<'+'a class="%s" title="%s"%s>%s<'+'\/a>',sLinkBroken='<'+'span class="woas_broken_link">%s<'+'\/span>',scWorld='woas_world_link',scWoas='woas_link',scWoasUn='woas_unlink',sHref=' href="%s"',sHrefTrgt=' href="%s" target="_blank"',sOnClick=' onclick="woas.go_to(\'%s\')"';if(page.match('Tag')&&typeof tags==='object'){var found_tags=this._get_tags(page,label);if(found_tags.length>0){for(var i=0,it=found_tags.length;i<it;++i){tags.push(found_tags[i]);}
+var r_label,hashloc,page=woas.title_unalias(target),title='',gotohash='',str,wl,pg,sLink='<'+'a class="%s" title="%s"%s>%s<'+'\/a>',sLinkBroken='<'+'span class="woas_broken_link">%s<'+'\/span>',scWorld='woas_world_link',scWoas='woas_link',scWoasUn='woas_unlink',sHref=' href="%s"',sHrefTrgt=' href="%s" target="_blank"',sOnClick=' onclick="woas.go_to(\'%s\')"';if(page.match('Tag')&&typeof tags==='object'){var found_tags=this._get_tags(page,label);if(found_tags.length>0){for(var i=0,it=found_tags.length;i<it;++i){tags.push(found_tags[i]);}
 if(!this.force_inline)
-return'';++this.inline_tags;return that.marker+'T'+inline_tags+';';}}
-if(page.match(/^\w+:\/\//)){page=page.replace(/^mailto:\/\//,'mailto:');str=sLink.sprintf(scWorld,woas.xhtml_encode(page),sHrefTrgt.sprintf(page),r_label);return that.place_holder(snippets,str);}
+return'';++this.inline_tags;return this.marker+'T'+inline_tags+';';}}
+if(snippets.length){page=page.replace(this.reBaseSnippet,function(str,$1){return snippets[parseInt($1)];});}
+hashloc=page.indexOf('#');if(label===''){r_label=page;}else{if(snippets.length){label=label.replace(this.reBaseSnippet,function(str,$1){return snippets[parseInt($1)];});}
+label=label.replace(this.reNL_MARKER,"");r_label=label;}
+if(page.match(/^\w+:\/\//)){page=page.replace(/^mailto:\/\//,'mailto:');str=sLink.sprintf(scWorld,woas.xhtml_encode(page),sHrefTrgt.sprintf(page),r_label);return this.place_holder(snippets,str);}
 if(hashloc!==-1){gotohash=this.heading_anchor(page.substr(hashloc+1),true);pg=page.substr(0,hashloc);}else{pg=page;}
-if(!pg&&!gotohash||/"/.test(pg)){return that.place_holder(snippets,'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
+if(!pg&&!gotohash||/"/.test(pg)){return this.place_holder(snippets,'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
 (label?'|'+label:'')+']]');}
 if(label!==''||gotohash){title=woas.xhtml_encode(page);}
-if((!pg&&gotohash)||woas.page_exists(pg)){if(that.export_links){wl=pg?woas.exporter._get_fname(pg):'';if(wl==='#'){return that.place_holder(snippets,sLinkBroken.sprintf(r_label));}
+if((!pg&&gotohash)||woas.page_exists(pg)){if(this.export_links){wl=pg?woas.exporter._get_fname(pg):'';if(wl==='#'){return this.place_holder(snippets,sLinkBroken.sprintf(r_label));}
 wl=sHref.sprintf(wl+(gotohash?'#'+gotohash:''));}else{wl=sOnClick.sprintf(woas.js_encode(pg)+(gotohash?'#'+woas.js_encode(gotohash):''));}
-str=sLink.sprintf(scWoas,title,wl,r_label);}else{if(that.export_links){str=sLinkBroken.sprintf(r_label);}else{wl=sOnClick.sprintf(woas.js_encode(pg));str=sLink.sprintf(scWoasUn,title,wl,r_label);}}
-return that.place_holder(snippets,str);},_transclude:function(str,$1,img_gallery){var that=woas.parser,parts=$1.split("|"),templname=parts[0],is_emb=false,ns=woas.get_namespace(templname,true),P={body:null};++that._transcluding;if(woas.is_reserved(templname)||(templname.substring(templname.length-2)==="::"))
+str=sLink.sprintf(scWoas,title,wl,r_label);}else{if(this.export_links){str=sLinkBroken.sprintf(r_label);}else{wl=sOnClick.sprintf(woas.js_encode(pg));str=sLink.sprintf(scWoasUn,title,wl,r_label);}}
+return this.place_holder(snippets,str);},_transclude:function(str,$1,img_gallery){var that=woas.parser,parts=$1.split("|"),templname=parts[0],is_emb=false,ns=woas.get_namespace(templname,true),P={body:null};++that._transcluding;if(woas.is_reserved(templname)||(templname.substring(templname.length-2)==="::"))
 P.body=woas.get_text_special(templname);else{var epi=woas.page_index(templname);if(epi==-1)
 P.body="[<!-- -->[Include::[["+templname+"]]]]";else{P.body=woas.get__text(epi);is_emb=woas.is_embedded(templname);}}
 if(P.body===null){--that._transcluding;if(img_gallery){return that.place_holder(that._snippets,that.render_error('[<!-- -->'
@@ -5018,7 +5039,7 @@ var id=0,i=0,il;for(il=s.length;i<il;){id+=s.charCodeAt(i)*++i;}
 return'S'+id;},import_disable:function(NP,js,macros){var that=this,snippets=[];NP.body=NP.body.replace(this.reNowiki,function(str,$1,dynamic_nl){return that.place_holder_dnl(snippets,str,dynamic_nl);});if(js)
 NP.body=NP.body.replace(this.reScripts,"<"+"disabled_script$1>$2<"+"/disabled_script>$3");if(macros){NP.body=NP.body.replace(this.reMacros,function(str,$1,$2){if(typeof $1==='undefined'){$1='';}
 if(typeof $2==='undefined'){$2='';}
-return'<<< Macro disabled\n'+$1+'>>>'+$2;});}
+return'<< Macro disabled\n'+$1+'>>'+$2;});}
 NP.body=NP.body.replace(this.reNL_MARKER,"");this.undry(NP,snippets);snippets=null;},parse:function(text,js_mode){if(woas.config.debug_mode){if((typeof text).toLowerCase()!="string"){woas.crash("Called parse() with invalid argument: "+(typeof text));return null;}}
 if(typeof js_mode=="undefined")
 js_mode=1;var that=this,pLength,tags=[],snippets=[],backup_hook=this.after_parse,P={body:text};text=null;woas.macro.make_backup();this.pre_parse(P,snippets);if(!this.force_inline){this.transclude_syntax(P,snippets);}
@@ -5075,7 +5096,7 @@ continue;if(tmp.match(reg))
 pg.push(page_titles[j]);}
 if(pg.length===0)
 return"/No user page links to [["+pg_title+"]]/";else
-return"== Links to [["+pg_title+"]]\n"+this._join_list(pg);};woas._cached_title_search=[];woas._cached_body_search=[];woas._last_search=null;woas._reLastSearch=null;woas._nearby_chars=200;woas._match_length=200;woas.search_help=true;woas.search_word=true;woas.search_case=false;woas.search_inline=false;woas.search_start=true;woas.search_end=false;woas.search_options=false
+return"== Links to [["+pg_title+"]]\n"+this._join_list(pg);};woas._cached_title_search=[];woas._cached_body_search=[];woas._last_search=null;woas._reLastSearch=null;woas._nearby_chars=200;woas._match_length=200;woas.search_help=false;woas.search_word=true;woas.search_case=false;woas.search_inline=false;woas.search_start=true;woas.search_end=false;woas.search_options=false
 woas._cache_search=function(str){var tmp,pt,ph,i,l,reg,res_body,pt_arr=[],pi,bs=this.search_start?'\\b':'',be=this.search_end?'\\b':'',sc='g'+(this.search_case?'':'i'),si=this.search_inline?'.':'[\\s\\S]';this._last_search=this.trim(str);str=bs+RegExp.escape(this._last_search)+be;if(this.search_word){str=str.replace(/\s+/g,be+si+"{0,"+this._match_length+"}?"+bs);}
 this._reLastSearch=new RegExp(str,sc);reg=new RegExp(".{0,"+this._nearby_chars+"}"+str+".{0,"+this._nearby_chars+"}",sc);for(i=0,l=pages.length;i<l;i++){pt=page_titles[i];ph=this.search_help&&pt.indexOf('WoaS::Help::')===0;if(this.is_image(pt)||!ph&&!this.tweak.edit_override&&this.is_reserved(pt))
 continue;pt_arr.push(pt+'_'+i);}
@@ -5300,14 +5321,14 @@ text=this.get_text(cr);if(text===null){if(interactive)
 this.alert(this.i18n.INVALID_PAGE.sprintf('Special'));}
 return text;};woas.get_javascript_page=function(cr){var text=woas.eval(cr,true);if(this.eval_failed){woas.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr)+
 this.i18n.JS_PAGE_FAIL2+this.eval_fail_msg);return null;}
-if((typeof text)==="undefined"||(!(text instanceof Array)&&(typeof text)==="string")||((text instanceof Array)&&text.length===2&&(typeof text[0])==='string'&&(typeof text[1])==='string'&&text[1])){return text||null;}
-this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr)+this.i18n.JS_PAGE_FAIL3.sprintf(text,text instanceof Array?'array':typeof text));return null;};woas.eval=function(code,return_value){var rv;try{if(return_value)
+if(text instanceof Array){if(text.length===2&&(typeof text[0])==='string'&&(typeof text[1])==='string'&&text[1]!==''){return text;}}else if((typeof text)==='string'){if(text!==''){return text}}else{return null;}
+this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr)+this.i18n.JS_PAGE_FAIL3.sprintf(text,text instanceof Array?'array':'text'));return null;};woas.eval=function(code,return_value){var rv;try{if(return_value)
 eval("rv = "+code);else
 eval(code);woas.eval_failed=false;}
 catch(e){this.eval_fail_msg=e.toString();this.eval_failed=true;}
 return rv;};woas.set_current=function(cr,interactive,keep_fwd){if(!woas.pager.browse_hook(cr))
 return false;var text,namespace,pi,set_b=false;woas.pager.bucket.clear();if(cr.substring(cr.length-2)==="::"){text=this._get_namespace_pages(cr);namespace=cr.substring(0,cr.length-2);cr="";}else{var p=cr.indexOf("::");if(p>0){namespace=cr.substring(0,p);cr=cr.substring(p+2);switch(namespace){case"Javascript":text=this.get_javascript_page(cr);if(text===null){return false;}else if(text instanceof Array){if(!text[1]){return false;}
-cr=text[0]||'';}
+cr=text[0]||'';text=text[1];}else{cr='';}
 break;case"Special":text=this._get_special(cr,interactive);if(text===false)
 return true;if(text===null)
 return false;break;case"Tagged":text=this.special_tagged(cr);if(text===null)
@@ -5345,7 +5366,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2522"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2524"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5890,14 +5911,15 @@ Math.ceil(ratio*100)+"% done");};woas._progress_section=false;woas.progress_init
 this._progress_section=section;if(typeof section=="undefined")
 section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);if(this.ui.display('wait')){this.ui.display({wait:false});}
 this._progress_section=false;};function search_focus(focused){if(focused){woas.ui._textbox_enter_event=ssearch_do_search;woas.ui.focus_textbox();}else{woas.ui.blur_textbox();}}
-woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var P={body:""},hd='<'+'p class="woas_search_head">%s<'+'/p>\n',i,it,r,a,at,count,tmp;d$.set(this.search_options,'woas_search_options');d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set(this.search_word,'woas_search_word');d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search===null){}else{tmp=this.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,'<'+'/span> <'+'span class="woas_search_highlight">');}
+woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var P={body:""},hd='<'+'p class="woas_search_head">%s<'+'/p>\n',i,it,r,a,at,count,total=0,tmp;d$.set('woas_search_options',this.search_options);d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set('woas_search_word',this.search_word);d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search===null){}else{tmp=d$("string_to_search");tmp.value=this._last_search;tmp.focus();tmp.select();tmp=this.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,'<'+'/span> <'+'span class="woas_search_highlight">');}
 P.body='/%s <'+'span class="woas_search_highlight">'+
 tmp+'<'+'/span>/';if(this._cached_title_search.length+this._cached_body_search.length!==0){P.body=P.body.sprintf('Results for');it=this._cached_title_search.length;if(it>0){P.body+=hd.sprintf('Found in '+it+' title'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="* [["+this._cached_title_search[i]+"]]\n";}}
-it=this._cached_body_search.length;if(it>0){P.body+=hd.sprintf('Found in '+it+' page'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="\n* [["+this._cached_body_search[i].title+"]] - found "
+it=this._cached_body_search.length;if(it>0){P.body+=hd.sprintf('Found '+this._hl_marker+':1000000000:'+' time'+this._hl_marker+':1000000001:'+' in '+it+' page'+(it>1?'s':''));for(i=0;i<it;++i){P.body+="\n* [["+this._cached_body_search[i].title+"]] - found "
 +this._hl_marker+":"+i+":";}}}else{P.body=P.body.sprintf('No results found for');}}
-d$("string_to_search").focus();if(P.body.length){woas.parser.syntax_parse(P,[]);P.body=P.body.replace(this._hl_marker_rx,function(str,i){r="",count=0;for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a){r+="<"+"pre class=\"woas_search_results\">"+
+if(P.body.length){woas.parser.syntax_parse(P,[]);P.body=P.body.replace(this._hl_marker_rx,function(str,i){r="",count=0;if(i>999999999)
+return str;for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a){r+="<"+"pre class=\"woas_search_results\">"+
 woas._cached_body_search[i].matches[a].replace(woas._reLastSearch,function(str){++count;return'<'+'span class="woas_search_highlight">'+str+'<'+'/span>';})+"<"+"/pre>";}
-return" <"+"strong>"+count+"<"+"/strong> time"+(count>1?'s':'')+": "+r;});}
+total+=count;return" <"+"strong>"+count+"<"+"/strong> time"+(count>1?'s':'')+": "+r;});P.body=P.body.replace(this._hl_marker+':1000000000:',total);P.body=P.body.replace(this._hl_marker+':1000000001:',total===1?'':'s');}
 woas.setHTMLDiv(d$('woas_search_results'),P.body);};var _servm_shown=false;function _servm_alert(){if(woas._server_mode){if(!_servm_shown){woas.alert(woas.i18n.SERVER_MODE);_servm_shown=true;}}}
 woas.update_view=function(){var v={view:true,edit:false};v.no_back=!this.history.has_backstack();v.no_fwd=!this.history.has_forstack();v.no_home=current===this.config.main_page;v.no_tools=current==="Special::Advanced";v.no_edit=!(this.config.permit_edits&&this.edit_allowed(current));v.locked=this.is_encrypted(current);v.unlocked=!v.locked;v.no_lock=!this.config.permit_edits||this.is_reserved(current);this.ui.display(v,true);};woas.ui._resize=(function(){var hh=-1;function resize(p){var hh_el=d$("woas_header"),hh_now;if(hh_el){hh_now=hh_el.offsetHeight;if(hh!==hh_now){hh=hh_now;d$("woas_content").style.paddingTop=hh_now+12+"px";}}
 if(woas.ui.edit_mode){var e=d$('woas_editor'),h=e.offsetHeight+
@@ -5943,7 +5965,7 @@ function DivTagThis(align){TagThis('<'+'div align="'+align+'">','<'+'/div>');}
 function TagThis(starttag,endtag){woas._editor.setSelectedText(starttag,endtag);}
 function FullTagThis(tag){woas._editor.setSelectedText('<'+tag+'>','<'+'/'+tag+'>');}
 function macroTagThis(tagone,tagtwo){tagtwo=typeof tagtwo==='undefined'?'':'("'+tagtwo+'")'
-TagThis('<<<'+tagone+tagtwo+':\n','\n>>>');}
+TagThis('<<'+tagone+tagtwo+':\n','\n>>');}
 function setUrl(starttag,centertag,endtag){var url=prompt('Link:','http://');if(url===null)return;var comm=prompt('Link text:','');if(comm===null)return;woas._editor.setSelectedText(starttag+woas.js_encode(url)+centertag,comm+endtag);}
 function setWikiImage(){setImage('[[Include::Image::',']]');}
 function setHTMLImage(){setImage('<'+"img src='","' /"+">");}

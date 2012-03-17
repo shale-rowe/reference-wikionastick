@@ -317,12 +317,13 @@ They should be specified in {{{em}}} values for best cross-browser compatibility
 \x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
 \x3Cdiv id="woas_search_options"\x3E\n\
 \x3Cp\x3E*Include:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" /\x3E&nbsp;Help pages\x3C/label\x3E\x3C/p\x3E\n\
-\x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(true,\'woas_search_word\');woas.search_word=true"\x3E&nbsp;Words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(false,\'woas_search_word\');woas.search_word=false"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=true)"\x3E&nbsp;Ordered words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=false)"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
 \x3Cp\x3E*Match:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_case" onclick="woas.search_case=!!this.checked"/\x3E&nbsp;Case\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_start" onclick="woas.search_start=!!this.checked"/\x3E&nbsp;Word start\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_end" onclick="woas.search_end=!!this.checked"/\x3E&nbsp;Word end\x3C/label\x3E\x3C/p\x3E\n\
+\x3Cdiv id="woas_search_match"\x3E\x3Clabel\x3E\x3Cinput id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/\x3E Maximum context characters\x3C/label\x3E\n\
 \x3Cdiv id="woas_search_word"\x3E\n\
+\x3Clabel\x3E\x3Cinput id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/\x3E Maximum match characters between words\x3C/label\x3E\n\
 \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_inline" onclick="woas.search_inline=!!this.checked"/\x3E&nbsp;Within one line\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput id="woas_search_txt_context" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._nearby_chars; else woas._nearby_chars=n"/\x3E Maximum context characters\x3C/label\x3E\n\
-\x3Clabel\x3E\x3Cinput id="woas_search_txt_length" type="text" size="4" value="" onchange="var n=Number(this.value);if (isNaN(n)) this.value=woas._match_length; else woas._match_length=n"/\x3E Maximum match characters between words\x3C/label\x3E\x3C/div\x3E\n\
+\x3C/div\x3E\x3C/div\x3E\n\
 \x3C/div\x3E\n\
 \x3Cdiv id="woas_search_results"\x3E&nbsp;\x3C/div\x3E\n\
 \x3Cscript type="text/javascript"\x3E\n\
@@ -1301,7 +1302,7 @@ To add Javascript to your page, you must enclose it inside script tags.\n\
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing YOUR_CODE_HERE with your Javascript code:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript type="text/javascript"\x3E\n\
+\x3Cscript\x3E\n\
 YOUR_CODE_HERE\n\
 \x3C/script\x3E\n\
 }}}\n\
@@ -1311,33 +1312,45 @@ You can include external Javascript on a page by placing the script file in the 
 \n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page, replacing SCRIPTNAME.JS with the name of your script:\x3C/div\x3E\n\
 {{{\n\
-\x3Cscript src="SCRIPTNAME.JS" type="text/javascript"\x3E\x3C/script\x3E\n\
+\x3Cscript src="SCRIPTNAME.JS"\x3E\x3C/script\x3E\n\
 }}}\n\
-\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript in a page.\x3C/div\x3E\n\
+\x3Cdiv class="woas_help_text"\x3ETo include an external Javascript file in a page.\x3C/div\x3E\n\
 == Using the /Javascript::/ namespace in a link\n\
-Using a Javascript expression contained in a link, WoaS can dynamically create a temporary page that only exists while it is being displayed and is not stored as a page in the wiki. It does this through the /Javascript::/ namespace. Everything following the namespace declaration will be evaluated as a Javascript expression. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
+The /Javascript::/ namespace is used in two ways:\n\
+* *To run a small piece of Javascript code* when the link that contains it is clicked.\n\
+* *To dynamically create a temporary page* that only exists while it is being displayed and is not stored as a page in the wiki.\n\
+Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
 \x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
-If the Javascript expression returns a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression returns an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. Any other return types will be ignored, as will an empty content string. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
+=== Running Code\n\
+If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will be evaluated. This is useful if the link needs to have a \'side-effect\'. Examples are showing an alert, perhaps containing dynamic values, or incrementing a counter in your code. It is best to use a label so that the code doesn\'t display as the link. A simple example is:\n\
+{{{\n\
+[[Javascript::alert(\'The time is \'+new Date())|Time]]\n\
+}}}\n\
+And here is the link: [[Javascript::alert(\'The time is \'+new Date())|Time]]. (The alert box this link creates may open behind the /Help/ window; it belongs to the main wiki page.)\n\
+=== Creating a dynamic page\n\
+If the Javascript expression evaluates to a non-empty string it will be used as the body of the dynamic page and the link text will be used as the title of the page. If the expression evaluates to an array and that array contains exactly two strings, then the first string will be used as the dynamic page\'s title (with /Javascript::/ added), and the second one will form the content of the page. The content string can be WoaS wiki syntax, HTML, or a combination of both; it is parsed just as a normal page is.\n\
 \n\
 A simple (but useless) example is:\n\
 {{{\n\
 [[Javascript::\'=Hi\']]\n\
 }}}\n\
-This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Note that the Javascript expression is used as the page title; usually not very useful! Another simple example (and equally useless, except we don\'t have the title this time; note the need for a space after the array\'s closing bracket):\n\
+This link should create a dynamic page in the main wiki: [[Javascript::\'=hi\']]. Another simple (and equally useless) example:\n\
 {{{\n\
-[[Javascript::[\'\',\'=Hi\'] ]]\n\
+[[Javascript::[\'Hello\',\'=Hi\'] ]]\n\
 }}}\n\
-And here\'s the link: [[Javascript::[\'\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
+\x3C\x3C\x3Cwoas.note: Notice the space after the array\'s closing bracket\x3E\x3E\x3E\n\
+And here\'s the link: [[Javascript::[\'Hello\',\'=Hi\'] ]]. The space isn\'t needed if, as is usual, you are using a label after the page link; for example:\n\
 {{{\n\
-[[Javascript::[\'\',\'Hello World\']|A dynamic page]]\n\
+[[Javascript::[\'Hi\',\'Hello World\']|A dynamic page]]\n\
+[[$JS::[\'Hi\',\'Hello World\']|A dynamic page]]\n\
 }}}\n\
-These links should open in the main wiki window; the first uses /Javascript::/ in the page source, the second /$JS::/ (though you won\'t see this when hovering over the link if your /$JS/ Alias is set): [[Javascript::[\'\',\'Hello World\']|A dynamic page]], [[$JS::[\'\',\'Hello World\']|A dynamic page]].\n\
+The first uses /Javascript::/ in the page address, the second /$JS::/. The links will both look the same when hovering over the link if the default /$JS/ Alias is still set; the second link will be broken if the alias is removed): [[Javascript::[\'Hi\',\'Hello World\']|A dynamic page]], [[$JS::[\'Hi\',\'Hello World\']|A dynamic page]].\n\
 \n\
 These simple examples could even contain a [[WoaS::Help::Links|link]] (note the use of {{{]\\]}}} in the link):\n\
 {{{\n\
 [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|A pointless page]]\n\
 }}}\n\
-The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]].\n\
+The above example as a [[Javascript::[\'Hello world\',\'I am Hello World, not the [[Special::All Pages]\\] page\']|pointless page link]]. If you choose this link the wiki will display the /All Pages/ listing; if you then click the back button, the previous page -- not the /Javascript::/ page -- will be displayed.\n\
 \n\
 Here is a slightly more useful example that uses a Javascript function:\n\
 {{{\n\
@@ -1374,10 +1387,12 @@ The Javascript function can also be passed dynamic content using one or more fun
 		  \'I\\\'ve come to watch\\n* your flowers\\n* growing.\'];\n\
 	}\n\
 \x3C/script\x3E\n\
-The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/: [[$JS::rhyme2(\'World\')|Another rhyme]].\n\
-\n\
-Not that the above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters. Nevertheless, there are times when generating changable, dynamic text is perfectly suited to the /Javascript::/ namespace technique.\n\
-',
+The link {{{[[Javascript::rhyme2(\'Lamppost\')|Rhymes]]}}} will open this page in the main wiki window: [[Javascript::rhyme2(\'Lamppost\')|Rhymes]]. This one uses /$JS/:\n\
+{{{\n\
+[[$JS::rhyme2(\'World\')|Another rhyme]]\n\
+}}}\n\
+[[$JS::rhyme2(\'World\')|Another rhyme]].\n\
+\x3C\x3C\x3Cwoas.note: The above example would be more easily accomplished by [[WoaS::Help::Template transclusion|transcluding]] a template page and passing in replacement parameters; using a template would also allow the rhyme link to be transcluded. Nevertheless, there are times when generating changable, dynamic pages is perfectly suited to the /Javascript::/ namespace technique.\x3E\x3E\x3E',
 'Lengthy wiki page content can be broken up into shorter lines in the editor (while still being parsed as a single line when the page is viewed) by using a backslash at the *end* of any line; such a line will be joined with the one below it.\n\
 \x3C\x3C\x3Cwoas.note: Backslashes *within* a line will be ignored by the wiki parser and will not influence how the text is displayed.\x3E\x3E\x3E\n\
 \x3Cdiv class="woas_help_text"\x3EUse this code in a page:\x3C/div\x3E\n\
@@ -3908,10 +3923,10 @@ img.woas_nav { /* woas logo */\n\
 	background-color: #f0f0f5;\n\
 	border: 1px solid black;\n\
 	margin-top: 1em;\n\
-	padding: 0px 1em;\n\
+	padding: 0px 1em 1em;\n\
 }\n\
-#woas_search_word {\n\
-	margin: -0.75em 0px 1em 1em;\n\
+#woas_search_match {\n\
+	margin: -.5em 0px 0px 1.25em\n\
 }\n\
 #woas_search_results {\n\
 	padding-top: 1.5em\n\
@@ -4463,7 +4478,10 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
-* make search highlighting match the search results (no \'found 0 times\'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings, and will add many options like match case/whole word/phrase, etc., to the search page. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)\n\
+* Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax\n\
+* Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.\n\
+* Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon\n\
+* make search highlighting match the search results (no \'found 0 times\'); restrict match length to 200 characters between words instead of the whole page; add section headings for titles/pages; (NOTE: the current algorithm has never really worked, but now the results show what was really found. I will be changing the search algorithm to be faster, find the true closest match, and work without script activity warnings. The current matching method is not really useful to me, and I have designed the new algorithm, but it may need to wait for the new project)\n\
 * fix File::x full-file display and links on page\n\
 * fix Image::x page delete history issue and exported image gallery\n\
 * remove list control from HTML export namespace listing pages (now normal list)\n\
@@ -5176,7 +5194,7 @@ d$.show = function(id, inline) {
 	d$(id).style.display = inline ? 'inline' : 'block';
 };
 
-d$.set = function(show, id, inline) {
+d$.set = function(id, show, inline) {
 	if (show)
 		d$(id).style.display = inline ? 'inline' : 'block';
 	else
@@ -6533,7 +6551,7 @@ _snippets: null,
 
 // these REs look for one optional (dynamic) newline at the end
 reComments: /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
-reMacros: /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
+reMacros: /<{2,3}([\s\S]*?)>{2,3}([ \t]*\n)?/g,
 reNowiki: /\{\{\{([ \t]*\n)?([\s\S]*?)(\n[ \t]*)?\}\}\}([ \t]*\n)?/g,
 reScripts: new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \\t]*\\n)?", "gi"),
 reStyles: new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \\t]*\\n)?", "gi"),
@@ -6544,7 +6562,7 @@ reTOC: /\[\[Special::TOC\]\]([ \t]*\n)?/,
 reAutoLinks: /(?:(https?|ftp|file)|[a-zA-Z]+):\/\/(?:[^\s]*[^\s*.;,:?!\)\}\]])*/g,
 // stops automatic br tag generation for listed tags
 reBlkHtml: /^(p|div|br|blockquote|[uo]l|li|table|t[rhd]|tbody|thead|h[1-6r]|center)$/i,
-reDry: /(\{\{\{[\s\S]*?\}\}\}|<<<[\s\S]*?>>>|<\!--[\s\S]*?-->)/g,
+reDry: /(\{\{\{[\s\S]*?\}\}\}|<{2,3}[\s\S]*?>{2,3}|<\!--[\s\S]*?-->)/g,
 reHasDNL: /^([ \t]*\n)/,
 // DEPRECATED "!" syntax is supported but will be removed soon
 reHeading: /^([\!=]{1,6})[ \t]*(.*?)[ \t]*(?:\1?)$/gm,
@@ -6632,10 +6650,8 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	if (label === undefined) {
 		label = '';
 	}
-	var that = woas.parser,
-		page = woas.title_unalias(target), // apply aliases to page title
-		hashloc = page.indexOf('#'),
-		r_label = (label === '') ? page : label,
+	var r_label, hashloc,
+		page = woas.title_unalias(target), // unalias page title
 		title = '', gotohash = '', str, wl, pg,
 		sLink = '<'+'a class="%s" title="%s"%s>%s<'+'\/a>',
 		sLinkBroken = '<'+'span class="woas_broken_link">%s<'+'\/span>',
@@ -6654,8 +6670,28 @@ _render_wiki_link: function(target, label, snippets, tags) {
 			if (!this.force_inline)
 				return '';
 			++this.inline_tags;
-			return that.marker + 'T' + inline_tags + ';';
+			return this.marker + 'T' + inline_tags + ';';
 		}
+	}
+
+	// real link found; fix page (Javascript::)
+	if (snippets.length) {
+		page = page.replace(this.reBaseSnippet, function (str, $1) {
+			return snippets[parseInt($1)];
+		});
+	}
+	hashloc = page.indexOf('#');
+	if (label === '') {
+		r_label = page;
+	} else {
+		// fix label formatting. Labels can now have HTML, nowiki, and macros in them!
+		if (snippets.length) {
+			label = label.replace(this.reBaseSnippet, function (str, $1) {
+				return snippets[parseInt($1)];
+			});
+		}
+		label = label.replace(this.reNL_MARKER, "");
+		r_label = label;
 	}
 
 	// check for protocol links
@@ -6664,7 +6700,7 @@ _render_wiki_link: function(target, label, snippets, tags) {
 		page = page.replace(/^mailto:\/\//, 'mailto:');
 		// always give title attribute
 		str = sLink.sprintf(scWorld, woas.xhtml_encode(page), sHrefTrgt.sprintf(page), r_label);
-		return that.place_holder(snippets, str);
+		return this.place_holder(snippets, str);
 	}
 
 	// create section heading info
@@ -6677,7 +6713,7 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	if (!pg && !gotohash || /"/.test(pg)) {
 		// PVHL: " will break link - current code does not allow.
 		//  empty link - [[#]] ?
-		return that.place_holder(snippets,
+		return this.place_holder(snippets,
 			'[[<'+'span style="color:#f00">'+target+'<'+'/span>'+
 			(label ? '|'+label : '')+']]');
 	}
@@ -6687,10 +6723,10 @@ _render_wiki_link: function(target, label, snippets, tags) {
 	}
 
 	if ((!pg && gotohash) || woas.page_exists(pg)) { // normal page
-		if (that.export_links) {
+		if (this.export_links) {
 			wl = pg ? woas.exporter._get_fname(pg) : '';
 			if (wl === '#') {
-				return that.place_holder(snippets, sLinkBroken.sprintf(r_label));
+				return this.place_holder(snippets, sLinkBroken.sprintf(r_label));
 			}
 			wl = sHref.sprintf(wl + (gotohash ? '#' + gotohash : ''));
 		} else {
@@ -6698,14 +6734,14 @@ _render_wiki_link: function(target, label, snippets, tags) {
 		}
 		str = sLink.sprintf(scWoas, title, wl, r_label);
 	} else { // page does not exist
-		if (that.export_links) {
+		if (this.export_links) {
 			str = sLinkBroken.sprintf(r_label);
 		} else {
 			wl = sOnClick.sprintf(woas.js_encode(pg));
 			str = sLink.sprintf(scWoasUn, title, wl, r_label);
 		}
 	}
-	return that.place_holder(snippets, str);
+	return this.place_holder(snippets, str);
 },
 
 _transclude: function (str, $1, img_gallery) {
@@ -6831,7 +6867,7 @@ import_disable: function(NP, js, macros) {
 		NP.body = NP.body.replace(this.reMacros, function(str, $1, $2) {
 			if (typeof $1 === 'undefined') { $1 = ''; } // IE
 			if (typeof $2 === 'undefined') { $2 = ''; }
-			return '<<< Macro disabled\n' + $1 + '>>>' + $2;
+			return '<< Macro disabled\n' + $1 + '>>' + $2;
 		});
 	}
 	// clear dynamic newlines
@@ -7438,7 +7474,6 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-
 // cached search results
 woas._cached_title_search = [];
 woas._cached_body_search = [];
@@ -7449,12 +7484,12 @@ woas._reLastSearch = null;	// search highlighting regex
 //   set defaults here or change with a plugin
 woas._nearby_chars = 200;	// amount of nearby characters to display
 woas._match_length = 200;	// will eventually limit total match; currently max between words
-woas.search_help = true;	// include WoaS::Help pages
+woas.search_help = false;	// include WoaS::Help pages
 woas.search_word = true;	// match words in order, not exact phrase
 woas.search_case = false;	// must match case
-woas.search_inline = false;	// must ma
+woas.search_inline = false;	// match must be within a single line
 woas.search_start = true;	// match must start at word boundary
-woas.search_end = false;		// match must end at word boundary
+woas.search_end = false;	// match must end at word boundary
 woas.search_options = false	// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
@@ -7485,6 +7520,7 @@ woas._cache_search = function( str ) {
 		pt_arr.push(pt+'_'+i);
 	}
 	pt_arr.sort();
+	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
@@ -9457,18 +9493,25 @@ woas.get_javascript_page = function(cr) {
 			this.i18n.JS_PAGE_FAIL2 + this.eval_fail_msg);
 		return null;
 	}
-	// safety check; returned value contains 'body' or ['title', 'body']
-	// body can be null if type is not array, otherwise type must be array and
-	// title can be empty, but body must exist (dynamic page creation)
-	if ((typeof text) === "undefined" ||
-			(!(text instanceof Array) && (typeof text) === "string") ||
-			((text instanceof Array) && text.length === 2 &&
-				(typeof text[0]) === 'string' && (typeof text[1]) === 'string'
-				&& text[1])) {
-		return text || null;
+	// returned value from eval is a string, ('body'), or array,
+	// ['title', 'body']; otherwise null is returned (no dynamic page created,
+	// though eval side-effects may have occurred). If type is array then title
+	// can be empty string, but body text must exist (dynamic page creation).
+	// Faulty strings and arrays are logged; everything else is ignored.
+	if (text instanceof Array) {
+		if (text.length === 2 && (typeof text[0]) === 'string' &&
+				(typeof text[1]) === 'string' && text[1] !== '') {
+			return text;
+		}
+	} else if ((typeof text) === 'string') {
+		if (text !== '') {
+			return text
+		}
+	} else {
+		return null;
 	}
 	this.log(this.i18n.JS_PAGE_FAIL1.sprintf(cr) + this.i18n.JS_PAGE_FAIL3
-		.sprintf(text, text instanceof Array ? 'array' : typeof text));
+		.sprintf(text, text instanceof Array ? 'array' : 'text'));
 	return null;
 };
 
@@ -9527,6 +9570,10 @@ woas.set_current = function (cr, interactive, keep_fwd) {
 							}
 							// title allowed to be empty string: 'Javascript::'
 							cr = text[0] || '';
+							text = text[1];
+						} else {
+							// don't use the code as a title
+							cr = '';
 						}
 						break;
 					case "Special":
@@ -9805,7 +9852,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2522"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2524"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -11465,7 +11512,7 @@ woas.importer = {
 					"i_config", "i_styles", "i_content"],
 	// default options
 	//  1 i_comment_js: false		- disable 'script' tags
-	//  2 i_comment_macros: false	- disable macro blocks '<<<...>>>'
+	//  2 i_comment_macros: false	- disable macro blocks '<<...>>'
 	//  4 i_no_woas: false			- do not import pages from WoaS:: namespace
 	//  8 i_config: false			- import configuration (XHTML only)
 	// 16 i_styles: false			- import stylesheet (XHTML only)
@@ -13841,7 +13888,6 @@ function cancel() {
 }
 
 // @module help_system
-// PVHL: TODO close window in unload function
 woas.help_system = {
 	// page names that need to be modified for help lookup: WoaS:: +
 	_help_lookup: ["Aliases", "CSS", "CSS::Boot", "CSS::Core", "CSS::Custom", "Hotkeys", "Plugins"],
@@ -14444,14 +14490,14 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
 	var P = {body: ""}, hd = '<'+'p class="woas_search_head">%s<'+'/p>\n',
-	i, it, r, a, at, count, tmp;
+		i, it, r, a, at, count, total = 0, tmp;
 
 	// Load options
-	d$.set(this.search_options, 'woas_search_options');
+	d$.set('woas_search_options', this.search_options);
 	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
 	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
 	d$('woas_search_cb_phrase').checked = !woas.bool2chk(this.search_word);
-	d$.set(this.search_word, 'woas_search_word');
+	d$.set('woas_search_word', this.search_word);
 	d$('woas_search_cb_case').checked = woas.bool2chk(this.search_case);
 	d$('woas_search_cb_inline').checked = woas.bool2chk(this.search_inline);
 	d$('woas_search_cb_start').checked = woas.bool2chk(this.search_start);
@@ -14466,6 +14512,12 @@ woas._search_load = function() {
 	if (this._last_search === null) {
 //		woas.log("No search done, returning blank");	//log:0
 	} else {
+		// position cursor back in search box with highlighted text
+		tmp = d$("string_to_search");
+		tmp.value = this._last_search;
+		tmp.focus();
+		tmp.select();
+
 		tmp = this.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
@@ -14490,7 +14542,8 @@ woas._search_load = function() {
 			// (2) parse the body snippets
 			it = this._cached_body_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('Found in '+it+' page'+(it > 1 ? 's' : ''));
+				P.body += hd.sprintf('Found '+this._hl_marker+':1000000000:'+
+					' time'+this._hl_marker+':1000000001:'+' in '+it+' page'+(it > 1 ? 's' : ''));
 				for(i = 0; i < it; ++i) {
 					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
 							+ this._hl_marker+":" + i + ":";
@@ -14502,15 +14555,14 @@ woas._search_load = function() {
 		}
 	}
 
-	// position cursor back in search box
-	d$("string_to_search").focus();
-	
 	if (P.body.length) {
 		// parse results before applying search terms highlighting
 		woas.parser.syntax_parse( P, [] );
 		
 		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			r="",count=0;
+			r = "", count = 0;
+			if (i > 999999999)
+				return str;
 			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
 				r += "<"+"pre class=\"woas_search_results\">" +
 						// apply highlighting
@@ -14519,10 +14571,14 @@ woas._search_load = function() {
 							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
 						})+"<"+"/pre>";
 			}
+			total += count;
 			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
 		});
+		// PVHL: This is better in my soon coming code
+		P.body = P.body.replace(this._hl_marker+':1000000000:', total);
+		P.body = P.body.replace(this._hl_marker+':1000000001:', total === 1 ? '' : 's');
 	}
-	
+
 	// finally output XHTML content
 	woas.setHTMLDiv(d$('woas_search_results'), P.body);
 };
@@ -15019,7 +15075,7 @@ function FullTagThis(tag){
 
 function macroTagThis(tagone, tagtwo) {
 	tagtwo = typeof tagtwo === 'undefined' ? '' : '("' + tagtwo + '")'
-	TagThis('<<<' + tagone + tagtwo + ':\n', '\n>>>');
+	TagThis('<<' + tagone + tagtwo + ':\n', '\n>>');
 }
 
 function setUrl(starttag,centertag,endtag) {
