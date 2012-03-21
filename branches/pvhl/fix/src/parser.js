@@ -109,7 +109,7 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 	} else {
 	}
 	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">" +
-		woas.xhtml_encode(text) + "</"+tag+">";
+		woas.xhtml_encode(text) + "<\/"+tag+">";
 },
 
 // render a single wiki link
