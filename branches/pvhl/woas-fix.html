@@ -1320,7 +1320,7 @@ The /Javascript::/ namespace is used in two ways:\n\
 * *To run a small piece of Javascript code* when the link that contains it is clicked.\n\
 * *To dynamically create a temporary page* that only exists while it is being displayed and is not stored as a page in the wiki.\n\
 Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.\n\
-\x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
+\x3C\x3C\x3Cwoas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]] (i.e. {{{[[Include::Javascript::\'Hi\']]}}} is meaningless), cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).\x3E\x3E\x3E\n\
 === Running Code\n\
 If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will still be evaluated. This is useful if the link needs to have a \'side-effect\'. Examples are showing an alert, perhaps containing dynamic values, incrementing a counter in your code, or changing WoaS code settings. It is best to use a label so that the code doesn\'t display as the link.\n\
 \n\
@@ -3457,6 +3457,7 @@ pre {\n\
 body {\n\
 	word-wrap: break-word;\n\
 	font-family: Georgia, verdana;\n\
+	font-size: 16px; /* for Opera; much bigger text without */\n\
 	text-align: left\n\
 }\n\
 \n\
@@ -3873,6 +3874,9 @@ img.woas_nav { /* woas logo */\n\
 }\n\
 .woas_no_img .woas_note {\n\
 	padding-left: .75em\n\
+}\n\
+.woas_note .woas_nowiki, .woas_note .woas_nowiki_multiline {\n\
+    background-color: #FFFFAA;\n\
 }\n\
 \n\
 /* PAGE LISTINGS */\n\
@@ -4433,12 +4437,17 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 '[[Special::TOC]]\n\
 = Improvements made\n\
 == Operation\n\
-* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl). Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page opens in the main wiki (as they always did). Help page links can now target page sections in the Help system and also in the main wiki.\n\
+* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl).\n\
+** Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page open in the main wiki (they always did, but the Help page could have been using the wiki page for display).\n\
+** Help page links can now target page sections in the Help system and also in the main wiki.\n\
+** If the Help system is already open it will be brought to the front instead of being hidden. I haven\'t worked out how to do this in Opera yet, but will return to the issue later.\n\
 \n\
 * Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.\n\
+\n\
+* The search function has been greatly improved by the addition of search options, including the option to include Help pages in the search and match whole words or phrases. Still to come (new project) are a few more options, the ability to save options, interactive display of results while searching (this will also remove the \'unresponsive script\' warnings), and a much better search algorithm that really finds the closest matches and a \'word proximity\' search option (finds two or more words, in any order, within a certain distance of each other).\n\
 \\\n\
 == Layout\n\
-* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes. (For some reason Opera seems to make all the text bigger than other browsers, but this is easily changed with the \'zoom\' control.)\n\
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes.\n\
 \n\
 * The layout now adjusts to very long page titles.\n\
 \n\
@@ -4469,9 +4478,9 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 \n\
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./\n\
 \n\
-* Most history and navigation icon errors have been removed.\n\
+* Most history, navigation, and lock/unlock icon errors are fixed.\n\
 \n\
-* Many Special::Search layout bugs are fixed.\n\
+* Special::Search layout bugs are fixed.\n\
 ',
 'WHILE THE CODE IN \'FIX\' IS BEING UPDATED/MERGED IT MAY NOT ALWAYS BE WORKING AS FOUND.\n\
 IT IS NOT BEING TESTED MUCH DURING THIS PROCESS AND COULD OCCASIONALLY BE BROKEN.\n\
@@ -6648,7 +6657,7 @@ _raw_preformatted: function(tag, text, cls, add_style) {
 	} else {
 	}
 	return "<" + tag + " class=\"" + cls + "\"" + add_style + ">" +
-		woas.xhtml_encode(text) + "</"+tag+">";
+		woas.xhtml_encode(text) + "<\/"+tag+">";
 },
 
 // render a single wiki link
@@ -7480,12 +7489,6 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-// cached search results
-woas._cached_title_search = [];
-woas._cached_body_search = [];
-// last string searched
-woas._last_search = null;
-woas._reLastSearch = null;	// search highlighting regex
 // PVHL: search options; will be moved to a search object later
 //   set defaults here or change with a plugin
 woas._nearby_chars = 200;	// amount of nearby characters to display
@@ -7505,7 +7508,12 @@ woas._cache_search = function( str ) {
 		be = this.search_end ? '\\b' : '',
 		sc = 'g' + (this.search_case ? '' : 'i'),
 		si = this.search_inline ? '.' : '[\\s\\S]';
+
+		// reset search
+	this._cached_title_search = [];
+	this._cached_body_search = [];
 	this._last_search = this.trim(str);
+
 	str = bs + RegExp.escape(this._last_search) + be;
 	if (this.search_word) {
 		str = str.replace(/\s+/g, be+si+"{0,"+this._match_length+"}?"+bs);
@@ -7531,10 +7539,13 @@ woas._cache_search = function( str ) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
 		pt = pt.substr(0, tmp);
-		tmp = this.get_src_page(pi, true);
-		if (tmp === null)
+
+		tmp = (this.get_page(pi) || '').replace(reScriptTags, "")
+			.replace(reAnyXHTML, "");
+		if (tmp === '') {
 			continue;
-	
+		}
+
 		// look for string in title
 		if (pt.search(this._reLastSearch) !== -1) {
 			this._cached_title_search.push(pt);
@@ -9208,18 +9219,16 @@ woas.get_page = function(pi) {
 };
 
 var reScriptTags = new RegExp("<"+"script[^>]*>((.|\\n)*?)<"+"\\/script>", "gi"),
-	reAnyXHTML = /\<\/?\w+[^>]+>/g;
+	reAnyXHTML = /\<\/?\w+[^>]*>/g;
 // get the text of the page, stripped of html tags
-woas.get_src_page = function(pi, rawmode) {
+// PVHL: Original code was able to break search listing because of the html comments.
+//	I have removed 'rawmode' as I am not using this function in search anymore.
+//	The original reAnyXHTML was broken and couldn't find things like <b>
+woas.get_src_page = function(pi) {
 	var pg = this.get_page(pi);
-	if (pg===null) return null;
-	if ((typeof rawmode == "undefined") || (rawmode == false))
-		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
-	else
-		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<"+"!-- -"+"->$2<"+"!-- -"+"->$3");
-	// remove wiki and html that should not be viewed when previewing wiki snippets
-	return pg.replace(reScriptTags, "").
-			replace(reAnyXHTML, "");
+	// remove what special pages don't want: nowiki & script content and html tags
+	return pg === null ? null : pg.replace(/\{{3}[\s\S]*?\}{3}/g, '')
+		.replace(reScriptTags, "").replace(reAnyXHTML, "");
 };
 
 woas.get_text = function (title) {
@@ -9858,7 +9867,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2527"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2529"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -11015,7 +11024,7 @@ woas.macro = {
 		},
 		// PVHL: this is mostly to make the Help note more flexible, but...
 		//   why not pass in the type and make it text box - or add such; so:
-		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.'
+		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.' or '_'
 		// 	 form for official, and to drop the ':' after - unneeded; or maybe
 		//   use '::' as for system pages: e.g. ::box(info) my text...)
 		//   <<.box blah ...>> would give the default box -- note probably.
@@ -11024,7 +11033,7 @@ woas.macro = {
 		note: function(m) {
 			// the extra div helps IE6
 			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
-				txt2 = "</"+"div><"+"/div>";
+				txt2 = "<\/"+"div><"+"/div>";
 			m.text = txt1 + m.text + txt2;
 			m.reprocess = true;
 			m.block = true;
@@ -13482,12 +13491,12 @@ woas.refresh_menu_area = function() {
 woas.ui = {
 	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
-	focus_textbox: function() { // called when a textbox has currently focus
+	focus_textbox: function() { // called when a textbox currently has focus
 		// 'this' belongs to the text box
 		woas.ui._textbox_focus = true;
 	},
 	blur_textbox: function() { // called when a textbox looses focus
-		// 'this' belongs to the text box
+		// 'this' belongs to the text box if directly called from there
 		woas.ui._textbox_focus = false;
 		ff_fix_focus();
 		// reset event handler
@@ -13576,11 +13585,8 @@ PVHL: FIX; this needs to be changed as
 			d$("string_to_search").value = "";
 			d$("string_to_search").focus();
 		}
-		// clear search results
-		woas._cached_body_search = [];
-		woas._cached_title_search = [];
+		// clear search
 		woas._last_search = null;
-		//woas.pager.bucket.clear();
 		if (!no_render)
 			this._search_render();
 	},
@@ -14111,22 +14117,17 @@ function menu_search_focus(f) {
 	}
 }
 
-woas.do_search = function(str, noclear) {
-	if (!str)
+// PVHL: noclear was never used in current code; removed
+//   progress doesn't work; removed
+woas.do_search = function(str) {
+	if (!str) {
 		return;
+	}
 	// clear previous search results
-	if (!noclear)
-		this.ui.clear_search(true);
-
-	this.progress_init("Searching");
-	// reset result pages
-	//this.pager.bucket.clear();
-
+	this.ui.clear_search(true);
 	// cache new search results
 	this._cache_search( str );
-	this.progress_finish();
-
-	// refresh the search page, or go to it if we are not
+	// refresh the search page, or go to it if we are not there
 	this.ui._search_render();
 };
 
@@ -14419,12 +14420,11 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
 	html_extra = html_extra || "";
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
-	",left="+hpos+",top="+vpos+extra);
+	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+
+		",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
 	wnd.document.writeln(this.DOCTYPE+"<"+"html"+html_extra+"><"+"head>"+head+
-						"<"+"/head><"+"body"+body_extra+">"+
-						body+"<"+"/body></"+"html>\n");
+		"<"+"/head><"+"body"+body_extra+">"+body+"<"+"/body><\/"+"html>\n");
 	wnd.document.close();
 	return wnd;
 };
@@ -14495,10 +14495,24 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 // display search results
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
-	var P = {body: ""}, hd = '<'+'p %sclass="woas_search_head">%s<'+'/p>\n',
-		i, it, r, a, at, count, total = 0, tmp;
+	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, tmp,
+		hl_marker = _random_string(10)+":%d:",
+		hl_marker_rx = new RegExp(hl_marker+":(\\d+):", "g"),
+		hd = '<p %sclass="woas_search_head">%s<\/p><ul>\n',
+		sstr = '<em>%s <span class="woas_search_highlight">%s<\/span><\/em>',
+		hl = '<\/span> <span class="woas_search_highlight">',
+		li = '<li><a class="woas_link" title="" onclick="woas.go_to(\'%s\')">'+
+			'%s<\/a>%s<\/li>',
 
-	// Load options
+		// TODO: add these to i18n if search doesn't become single page
+		fnd_t = 'Found in %s title%s';
+		fnd_p = 'Found %s time%s in %s page%s',
+		fnd_n = ' - found <b>%s<\/b> time%s',
+		nres = 'No results found for',
+		res = 'Results for';
+
+	// Load options; names will change once search is a namspace object
+	// these should be in a page script, not here.
 	d$.set('woas_search_options', this.search_options);
 	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
 	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
@@ -14515,78 +14529,73 @@ woas._search_load = function() {
 	d$('woas_search_txt_context').onblur = d$('woas_search_txt_length').onblur
 		= woas.ui.blur_textbox;
 
-	if (this._last_search === null) {
-//		woas.log("No search done, returning blank");	//log:0
-	} else {
+	if (this._last_search) {
 		// position cursor back in search box with highlighted text
 		tmp = d$("string_to_search");
 		tmp.value = this._last_search;
 		tmp.focus();
 		tmp.select();
 
-		tmp = this.xhtml_encode(this._last_search);
+		tmp = this._last_search;//this.xhtml_encode(this._last_search);
 		if (this.search_word) {
-			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
-					'span class="woas_search_highlight">');
+			tmp = tmp.replace(/\s+/g, hl);
 		}
-		P.body = '/%s <'+'span class="woas_search_highlight">' +
-			 tmp + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
-		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
-			P.body = P.body.sprintf('Results for');
+		it = this._cached_title_search.length;
+		ib = this._cached_body_search.length;
+		if (it + ib === 0) {
+			out.push(sstr.sprintf(nres, tmp));
+		} else {
+			out.push(sstr.sprintf(res, tmp));
 
 			// (1) prepare the title results
-			it = this._cached_title_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('', 'Found in '+it+' title'+(it > 1 ? 's' : ''));
-				for(i=0;i<it;++i) {
-					P.body += "* [["+ this._cached_title_search[i] + "]]\n";
-					//woas.pager.bucket.add(this._cached_title_search[i]);
-				}
-			}
-			
-			// (2) parse the body snippets
-			it = this._cached_body_search.length;
-			if (it > 0) {
-				P.body += hd.sprintf('id="woas_search_pages" ', '&nbsp;');
+				out.push(hd.sprintf('', fnd_t.sprintf(it, it === 1 ? '':'s')));
 				for(i = 0; i < it; ++i) {
-					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
-							+ this._hl_marker+":" + i + ":";
-					//woas.pager.bucket.add(this._cached_body_search[i].title);
+					tmp = this._cached_title_search[i];
+					out.push(li.sprintf(tmp, tmp.replace(woas._reLastSearch,
+						function(str) {
+							return '<span class="woas_search_highlight">'+str+
+								'<\/span>';
+						}), '') + '\n');
+				}
+				out.push('<\/ul>\n');
+			}
+
+			// (2) parse the body snippets
+			if (ib > 0) {
+				out.push(hd.sprintf('id="woas_search_pages" ', '&nbsp;'));
+				for(i = 0; i < ib; ++i) {
+					count = 0, r = [];
+					cbs = this._cached_body_search[i], bm = cbs.matches;
+					for (a = 0, at = bm.length; a < at; ++a) {
+						// create pre sections
+						bma = bm[a];//woas.xhtml_encode(bm[a]);
+						r.push('<pre class="woas_search_results">\n' +
+							// apply highlighting
+							bma.replace(this._reLastSearch, function(str) {
+								++count;
+								return '<span class="woas_search_highlight">'+
+									str+'<\/span>';
+							})+'<\/pre>\n');
+					}
+					total += count;
+					// output page
+					out.push(li.sprintf(cbs.title, cbs.title, fnd_n
+						.sprintf(count, count > 1 ? 's' : '')) + r.join(''));
 				}
 			}
-		} else {
-			P.body = P.body.sprintf('No results found for');
 		}
-	}
-
-	if (P.body.length) {
-		// parse results before applying search terms highlighting
-		woas.parser.syntax_parse( P, [] );
-		
-		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			r = "", count = 0;
-			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
-				r += "<"+"pre class=\"woas_search_results\">" +
-						// apply highlighting
-						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str) {
-							++count;
-							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
-						})+"<"+"/pre>";
-			}
-			total += count;
-			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
-		});
 	}
 
 	// finally output XHTML content
-	woas.setHTMLDiv(d$('woas_search_results'), P.body);
+	woas.setHTMLDiv(d$('woas_search_results'), out.join(''));
 	// and update page totals
-	if (it > 0) {
+	if (ib > 0) {
 		woas.setHTMLDiv(d$('woas_search_pages'),
-			'Found '+total+' time'+(total > 1 ? 's' : '')+
-			' in '+it+' page'+(it > 1 ? 's' : ''));
+			fnd_p.sprintf(total, total === 1 ? '':'s', ib, ib === 1 ? '':'s'));
 	}
+	out = r = null;
 };
 
 var _servm_shown = false;
