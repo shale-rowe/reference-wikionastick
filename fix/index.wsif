@@ -1508,7 +1508,7 @@ The /Javascript::/ namespace is used in two ways:
 * *To run a small piece of Javascript code* when the link that contains it is clicked.
 * *To dynamically create a temporary page* that only exists while it is being displayed and is not stored as a page in the wiki.
 Everything following the namespace declaration will be evaluated as a Javascript expression when the link is activated. You can use /$JS::/ instead of /Javascript::/ if your [[WoaS::Help::Aliases|Aliases]] page still contains the default {{{$JS  Javascript}}} declaration.
-<<<woas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]], cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).>>>
+<<<woas.note: /Javascript::/ links cannot be [[WoaS::Help::Include wiki page|transcluded]] (i.e. {{{[[Include::Javascript::'Hi']]}}} is meaningless), cannot contain double-quotes ({{{"}}}), and do not create history (back/forward entries).>>>
 === Running Code
 If the code contained in the link does not evaluate to a string or array then no dynamic page will be created, but the code will still be evaluated. This is useful if the link needs to have a 'side-effect'. Examples are showing an alert, perhaps containing dynamic values, incrementing a counter in your code, or changing WoaS code settings. It is best to use a label so that the code doesn't display as the link.
 
@@ -3829,6 +3829,7 @@ pre {
 body {
 	word-wrap: break-word;
 	font-family: Georgia, verdana;
+	font-size: 16px; /* for Opera; much bigger text without */
 	text-align: left
 }
 
@@ -4245,6 +4246,9 @@ img.woas_nav { /* woas logo */
 }
 .woas_no_img .woas_note {
 	padding-left: .75em
+}
+.woas_note .woas_nowiki, .woas_note .woas_nowiki_multiline {
+    background-color: #FFFFAA;
 }
 
 /* PAGE LISTINGS */
@@ -5021,12 +5025,17 @@ woas.page.boundary: DFQRCTsKlU
 [[Special::TOC]]
 = Improvements made
 == Operation
-* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl). Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page opens in the main wiki (as they always did). Help page links can now target page sections in the Help system and also in the main wiki.
+* The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl).
+** Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page open in the main wiki (they always did, but the Help page could have been using the wiki page for display).
+** Help page links can now target page sections in the Help system and also in the main wiki.
+** If the Help system is already open it will be brought to the front instead of being hidden. I haven't worked out how to do this in Opera yet, but will return to the issue later.
 
 * Namespace listings have been, IMHO, greatly improved in styling, and also in capability. The [[Special::All Pages]] listing (renamed for consistency with the other special pages) now also lists no-namespace pages in a fold (they used to overwhelm the listing in large files). I intend to add the capability to select a listing style within the page link in the new project. The [[Special::Orphaned Pages]] code has been rewritten so that it completes in the square-root of the time it used to take (important in a wiki with hundreds of pages), and the [[Tagged::]] listing now allows some really powerful listings if, like me, you make extensive use of tags. The [[Image::]] listing is also -- again IMHO -- much improved and has styles added for those who want complete control of the presentation.
+
+* The search function has been greatly improved by the addition of search options, including the option to include Help pages in the search and match whole words or phrases. Still to come (new project) are a few more options, the ability to save options, interactive display of results while searching (this will also remove the 'unresponsive script' warnings), and a much better search algorithm that really finds the closest matches and a 'word proximity' search option (finds two or more words, in any order, within a certain distance of each other).
 \
 == Layout
-* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes. (For some reason Opera seems to make all the text bigger than other browsers, but this is easily changed with the 'zoom' control.)
+* I have spent a huge number of hours updating the CSS and HTML layout and checking it across popular browsers, with generally pleasing results. Layout now stays consistent across most text size and zoom changes.
 
 * The layout now adjusts to very long page titles.
 
@@ -5057,9 +5066,9 @@ woas.page.boundary: DFQRCTsKlU
 
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
 
-* Most history and navigation icon errors have been removed.
+* Most history, navigation, and lock/unlock icon errors are fixed.
 
-* Many Special::Search layout bugs are fixed.
+* Special::Search layout bugs are fixed.
 
 --DFQRCTsKlU
 woas.page.title: log.txt

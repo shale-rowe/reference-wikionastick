@@ -679,7 +679,7 @@ woas.macro = {
 		},
 		// PVHL: this is mostly to make the Help note more flexible, but...
 		//   why not pass in the type and make it text box - or add such; so:
-		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.'
+		//   woas.box(note): blah.... <<.box(alert) hi>> (I want this '.' or '_'
 		// 	 form for official, and to drop the ':' after - unneeded; or maybe
 		//   use '::' as for system pages: e.g. ::box(info) my text...)
 		//   <<.box blah ...>> would give the default box -- note probably.
@@ -688,7 +688,7 @@ woas.macro = {
 		note: function(m) {
 			// the extra div helps IE6
 			var txt1 = "<"+"div><"+"div class='woas_note'>"+woas.i18n.NOTE_TEXT+" ",
-				txt2 = "</"+"div><"+"/div>";
+				txt2 = "<\/"+"div><"+"/div>";
 			m.text = txt1 + m.text + txt2;
 			m.reprocess = true;
 			m.block = true;

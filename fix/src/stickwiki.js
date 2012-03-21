@@ -247,18 +247,16 @@ woas.get_page = function(pi) {
 };
 
 var reScriptTags = new RegExp("<"+"script[^>]*>((.|\\n)*?)<"+"\\/script>", "gi"),
-	reAnyXHTML = /\<\/?\w+[^>]+>/g;
+	reAnyXHTML = /\<\/?\w+[^>]*>/g;
 // get the text of the page, stripped of html tags
-woas.get_src_page = function(pi, rawmode) {
+// PVHL: Original code was able to break search listing because of the html comments.
+//	I have removed 'rawmode' as I am not using this function in search anymore.
+//	The original reAnyXHTML was broken and couldn't find things like <b>
+woas.get_src_page = function(pi) {
 	var pg = this.get_page(pi);
-	if (pg===null) return null;
-	if ((typeof rawmode == "undefined") || (rawmode == false))
-		pg = pg.replace(/\{\{\{((.|\n)*?)\}\}\}/g, "");
-	else
-		pg = pg.replace(/(\{|\})(\1)(\1)/g, "$1<"+"!-- -"+"->$2<"+"!-- -"+"->$3");
-	// remove wiki and html that should not be viewed when previewing wiki snippets
-	return pg.replace(reScriptTags, "").
-			replace(reAnyXHTML, "");
+	// remove what special pages don't want: nowiki & script content and html tags
+	return pg === null ? null : pg.replace(/\{{3}[\s\S]*?\}{3}/g, '')
+		.replace(reScriptTags, "").replace(reAnyXHTML, "");
 };
 
 woas.get_text = function (title) {

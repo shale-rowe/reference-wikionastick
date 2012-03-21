@@ -98,12 +98,6 @@ woas.special_backlinks = function() {
 		return "== Links to [["+pg_title+"]]\n"+this._join_list(pg);
 };
 
-// cached search results
-woas._cached_title_search = [];
-woas._cached_body_search = [];
-// last string searched
-woas._last_search = null;
-woas._reLastSearch = null;	// search highlighting regex
 // PVHL: search options; will be moved to a search object later
 //   set defaults here or change with a plugin
 woas._nearby_chars = 200;	// amount of nearby characters to display
@@ -123,7 +117,12 @@ woas._cache_search = function( str ) {
 		be = this.search_end ? '\\b' : '',
 		sc = 'g' + (this.search_case ? '' : 'i'),
 		si = this.search_inline ? '.' : '[\\s\\S]';
+
+		// reset search
+	this._cached_title_search = [];
+	this._cached_body_search = [];
 	this._last_search = this.trim(str);
+
 	str = bs + RegExp.escape(this._last_search) + be;
 	if (this.search_word) {
 		str = str.replace(/\s+/g, be+si+"{0,"+this._match_length+"}?"+bs);
@@ -149,10 +148,13 @@ woas._cache_search = function( str ) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
 		pt = pt.substr(0, tmp);
-		tmp = this.get_src_page(pi, true);
-		if (tmp === null)
+
+		tmp = (this.get_page(pi) || '').replace(reScriptTags, "")
+			.replace(reAnyXHTML, "");
+		if (tmp === '') {
 			continue;
-	
+		}
+
 		// look for string in title
 		if (pt.search(this._reLastSearch) !== -1) {
 			this._cached_title_search.push(pt);

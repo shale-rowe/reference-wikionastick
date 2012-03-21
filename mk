@@ -3,7 +3,7 @@
 
 global $edit_override;
 if (is_null($edit_override = $argv[2]))
-	$edit_override = 1; // default for development
+	$edit_override = 0; // default for deployment, 1 for development
 
 ## WoaS compiler
 # @author legolas558
@@ -138,19 +138,19 @@ function _script_replace($m) {
 
 		// check if this javascript contains any tag-similar syntax
 		// this will kill inline javascript for Opera, so we need to properly conceal those sequences
-		if (preg_match_all('!</?([A-Za-z]+)([^>]+)>!s', $ct, $m)) {
+		// PVHL: actually, the problem is '</' & ']]>' as we are using CDATA blocks.
+		//	(I think the only '</' problem is for '</script>', but need to test thoroughly;
+		//	if so, just search for that one pattern and change to '<\/script>)
+		//	Just need to be replaced with '<\/' & ']\]>'; new project JS code will do this
+		if (preg_match_all('!(?:</|</|\]\]>)[^\n]{0,10}!s', $ct, $m)) {
 			$tags = "";
-			reset($m[2]);
-			foreach($m[1] as $tag) {
-				$attrs = current($m[2]);
-				if (substr($attrs, 0, 1) != ';') {
-					$tags .= $tag.", ";
-				}
-				next($m[2]);
+			foreach($m[0] as $tag) {
+				$tags .= "'".$tag."' ";
 			}
 			if (strlen($tags))
-				fprintf(STDERR, "%s: WARNING! found tag \"%s\"\n", $scriptname, $tags);
+				fprintf(STDERR, "\n%s: WARNING! found '</' or ']]>': %s\n\n", $scriptname, $tags);
 		}
+
 		++$replaced;
 		echo "Replaced ".$scriptname."\n";
 		$ALL_SCRIPTS .= "/*** ".$scriptname." ***/\n".$ct."\n"; $ct = null;

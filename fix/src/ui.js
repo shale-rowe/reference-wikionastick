@@ -3,12 +3,12 @@
 woas.ui = {
 	edit_mode: false,		// set to true when inside an edit textarea
 	_textbox_focus: false,	// true when a text box is currently focused
-	focus_textbox: function() { // called when a textbox has currently focus
+	focus_textbox: function() { // called when a textbox currently has focus
 		// 'this' belongs to the text box
 		woas.ui._textbox_focus = true;
 	},
 	blur_textbox: function() { // called when a textbox looses focus
-		// 'this' belongs to the text box
+		// 'this' belongs to the text box if directly called from there
 		woas.ui._textbox_focus = false;
 		ff_fix_focus();
 		// reset event handler
@@ -97,11 +97,8 @@ PVHL: FIX; this needs to be changed as
 			d$("string_to_search").value = "";
 			d$("string_to_search").focus();
 		}
-		// clear search results
-		woas._cached_body_search = [];
-		woas._cached_title_search = [];
+		// clear search
 		woas._last_search = null;
-		//woas.pager.bucket.clear();
 		if (!no_render)
 			this._search_render();
 	},
@@ -632,22 +629,17 @@ function menu_search_focus(f) {
 	}
 }
 
-woas.do_search = function(str, noclear) {
-	if (!str)
+// PVHL: noclear was never used in current code; removed
+//   progress doesn't work; removed
+woas.do_search = function(str) {
+	if (!str) {
 		return;
+	}
 	// clear previous search results
-	if (!noclear)
-		this.ui.clear_search(true);
-
-	this.progress_init("Searching");
-	// reset result pages
-	//this.pager.bucket.clear();
-
+	this.ui.clear_search(true);
 	// cache new search results
 	this._cache_search( str );
-	this.progress_finish();
-
-	// refresh the search page, or go to it if we are not
+	// refresh the search page, or go to it if we are not there
 	this.ui._search_render();
 };
 
@@ -940,12 +932,11 @@ woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
 	html_extra = html_extra || "";
 	var hpos=Math.ceil((screen.width-fw)/2);
 	var vpos=Math.ceil((screen.height-fh)/2);
-	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+		
-	",left="+hpos+",top="+vpos+extra);
+	var wnd = window.open("about:blank",name,"width="+fw+",height="+fh+
+		",left="+hpos+",top="+vpos+extra);
 	wnd.focus();
 	wnd.document.writeln(this.DOCTYPE+"<"+"html"+html_extra+"><"+"head>"+head+
-						"<"+"/head><"+"body"+body_extra+">"+
-						body+"<"+"/body></"+"html>\n");
+		"<"+"/head><"+"body"+body_extra+">"+body+"<"+"/body><\/"+"html>\n");
 	wnd.document.close();
 	return wnd;
 };
@@ -1016,10 +1007,24 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 // display search results
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
-	var P = {body: ""}, hd = '<'+'p %sclass="woas_search_head">%s<'+'/p>\n',
-		i, it, r, a, at, count, total = 0, tmp;
+	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, tmp,
+		hl_marker = _random_string(10)+":%d:",
+		hl_marker_rx = new RegExp(hl_marker+":(\\d+):", "g"),
+		hd = '<p %sclass="woas_search_head">%s<\/p><ul>\n',
+		sstr = '<em>%s <span class="woas_search_highlight">%s<\/span><\/em>',
+		hl = '<\/span> <span class="woas_search_highlight">',
+		li = '<li><a class="woas_link" title="" onclick="woas.go_to(\'%s\')">'+
+			'%s<\/a>%s<\/li>',
 
-	// Load options
+		// TODO: add these to i18n if search doesn't become single page
+		fnd_t = 'Found in %s title%s';
+		fnd_p = 'Found %s time%s in %s page%s',
+		fnd_n = ' - found <b>%s<\/b> time%s',
+		nres = 'No results found for',
+		res = 'Results for';
+
+	// Load options; names will change once search is a namspace object
+	// these should be in a page script, not here.
 	d$.set('woas_search_options', this.search_options);
 	d$('woas_search_cb_help').checked = woas.bool2chk(this.search_help);
 	d$('woas_search_cb_words').checked = woas.bool2chk(this.search_word);
@@ -1036,78 +1041,73 @@ woas._search_load = function() {
 	d$('woas_search_txt_context').onblur = d$('woas_search_txt_length').onblur
 		= woas.ui.blur_textbox;
 
-	if (this._last_search === null) {
-//		woas.log("No search done, returning blank");	//log:0
-	} else {
+	if (this._last_search) {
 		// position cursor back in search box with highlighted text
 		tmp = d$("string_to_search");
 		tmp.value = this._last_search;
 		tmp.focus();
 		tmp.select();
 
-		tmp = this.xhtml_encode(this._last_search);
+		tmp = this._last_search;//this.xhtml_encode(this._last_search);
 		if (this.search_word) {
-			tmp = tmp.replace(/\s+/g, '<'+'/span> <'+
-					'span class="woas_search_highlight">');
+			tmp = tmp.replace(/\s+/g, hl);
 		}
-		P.body = '/%s <'+'span class="woas_search_highlight">' +
-			 tmp + '<'+'/span>/';
 		// proceed to parsing if there are matching pages
-		if (this._cached_title_search.length + this._cached_body_search.length !== 0) {
-			P.body = P.body.sprintf('Results for');
+		it = this._cached_title_search.length;
+		ib = this._cached_body_search.length;
+		if (it + ib === 0) {
+			out.push(sstr.sprintf(nres, tmp));
+		} else {
+			out.push(sstr.sprintf(res, tmp));
 
 			// (1) prepare the title results
-			it = this._cached_title_search.length;
 			if (it > 0) {
-				P.body += hd.sprintf('', 'Found in '+it+' title'+(it > 1 ? 's' : ''));
-				for(i=0;i<it;++i) {
-					P.body += "* [["+ this._cached_title_search[i] + "]]\n";
-					//woas.pager.bucket.add(this._cached_title_search[i]);
-				}
-			}
-			
-			// (2) parse the body snippets
-			it = this._cached_body_search.length;
-			if (it > 0) {
-				P.body += hd.sprintf('id="woas_search_pages" ', '&nbsp;');
+				out.push(hd.sprintf('', fnd_t.sprintf(it, it === 1 ? '':'s')));
 				for(i = 0; i < it; ++i) {
-					P.body += "\n* [[" + this._cached_body_search[i].title + "]] - found "
-							+ this._hl_marker+":" + i + ":";
-					//woas.pager.bucket.add(this._cached_body_search[i].title);
+					tmp = this._cached_title_search[i];
+					out.push(li.sprintf(tmp, tmp.replace(woas._reLastSearch,
+						function(str) {
+							return '<span class="woas_search_highlight">'+str+
+								'<\/span>';
+						}), '') + '\n');
+				}
+				out.push('<\/ul>\n');
+			}
+
+			// (2) parse the body snippets
+			if (ib > 0) {
+				out.push(hd.sprintf('id="woas_search_pages" ', '&nbsp;'));
+				for(i = 0; i < ib; ++i) {
+					count = 0, r = [];
+					cbs = this._cached_body_search[i], bm = cbs.matches;
+					for (a = 0, at = bm.length; a < at; ++a) {
+						// create pre sections
+						bma = bm[a];//woas.xhtml_encode(bm[a]);
+						r.push('<pre class="woas_search_results">\n' +
+							// apply highlighting
+							bma.replace(this._reLastSearch, function(str) {
+								++count;
+								return '<span class="woas_search_highlight">'+
+									str+'<\/span>';
+							})+'<\/pre>\n');
+					}
+					total += count;
+					// output page
+					out.push(li.sprintf(cbs.title, cbs.title, fnd_n
+						.sprintf(count, count > 1 ? 's' : '')) + r.join(''));
 				}
 			}
-		} else {
-			P.body = P.body.sprintf('No results found for');
 		}
-	}
-
-	if (P.body.length) {
-		// parse results before applying search terms highlighting
-		woas.parser.syntax_parse( P, [] );
-		
-		P.body = P.body.replace(this._hl_marker_rx, function(str, i) {
-			r = "", count = 0;
-			for(a=0,at=woas._cached_body_search[i].matches.length;a<at;++a) {
-				r += "<"+"pre class=\"woas_search_results\">" +
-						// apply highlighting
-						woas._cached_body_search[i].matches[a].replace(woas._reLastSearch, function(str) {
-							++count;
-							return '<'+'span class="woas_search_highlight">'+str+'<'+'/span>';
-						})+"<"+"/pre>";
-			}
-			total += count;
-			return " <"+"strong>"+count+"<"+"/strong> time"+(count > 1 ? 's' : '')+": "+r;
-		});
 	}
 
 	// finally output XHTML content
-	woas.setHTMLDiv(d$('woas_search_results'), P.body);
+	woas.setHTMLDiv(d$('woas_search_results'), out.join(''));
 	// and update page totals
-	if (it > 0) {
+	if (ib > 0) {
 		woas.setHTMLDiv(d$('woas_search_pages'),
-			'Found '+total+' time'+(total > 1 ? 's' : '')+
-			' in '+it+' page'+(it > 1 ? 's' : ''));
+			fnd_p.sprintf(total, total === 1 ? '':'s', ib, ib === 1 ? '':'s'));
 	}
+	out = r = null;
 };
 
 var _servm_shown = false;
