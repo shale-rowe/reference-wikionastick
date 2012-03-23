@@ -5087,6 +5087,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* Search improvements; much faster and includes all page contents in search
 * Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax
 * Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.
 * Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon

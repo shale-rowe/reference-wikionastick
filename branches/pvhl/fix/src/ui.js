@@ -638,7 +638,7 @@ woas.do_search = function(str) {
 	// clear previous search results
 	this.ui.clear_search(true);
 	// cache new search results
-	this._cache_search( str );
+	this._cache_search(str);
 	// refresh the search page, or go to it if we are not there
 	this.ui._search_render();
 };
@@ -1007,7 +1007,8 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 // display search results
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
-	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, tmp,
+	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, s, tmp,
+		wp = woas.parser,
 		hl_marker = _random_string(10)+":%d:",
 		hl_marker_rx = new RegExp(hl_marker+":(\\d+):", "g"),
 		hd = '<p %sclass="woas_search_head">%s<\/p><ul>\n',
@@ -1020,8 +1021,8 @@ woas._search_load = function() {
 		fnd_t = 'Found in %s title%s';
 		fnd_p = 'Found %s time%s in %s page%s',
 		fnd_n = ' - found <b>%s<\/b> time%s',
-		nres = 'No results found for',
-		res = 'Results for';
+		nres = 'The last search did not find',
+		res = 'Last search results for';
 
 	// Load options; names will change once search is a namspace object
 	// these should be in a page script, not here.
@@ -1048,7 +1049,7 @@ woas._search_load = function() {
 		tmp.focus();
 		tmp.select();
 
-		tmp = this._last_search;//this.xhtml_encode(this._last_search);
+		tmp = woas.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, hl);
 		}
@@ -1078,18 +1079,24 @@ woas._search_load = function() {
 			if (ib > 0) {
 				out.push(hd.sprintf('id="woas_search_pages" ', '&nbsp;'));
 				for(i = 0; i < ib; ++i) {
-					count = 0, r = [];
+					count = 0, r = [], s = [];
 					cbs = this._cached_body_search[i], bm = cbs.matches;
+					// create pre sections
 					for (a = 0, at = bm.length; a < at; ++a) {
-						// create pre sections
-						bma = bm[a];//woas.xhtml_encode(bm[a]);
-						r.push('<pre class="woas_search_results">\n' +
-							// apply highlighting
-							bma.replace(this._reLastSearch, function(str) {
+						// apply highlighting
+						bma = woas.xhtml_encode(
+							bm[a].replace(this._reLastSearch, function(str) {
 								++count;
-								return '<span class="woas_search_highlight">'+
-									str+'<\/span>';
-							})+'<\/pre>\n');
+								s.push('<span class="woas_search_highlight">'+
+									woas.xhtml_encode(str)+'<\/span>');
+								return  wp.marker+(s.length-1)+';';
+						}));
+						if (s.length) {
+							bma = bma.replace(wp.reBaseSnippet,
+								function (str, $1) {return s[parseInt($1)];});
+						}
+						r.push('<pre class="woas_search_results">\n'+
+							bma+'<\/pre>\n');
 					}
 					total += count;
 					// output page
@@ -1107,7 +1114,7 @@ woas._search_load = function() {
 		woas.setHTMLDiv(d$('woas_search_pages'),
 			fnd_p.sprintf(total, total === 1 ? '':'s', ib, ib === 1 ? '':'s'));
 	}
-	out = r = null;
+	out = s = r = null;
 };
 
 var _servm_shown = false;
