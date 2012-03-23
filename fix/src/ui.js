@@ -364,10 +364,11 @@ woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 woas.go_to = function(cr) {
 	var parts = cr.split('#'), section = parts[1], r = true, mv = 0, el;
 	cr = parts[0];
-	if (cr.indexOf(this.help_system._pfx) === 0 && cr.substr(-2) !== '::'
-			&& current && page_titles.indexOf(parts[0]) !== -1) {
+	if (!this.tweak.edit_override && cr.indexOf(this.help_system._pfx) === 0 &&
+			cr.substr(-2) !== '::' && current &&
+			page_titles.indexOf(parts[0]) !== -1) {
 		// help system handles all help pages except WoaS::Help and namespace
-		// listings unless loading wiki (current is empty)
+		// listings unless loading wiki (current not set) or in developer mode
 		parts[0] = cr.substr(this.help_system._pfx.length);
 		if (!parts[1]) {
 			parts[1] = '';
