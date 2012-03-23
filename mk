@@ -28,6 +28,7 @@ if (is_null($edit_override = $argv[2]))
 #	* added support for passing in directory name of woas version
 #	* added support for directory name shortcuts
 #	* improved error reporting
+#	* changed markup error reporting to legitimate errors
 #
 
 /*** SET-UP ***/

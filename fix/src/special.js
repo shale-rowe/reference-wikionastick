@@ -106,9 +106,9 @@ woas.search_help = false;	// include WoaS::Help pages
 woas.search_word = true;	// match words in order, not exact phrase
 woas.search_case = false;	// must match case
 woas.search_inline = false;	// match must be within a single line
-woas.search_start = true;	// match must start at word boundary
+woas.search_start = false;	// match must start at word boundary
 woas.search_end = false;	// match must end at word boundary
-woas.search_options = false	// show options when page loaded; all these will move to search
+woas.search_options = false;// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
@@ -118,7 +118,7 @@ woas._cache_search = function( str ) {
 		sc = 'g' + (this.search_case ? '' : 'i'),
 		si = this.search_inline ? '.' : '[\\s\\S]';
 
-		// reset search
+	// reset search
 	this._cached_title_search = [];
 	this._cached_body_search = [];
 	this._last_search = this.trim(str);
@@ -144,16 +144,11 @@ woas._cache_search = function( str ) {
 	}
 	pt_arr.sort();
 	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
+
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
 		pt = pt.substr(0, tmp);
-
-		tmp = (this.get_page(pi) || '').replace(reScriptTags, "")
-			.replace(reAnyXHTML, "");
-		if (tmp === '') {
-			continue;
-		}
 
 		// look for string in title
 		if (pt.search(this._reLastSearch) !== -1) {
@@ -161,6 +156,25 @@ woas._cache_search = function( str ) {
 		}
 
 		// look for string in body
+		tmp = this.get_page(pi);
+		if (tmp === null) {
+			return
+		}
+		/*
+		// IF NO SCRIPTS/HTML WANTED
+		// needs tidying up, but I don't see the need for it.
+		// (having spent hours making it all work!)
+		var s = [], wp = woas.parser;
+		tmp = tmp.replace(wp.reDry, function(str) {
+				s.push(str);return wp.marker+(s.length-1)+';'})
+			.replace(reScriptTags, '').replace(reAnyXHTML, '');
+		if (s.length) {
+			tmp = tmp.replace(wp.reBaseSnippet, function (str, $1) {
+				return s[parseInt($1)];
+			});
+		}
+		s = null;
+		*/
 		res_body = tmp.match(reg);
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
