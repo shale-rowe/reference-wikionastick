@@ -4491,6 +4491,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
+* Search improvements; much faster and includes all page contents in search\n\
 * Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax\n\
 * Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.\n\
 * Add search options like match case/whole word/phrase, etc., to the search page; select text in search box; will rewrite search help page soon\n\
@@ -7497,9 +7498,9 @@ woas.search_help = false;	// include WoaS::Help pages
 woas.search_word = true;	// match words in order, not exact phrase
 woas.search_case = false;	// must match case
 woas.search_inline = false;	// match must be within a single line
-woas.search_start = true;	// match must start at word boundary
+woas.search_start = false;	// match must start at word boundary
 woas.search_end = false;	// match must end at word boundary
-woas.search_options = false	// show options when page loaded; all these will move to search
+woas.search_options = false;// show options when page loaded; all these will move to search
 
 // create an index of searched pages (by miz & legolas558 & pvhl)
 woas._cache_search = function( str ) {
@@ -7509,7 +7510,7 @@ woas._cache_search = function( str ) {
 		sc = 'g' + (this.search_case ? '' : 'i'),
 		si = this.search_inline ? '.' : '[\\s\\S]';
 
-		// reset search
+	// reset search
 	this._cached_title_search = [];
 	this._cached_body_search = [];
 	this._last_search = this.trim(str);
@@ -7535,16 +7536,11 @@ woas._cache_search = function( str ) {
 	}
 	pt_arr.sort();
 	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
+
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
 		pt = pt.substr(0, tmp);
-
-		tmp = (this.get_page(pi) || '').replace(reScriptTags, "")
-			.replace(reAnyXHTML, "");
-		if (tmp === '') {
-			continue;
-		}
 
 		// look for string in title
 		if (pt.search(this._reLastSearch) !== -1) {
@@ -7552,6 +7548,25 @@ woas._cache_search = function( str ) {
 		}
 
 		// look for string in body
+		tmp = this.get_page(pi);
+		if (tmp === null) {
+			return
+		}
+		/*
+		// IF NO SCRIPTS/HTML WANTED
+		// needs tidying up, but I don't see the need for it.
+		// (having spent hours making it all work!)
+		var s = [], wp = woas.parser;
+		tmp = tmp.replace(wp.reDry, function(str) {
+				s.push(str);return wp.marker+(s.length-1)+';'})
+			.replace(reScriptTags, '').replace(reAnyXHTML, '');
+		if (s.length) {
+			tmp = tmp.replace(wp.reBaseSnippet, function (str, $1) {
+				return s[parseInt($1)];
+			});
+		}
+		s = null;
+		*/
 		res_body = tmp.match(reg);
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
@@ -9867,7 +9882,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2529"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2531"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -14126,7 +14141,7 @@ woas.do_search = function(str) {
 	// clear previous search results
 	this.ui.clear_search(true);
 	// cache new search results
-	this._cache_search( str );
+	this._cache_search(str);
 	// refresh the search page, or go to it if we are not there
 	this.ui._search_render();
 };
@@ -14495,7 +14510,8 @@ woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 // display search results
 woas._search_load = function() {
 //	woas.log("called _search_load()");	//log:0
-	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, tmp,
+	var out = [], total = 0, count, i, it, ib, r, a, at, cbs, bm, bma, s, tmp,
+		wp = woas.parser,
 		hl_marker = _random_string(10)+":%d:",
 		hl_marker_rx = new RegExp(hl_marker+":(\\d+):", "g"),
 		hd = '<p %sclass="woas_search_head">%s<\/p><ul>\n',
@@ -14508,8 +14524,8 @@ woas._search_load = function() {
 		fnd_t = 'Found in %s title%s';
 		fnd_p = 'Found %s time%s in %s page%s',
 		fnd_n = ' - found <b>%s<\/b> time%s',
-		nres = 'No results found for',
-		res = 'Results for';
+		nres = 'The last search did not find',
+		res = 'Last search results for';
 
 	// Load options; names will change once search is a namspace object
 	// these should be in a page script, not here.
@@ -14536,7 +14552,7 @@ woas._search_load = function() {
 		tmp.focus();
 		tmp.select();
 
-		tmp = this._last_search;//this.xhtml_encode(this._last_search);
+		tmp = woas.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, hl);
 		}
@@ -14566,18 +14582,24 @@ woas._search_load = function() {
 			if (ib > 0) {
 				out.push(hd.sprintf('id="woas_search_pages" ', '&nbsp;'));
 				for(i = 0; i < ib; ++i) {
-					count = 0, r = [];
+					count = 0, r = [], s = [];
 					cbs = this._cached_body_search[i], bm = cbs.matches;
+					// create pre sections
 					for (a = 0, at = bm.length; a < at; ++a) {
-						// create pre sections
-						bma = bm[a];//woas.xhtml_encode(bm[a]);
-						r.push('<pre class="woas_search_results">\n' +
-							// apply highlighting
-							bma.replace(this._reLastSearch, function(str) {
+						// apply highlighting
+						bma = woas.xhtml_encode(
+							bm[a].replace(this._reLastSearch, function(str) {
 								++count;
-								return '<span class="woas_search_highlight">'+
-									str+'<\/span>';
-							})+'<\/pre>\n');
+								s.push('<span class="woas_search_highlight">'+
+									woas.xhtml_encode(str)+'<\/span>');
+								return  wp.marker+(s.length-1)+';';
+						}));
+						if (s.length) {
+							bma = bma.replace(wp.reBaseSnippet,
+								function (str, $1) {return s[parseInt($1)];});
+						}
+						r.push('<pre class="woas_search_results">\n'+
+							bma+'<\/pre>\n');
 					}
 					total += count;
 					// output page
@@ -14595,7 +14617,7 @@ woas._search_load = function() {
 		woas.setHTMLDiv(d$('woas_search_pages'),
 			fnd_p.sprintf(total, total === 1 ? '':'s', ib, ib === 1 ? '':'s'));
 	}
-	out = r = null;
+	out = s = r = null;
 };
 
 var _servm_shown = false;
