@@ -36,32 +36,33 @@ PVHL: FIX; this needs to be changed as
 */
 	_keyboard_event_hook: function(orig_e) {
 		var e = orig_e || window.event,
-			ck = e.keyCode || e.which;
-		if (!woas.ui.edit_mode) {
+			ck = e.keyCode || e.which,
+			ui = woas.ui;
+		if (!ui.edit_mode) {
 			// there is a custom focus active, call the hook
 			// and return if it told us to do so
-			if (!woas.ui._custom_key_hook(orig_e))
+			if (!ui._custom_key_hook(orig_e))
 				return orig_e;
-			if (woas.ui._textbox_focus) {
+			if (ui._textbox_focus) {
 				// return key
 				if (ck == 13) {
 					// clear focus
 					ff_fix_focus();
 					// run attached event
-					(woas.ui._textbox_enter_event)();
+					(ui._textbox_enter_event)();
 					return false;
 				}
 				return orig_e;
 			}
 			// back or cancel keys
 			if ((ck == woas.hotkey.all.back) || (ck == woas.hotkey.all.cancel)) {
-				woas.ui.back();
+				ui.back();
 				ff_fix_focus();
 				return false;
 			}
 		} else if (ck == woas.hotkey.all.cancel) {
 			// cancel key in edit mode
-			woas.ui.cancel();
+			ui.cancel();
 			ff_fix_focus();
 			return false;
 		}
@@ -94,8 +95,8 @@ PVHL: FIX; this needs to be changed as
 	clear_search: function(no_render) {
 //		woas.log("Clearing search"); //log:0
 		if (current === "Special::Search") {
-			d$("string_to_search").value = "";
-			d$("string_to_search").focus();
+			d$("special_search").value = "";
+			d$("special_search").focus();
 		}
 		// clear search
 		woas._last_search = null;
@@ -585,63 +586,44 @@ function page_dblclick() {
 	return true;
 }
 
-/** Used by search box **/
-function menu_do_search() {
-	var str = d$('menu_string_to_search').value;
-	// directly use the search page if it is active
-    if (current === "Special::Search") {
-		d$('string_to_search').value = str;
-    }
-    woas.do_search(str);
-}
-
-// Used by Special::Search
-// make the actual search and cache the results
-function ssearch_do_search() {
-	var str = d$("string_to_search").value;
-	woas.do_search(str);
-}
-
-function menu_key_hook(orig_e) {
-	var e = orig_e || window.event,
-		ck = e.keyCode || e.which;
-    if (ck == 13) {
-		ff_fix_focus();
-		menu_do_search();
-        return false;
-     }
-     return orig_e;
-}
-
-//FIXME: this is entirely a bad hack
-function menu_search_focus(f) {
-	if (f) {
-		// prevent focus on the menu search box when the search page is active
-		if (current == "Special::Search") {
-//		ff_fix_focus();
-			d$('string_to_search').focus();
-			woas.ui.top();
-		} else {
-			woas.ui.focus_textbox();
-		}
+// Used by search boxes
+// PVHL: any custom search box sets 'custom' flag
+// More than one may be active at a time now.
+// 'el' is used by woas.do_search to get the search string
+woas.ui.search_focus = function (el, custom) {
+	// next two should be optional params to focus_textbox
+	if (custom && current === "Special::Search") {
+		// trigger focus event
+		d$('special_search').select();
+		woas.ui.top();
 	} else {
-		if (current != "Special::Search")
-			woas.ui.blur_textbox();
+		woas.ui._textbox_enter_event = woas.do_search;
+		woas.ui._textbox_enter_el = el;
+		woas.ui.focus_textbox();
 	}
 }
 
-// PVHL: noclear was never used in current code; removed
-//   progress doesn't work; removed
+// PVHL: method retained for compatibility' sake, but should be in ui
+//   or a search namespace; can still be used as before with str.
+//   - noclear was never used in current code; removed
+//   - progress doesn't work; removed
+//   'this' may belong to a key handler
 woas.do_search = function(str) {
+	// assume keyboard call
+	if (!str) {
+		// el should have been set by search box
+		var el = woas.ui._textbox_enter_el;
+		str = el ? el.value : '';
+	}
 	if (!str) {
 		return;
 	}
 	// clear previous search results
-	this.ui.clear_search(true);
+	woas.ui.clear_search(true);
 	// cache new search results
-	this._cache_search(str);
+	woas._cache_search(str);
 	// refresh the search page, or go to it if we are not there
-	this.ui._search_render();
+	woas.ui._search_render();
 };
 
 // Used by Special::Options page
@@ -992,17 +974,7 @@ woas.progress_finish = function(section) {
 	this._progress_section = false;
 };
 
-function search_focus(focused) {
-	if (focused) {
-		woas.ui._textbox_enter_event = ssearch_do_search;
-		woas.ui.focus_textbox();
-	} else {
-		woas.ui.blur_textbox();
-	}
-}
-
 woas._hl_marker = _random_string(10)+":%d:";
-
 woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
@@ -1044,12 +1016,12 @@ woas._search_load = function() {
 		= woas.ui.blur_textbox;
 
 	if (this._last_search) {
-		// position cursor back in search box with highlighted text
-		tmp = d$("string_to_search");
+		// position cursor back in search box with text selected
+		tmp = d$("special_search");
 		tmp.value = this._last_search;
-		tmp.focus();
 		tmp.select();
 
+		// prepare search term
 		tmp = woas.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, hl);

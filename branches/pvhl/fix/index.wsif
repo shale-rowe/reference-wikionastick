@@ -222,7 +222,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 = Search in Wiki
-<input id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />&nbsp;<input class="woas_button" type="button" value="Options" onclick="d$.toggle('woas_search_options');woas.search_options=d$.is_visible('woas_search_options')" />
+<input id="special_search" type="text" onfocus="woas.ui.search_focus(this)" onblur="woas.ui.blur_textbox()" />&nbsp;<input class="woas_button" type="button" value="Search" onclick="woas.do_search()" />&nbsp;<input class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" />&nbsp;<input class="woas_button" type="button" value="Options" onclick="d$.toggle('woas_search_options');woas.search_options=d$.is_visible('woas_search_options')" />
 <div id="woas_search_options">
 <p>*Include:* <label><input type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" />&nbsp;Help pages</label></p>
 <p>*Search Type:* <label><input type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set('woas_search_word',woas.search_word=true)">&nbsp;Ordered words</label> &nbsp; <label><input type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set('woas_search_word',woas.search_word=false)">&nbsp;Phrase</label></p>
@@ -1048,9 +1048,8 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when you are writing CSS customization.
-
-<<<woas.note: A tutorial about CSS is available at [[http://www.w3schools.com/css/]].>>>
+The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use the WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when writing your own custom CSS.
+<<<woas.note: Many CSS tutorials are freely available on the web, like this [[http://htmldog.com/guides/cssbeginner/|CSS beginner tutorial]] from /HTML Dog/ or the [[http://www.csstutorial.net|CSS tutorial videos]] by /Stefan Mischook/. CSS is the best way to control the look of your pages and well worth learning.>>>
 == Customizing CSS
 # Access [[WoaS::CSS::Core]] either directly or from [[Special::Advanced]]
 # Copy the CSS definitions you want to customize
@@ -1065,7 +1064,7 @@ You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::
 == Import CSS rules into your wiki
 You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*
 
-Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:
+Importing from older versions of WoaS can garble the layout of the wiki if the underlying HTML design has changed. There are two ways to avoid problems:
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it's still in use before saving your changes.
 # Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the [[WoaS::CSS::Custom]] page.
 === Create a test page for your custom CSS
@@ -1073,16 +1072,15 @@ Importing from older versions of WoaS can garble the layout of the wiki. There a
 # Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.
 # Create a [[Special::New Page|new page]]
 # Insert this opening tag at the top of the page:<br/>{{{
-<style type="text/CSS">
-}}}
+<style>
+}}}(A properly-formed style tag will be created by the wiki.)
 # Paste your CSS rules beneath the tag.
-# Insert this closing tag at the bottom of the page:<br/>{{{
+# Insert this closing tag at the bottom of the page:{{{
 </style>
 }}}
-# Save changes
-
+# Save your changes
 Once you have tested your CSS on a single page you can choose whether to move such CSS definitions to [[WoaS::CSS::Custom]] or not.
-
+<<<woas.note: A style tag containing custom CSS can also be added, as explained above, to the main [[WoaS::Help::Menu|menu]] or to a [[WoaS::Help::Namespaces#Namespace sub-menu|namespace sub-menu]]. It will then control the layout of the wiki for all pages using that menu!>>>
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Special::Dead Pages
 woas.page.attributes: 0
@@ -3507,7 +3505,7 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-<input style="font-size:.75em;" id="menu_string_to_search" type="text" size="19" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" />&nbsp;<input style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" />
+<input class="woas_template_search" type="text" size="19" onfocus="woas.ui.search_focus(this, true)" onblur="woas.ui.blur_textbox()" />&nbsp;<input class="woas_button woas_template_search" type="button" value="Search" onclick="woas.do_search()" />
 
 --DFQRCTsKlU
 woas.page.title: WoaS::Help::Export
@@ -4187,7 +4185,7 @@ pre {
 	padding: 1.25em
 }
 .woas_embedded {
-	background-color: #9E9EFF
+	background-color: #ccf
 }
 .woas_nowiki {
 	padding: 0px 0.25em
@@ -4323,6 +4321,9 @@ img.woas_nav { /* woas logo */
 .woas_search_head {
 	font-weight: bold;
 	font-family: sans-serif
+}
+.woas_template_search{
+	font-size:.75em
 }
 
 /* TABLE OF CONTENTS */
