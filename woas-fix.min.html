@@ -314,7 +314,7 @@ By the way, if you want to change the menu width the CSS you need to add to [[Wo
 They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn\'t realize before that WoaS really only works at its best in /Firefox/.\n\
 ',
 '= Search in Wiki\n\
-\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
+\x3Cinput id="special_search" type="text" onfocus="woas.ui.search_focus(this)" onblur="woas.ui.blur_textbox()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="woas.do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
 \x3Cdiv id="woas_search_options"\x3E\n\
 \x3Cp\x3E*Include:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" /\x3E&nbsp;Help pages\x3C/label\x3E\x3C/p\x3E\n\
 \x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=true)"\x3E&nbsp;Ordered words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=false)"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
@@ -980,9 +980,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 \n\
 If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. The orginal wiki should then be automatically reloaded from the file..\n\
 ',
-'The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when you are writing CSS customization.\n\
-\n\
-\x3C\x3C\x3Cwoas.note: A tutorial about CSS is available at [[http://www.w3schools.com/css/]].\x3E\x3E\x3E\n\
+'The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use the WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when writing your own custom CSS.\n\
+\x3C\x3C\x3Cwoas.note: Many CSS tutorials are freely available on the web, like this [[http://htmldog.com/guides/cssbeginner/|CSS beginner tutorial]] from /HTML Dog/ or the [[http://www.csstutorial.net|CSS tutorial videos]] by /Stefan Mischook/. CSS is the best way to control the look of your pages and well worth learning.\x3E\x3E\x3E\n\
 == Customizing CSS\n\
 # Access [[WoaS::CSS::Core]] either directly or from [[Special::Advanced]]\n\
 # Copy the CSS definitions you want to customize\n\
@@ -997,7 +996,7 @@ You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::
 == Import CSS rules into your wiki\n\
 You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*\n\
 \n\
-Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:\n\
+Importing from older versions of WoaS can garble the layout of the wiki if the underlying HTML design has changed. There are two ways to avoid problems:\n\
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it\'s still in use before saving your changes.\n\
 # Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the [[WoaS::CSS::Custom]] page.\n\
 === Create a test page for your custom CSS\n\
@@ -1005,16 +1004,15 @@ Importing from older versions of WoaS can garble the layout of the wiki. There a
 # Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.\n\
 # Create a [[Special::New Page|new page]]\n\
 # Insert this opening tag at the top of the page:\x3Cbr/\x3E{{{\n\
-\x3Cstyle type="text/CSS"\x3E\n\
-}}}\n\
+\x3Cstyle\x3E\n\
+}}}(A properly-formed style tag will be created by the wiki.)\n\
 # Paste your CSS rules beneath the tag.\n\
-# Insert this closing tag at the bottom of the page:\x3Cbr/\x3E{{{\n\
+# Insert this closing tag at the bottom of the page:{{{\n\
 \x3C/style\x3E\n\
 }}}\n\
-# Save changes\n\
-\n\
+# Save your changes\n\
 Once you have tested your CSS on a single page you can choose whether to move such CSS definitions to [[WoaS::CSS::Custom]] or not.\n\
-',
+\x3C\x3C\x3Cwoas.note: A style tag containing custom CSS can also be added, as explained above, to the main [[WoaS::Help::Menu|menu]] or to a [[WoaS::Help::Namespaces#Namespace sub-menu|namespace sub-menu]]. It will then control the layout of the wiki for all pages using that menu!\x3E\x3E\x3E',
 'This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it\'s on are shown in each entry.\n\
 \n\
 Fixing dead pages is a good way to not break end-user browsing experience.\n\
@@ -3191,7 +3189,7 @@ This method is used to import pages that have been exported using the WSIF forma
 # Choose the options to use\n\
 # Click the *Import WSIF* button\n\
 ',
-'\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="19" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
+'\x3Cinput class="woas_template_search" type="text" size="19" onfocus="woas.ui.search_focus(this, true)" onblur="woas.ui.blur_textbox()" /\x3E&nbsp;\x3Cinput class="woas_button woas_template_search" type="button" value="Search" onclick="woas.do_search()" /\x3E\n\
 ',
 '== Exporting into XHTML static pages\n\
 /See: [[WoaS::Help::Special::Export|Special::Export]] for a more detailed explanation./\n\
@@ -3815,7 +3813,7 @@ pre {\n\
 	padding: 1.25em\n\
 }\n\
 .woas_embedded {\n\
-	background-color: #9E9EFF\n\
+	background-color: #ccf\n\
 }\n\
 .woas_nowiki {\n\
 	padding: 0px 0.25em\n\
@@ -3951,6 +3949,9 @@ img.woas_nav { /* woas logo */\n\
 .woas_search_head {\n\
 	font-weight: bold;\n\
 	font-family: sans-serif\n\
+}\n\
+.woas_template_search{\n\
+	font-size:.75em\n\
 }\n\
 \n\
 /* TABLE OF CONTENTS */\n\
@@ -5116,7 +5117,7 @@ return"== Links to [["+pg_title+"]]\n"+this._join_list(pg);};woas._nearby_chars=
 this._reLastSearch=new RegExp(str,sc);reg=new RegExp(".{0,"+this._nearby_chars+"}"+str+".{0,"+this._nearby_chars+"}",sc);for(i=0,l=pages.length;i<l;i++){pt=page_titles[i];ph=this.search_help&&pt.indexOf('WoaS::Help::')===0;if(this.is_image(pt)||!ph&&!this.tweak.edit_override&&this.is_reserved(pt))
 continue;pt_arr.push(pt+'_'+i);}
 pt_arr.sort();for(i=0,l=pt_arr.length;i<l;i++){pt=pt_arr[i],tmp=pt.lastIndexOf('_');pi=pt.substr(tmp+1);pt=pt.substr(0,tmp);if(pt.search(this._reLastSearch)!==-1){this._cached_title_search.push(pt);}
-tmp=this.get_page(pi);if(tmp===null){return}
+tmp=this.get_page(pi);if(tmp===null){continue}
 res_body=tmp.match(reg);if(res_body!==null)
 this._cached_body_search.push({title:pt,matches:res_body});}
 pt_arr=null;};woas.special_tagged=function(filter_string){var reFindTags=/\[\[Tags?::([^\]]+)\]\]/g,pg=[],pgi=[],folds={},tags,tag,tagns,alltags,src,i,il,j,jl,k,kl,tmp,filtering;if(typeof filter_string!="undefined"){filtering=woas.tagging._prepare_filter(filter_string);}else{filtering=false;}
@@ -5379,7 +5380,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2531"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2534"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5761,13 +5762,13 @@ woas.parser.reReapTables=/^\{\|.*((?:\n\|.*)*)$/gm;woas.parser.reReapTableRows=/
 return;else if(pp1=='+'){caption=caption||pp2;return;}
 stk.push('<'+'td>'+pp2.split('||').join('<'+'/td><'+'td>')+'<'+'/td>');});if(stk.length)
 return'<'+'table class="woas_text_area">'+(caption?('<'+'caption>'+caption+'<'+'/caption>'):'')+'<'+'tr>'+stk.join('<'+'/tr><'+'tr>')+'<'+'/tr>'+'<'+'/table>'+woas.parser.NL_MARKER;return str;};woas.refresh_menu_area=function(){woas.log("WARNING: Called deprecated function: woas.refresh_menu_area (now woas.ui.refresh_menu)");this.ui.refresh_menu();}
-woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._textbox_focus=true;},blur_textbox:function(){woas.ui._textbox_focus=false;ff_fix_focus();this._textbox_enter_event=this._textbox_enter_event_dummy;},_textbox_enter_event_dummy:function(){},_textbox_enter_event:null,_custom_key_hook:function(orig_e){return true;},_keyboard_event_hook:function(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which;if(!woas.ui.edit_mode){if(!woas.ui._custom_key_hook(orig_e))
-return orig_e;if(woas.ui._textbox_focus){if(ck==13){ff_fix_focus();(woas.ui._textbox_enter_event)();return false;}
+woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._textbox_focus=true;},blur_textbox:function(){woas.ui._textbox_focus=false;ff_fix_focus();this._textbox_enter_event=this._textbox_enter_event_dummy;},_textbox_enter_event_dummy:function(){},_textbox_enter_event:null,_custom_key_hook:function(orig_e){return true;},_keyboard_event_hook:function(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which,ui=woas.ui;if(!ui.edit_mode){if(!ui._custom_key_hook(orig_e))
+return orig_e;if(ui._textbox_focus){if(ck==13){ff_fix_focus();(ui._textbox_enter_event)();return false;}
 return orig_e;}
-if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){woas.ui.back();ff_fix_focus();return false;}}else if(ck==woas.hotkey.all.cancel){woas.ui.cancel();ff_fix_focus();return false;}
+if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){ui.back();ff_fix_focus();return false;}}else if(ck==woas.hotkey.all.cancel){ui.cancel();ff_fix_focus();return false;}
 return orig_e;},help:function(){var pg;if(this.edit_mode){pg="Editor";}else{pg=current;if(pg.lastIndexOf('::')===pg.length-2){pg=pg.substring(0,pg.length-2);}
 if(pg.indexOf('WoaS::')===0&&woas.help_system._help_lookup.indexOf(pg.substr(6))!==-1){pg=pg.substr(6);}}
-woas.help_system.go_to([pg,'']);},tables_help:function(){woas.help_system.go_to(["Tables",'']);},clear_search:function(no_render){if(current==="Special::Search"){d$("string_to_search").value="";d$("string_to_search").focus();}
+woas.help_system.go_to([pg,'']);},tables_help:function(){woas.help_system.go_to(["Tables",'']);},clear_search:function(no_render){if(current==="Special::Search"){d$("special_search").value="";d$("special_search").focus();}
 woas._last_search=null;if(!no_render)
 this._search_render();},about:function(){if(!this.edit_mode)
 woas.go_to("Special::About");},_search_render:function(){if(current==="Special::Search"){woas._search_load();}else
@@ -5794,7 +5795,7 @@ if((ds&&fn&&ds!==fn)){str+=i.WSIF_EXIST;}
 if(this.wsif_ds_multi&&(!ds||fn)){str+=i.WSIF_PAGES;}}
 if(str&&confirm(str+i.CHOOSE_CANCEL)){woas.config.wsif_ds=fn;woas.wsif.ds_multi=fn&&this.wsif_ds_multi;woas.full_commit();woas.set_current(current,true,true);}else{fn=ds;this.wsif_ds_multi=woas.wsif.ds_multi;str='';}}
 if(chk_box){chk_box.checked=woas.bool2chk(woas.wsif.ds_multi);if(!set){fn=ds;}}
-if(!str){txt_box.value=is_windows?fn.replace(reFwdSlash,'\\'):fn;}}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){var parts=cr.split('#'),section=parts[1],r=true,mv=0,el;cr=parts[0];if(cr.indexOf(this.help_system._pfx)===0&&cr.substr(-2)!=='::'&&current&&page_titles.indexOf(parts[0])!==-1){parts[0]=cr.substr(this.help_system._pfx.length);if(!parts[1]){parts[1]='';}
+if(!str){txt_box.value=is_windows?fn.replace(reFwdSlash,'\\'):fn;}}};woas.ui._textbox_enter_event=woas.ui._textbox_enter_event_dummy;woas.go_to=function(cr){var parts=cr.split('#'),section=parts[1],r=true,mv=0,el;cr=parts[0];if(!this.tweak.edit_override&&cr.indexOf(this.help_system._pfx)===0&&cr.substr(-2)!=='::'&&current&&page_titles.indexOf(parts[0])!==-1){parts[0]=cr.substr(this.help_system._pfx.length);if(!parts[1]){parts[1]='';}
 woas.help_system.go_to(parts);return true;}
 if(this.ui.edit_mode||this.ui.display('pswd')){return false;}
 if(cr&&cr!==current){r=this.set_current(cr,true);}
@@ -5862,15 +5863,10 @@ pg=null;}};function menu_dblclick(){if(!woas.config.dblclick_edit)
 return false;woas.ui.edit_menu();return true;}
 function page_dblclick(){if(!woas.config.dblclick_edit)
 return false;edit();return true;}
-function menu_do_search(){var str=d$('menu_string_to_search').value;if(current==="Special::Search"){d$('string_to_search').value=str;}
-woas.do_search(str);}
-function ssearch_do_search(){var str=d$("string_to_search").value;woas.do_search(str);}
-function menu_key_hook(orig_e){var e=orig_e||window.event,ck=e.keyCode||e.which;if(ck==13){ff_fix_focus();menu_do_search();return false;}
-return orig_e;}
-function menu_search_focus(f){if(f){if(current=="Special::Search"){d$('string_to_search').focus();woas.ui.top();}else{woas.ui.focus_textbox();}}else{if(current!="Special::Search")
-woas.ui.blur_textbox();}}
-woas.do_search=function(str){if(!str){return;}
-this.ui.clear_search(true);this._cache_search(str);this.ui._search_render();};function save_options(){if(!woas.config.permit_edits){alert(woas.i18n.READ_ONLY);return false;}
+woas.ui.search_focus=function(el,custom){if(custom&&current==="Special::Search"){d$('special_search').select();woas.ui.top();}else{woas.ui._textbox_enter_event=woas.do_search;woas.ui._textbox_enter_el=el;woas.ui.focus_textbox();}}
+woas.do_search=function(str){if(!str){var el=woas.ui._textbox_enter_el;str=el?el.value:'';}
+if(!str){return;}
+woas.ui.clear_search(true);woas._cache_search(str);woas.ui._search_render();};function save_options(){if(!woas.config.permit_edits){alert(woas.i18n.READ_ONLY);return false;}
 woas.cfg_commit();woas.set_current(current,false);}
 function ro_woas(){if(!woas.config.permit_edits){alert(woas.i18n.WRITE_PROTECTED);return false;}
 if(confirm(woas.i18n.CONFIRM_READ_ONLY+woas.i18n.CHOOSE_CANCEL)){woas.config.permit_edits=false;woas.ui.display({ro:true});woas.cfg_commit();woas.set_current(current,true,true);}}
@@ -5921,8 +5917,7 @@ return true;};woas.popup=function(name,fw,fh,extra,head,body,body_extra,html_ext
 Math.ceil(ratio*100)+"% done");};woas._progress_section=false;woas.progress_init=function(section){if(this._progress_section!==false){this.crash("Progress indicator already started for "+this._progress_section+", will not start a new one for "+section);return;}
 this._progress_section=section;if(typeof section=="undefined")
 section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);if(this.ui.display('wait')){this.ui.display({wait:false});}
-this._progress_section=false;};function search_focus(focused){if(focused){woas.ui._textbox_enter_event=ssearch_do_search;woas.ui.focus_textbox();}else{woas.ui.blur_textbox();}}
-woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var out=[],total=0,count,i,it,ib,r,a,at,cbs,bm,bma,s,tmp,wp=woas.parser,hl_marker=_random_string(10)+":%d:",hl_marker_rx=new RegExp(hl_marker+":(\\d+):","g"),hd='<p %sclass="woas_search_head">%s<\/p><ul>\n',sstr='<em>%s <span class="woas_search_highlight">%s<\/span><\/em>',hl='<\/span> <span class="woas_search_highlight">',li='<li><a class="woas_link" title="" onclick="woas.go_to(\'%s\')">'+'%s<\/a>%s<\/li>',fnd_t='Found in %s title%s';fnd_p='Found %s time%s in %s page%s',fnd_n=' - found <b>%s<\/b> time%s',nres='The last search did not find',res='Last search results for';d$.set('woas_search_options',this.search_options);d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set('woas_search_word',this.search_word);d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search){tmp=d$("string_to_search");tmp.value=this._last_search;tmp.focus();tmp.select();tmp=woas.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,hl);}
+this._progress_section=false;};woas._hl_marker=_random_string(10)+":%d:";woas._hl_marker_rx=new RegExp(woas._hl_marker+":(\\d+):","g");woas._search_load=function(){var out=[],total=0,count,i,it,ib,r,a,at,cbs,bm,bma,s,tmp,wp=woas.parser,hl_marker=_random_string(10)+":%d:",hl_marker_rx=new RegExp(hl_marker+":(\\d+):","g"),hd='<p %sclass="woas_search_head">%s<\/p><ul>\n',sstr='<em>%s <span class="woas_search_highlight">%s<\/span><\/em>',hl='<\/span> <span class="woas_search_highlight">',li='<li><a class="woas_link" title="" onclick="woas.go_to(\'%s\')">'+'%s<\/a>%s<\/li>',fnd_t='Found in %s title%s';fnd_p='Found %s time%s in %s page%s',fnd_n=' - found <b>%s<\/b> time%s',nres='The last search did not find',res='Last search results for';d$.set('woas_search_options',this.search_options);d$('woas_search_cb_help').checked=woas.bool2chk(this.search_help);d$('woas_search_cb_words').checked=woas.bool2chk(this.search_word);d$('woas_search_cb_phrase').checked=!woas.bool2chk(this.search_word);d$.set('woas_search_word',this.search_word);d$('woas_search_cb_case').checked=woas.bool2chk(this.search_case);d$('woas_search_cb_inline').checked=woas.bool2chk(this.search_inline);d$('woas_search_cb_start').checked=woas.bool2chk(this.search_start);d$('woas_search_cb_end').checked=woas.bool2chk(this.search_end);d$('woas_search_txt_context').value=this._nearby_chars;d$('woas_search_txt_length').value=this._match_length;d$('woas_search_txt_context').onfocus=d$('woas_search_txt_length').onfocus=woas.ui.focus_textbox;d$('woas_search_txt_context').onblur=d$('woas_search_txt_length').onblur=woas.ui.blur_textbox;if(this._last_search){tmp=d$("special_search");tmp.value=this._last_search;tmp.select();tmp=woas.xhtml_encode(this._last_search);if(this.search_word){tmp=tmp.replace(/\s+/g,hl);}
 it=this._cached_title_search.length;ib=this._cached_body_search.length;if(it+ib===0){out.push(sstr.sprintf(nres,tmp));}else{out.push(sstr.sprintf(res,tmp));if(it>0){out.push(hd.sprintf('',fnd_t.sprintf(it,it===1?'':'s')));for(i=0;i<it;++i){tmp=this._cached_title_search[i];out.push(li.sprintf(tmp,tmp.replace(woas._reLastSearch,function(str){return'<span class="woas_search_highlight">'+str+'<\/span>';}),'')+'\n');}
 out.push('<\/ul>\n');}
 if(ib>0){out.push(hd.sprintf('id="woas_search_pages" ','&nbsp;'));for(i=0;i<ib;++i){count=0,r=[],s=[];cbs=this._cached_body_search[i],bm=cbs.matches;for(a=0,at=bm.length;a<at;++a){bma=woas.xhtml_encode(bm[a].replace(this._reLastSearch,function(str){++count;s.push('<span class="woas_search_highlight">'+

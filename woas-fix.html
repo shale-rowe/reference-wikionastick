@@ -314,7 +314,7 @@ By the way, if you want to change the menu width the CSS you need to add to [[Wo
 They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn\'t realize before that WoaS really only works at its best in /Firefox/.\n\
 ',
 '= Search in Wiki\n\
-\x3Cinput id="string_to_search" type="text" onfocus="search_focus(true)" onblur="search_focus(false)" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="ssearch_do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
+\x3Cinput id="special_search" type="text" onfocus="woas.ui.search_focus(this)" onblur="woas.ui.blur_textbox()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Search" onclick="woas.do_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Clear" onclick="woas.ui.clear_search()" /\x3E&nbsp;\x3Cinput class="woas_button" type="button" value="Options" onclick="d$.toggle(\'woas_search_options\');woas.search_options=d$.is_visible(\'woas_search_options\')" /\x3E\n\
 \x3Cdiv id="woas_search_options"\x3E\n\
 \x3Cp\x3E*Include:* \x3Clabel\x3E\x3Cinput type="checkbox" id="woas_search_cb_help" onclick="woas.search_help=!!(this.checked)" /\x3E&nbsp;Help pages\x3C/label\x3E\x3C/p\x3E\n\
 \x3Cp\x3E*Search Type:* \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_words" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=true)"\x3E&nbsp;Ordered words\x3C/label\x3E &nbsp; \x3Clabel\x3E\x3Cinput type="radio" id="woas_search_cb_phrase" name="woas_search_cb_type" onclick="d$.set(\'woas_search_word\',woas.search_word=false)"\x3E&nbsp;Phrase\x3C/label\x3E\x3C/p\x3E\n\
@@ -980,9 +980,8 @@ When browsing the pages in this Help pop-up, you will find an *Index* button in 
 \n\
 If you have not given permanent permission to your browser for editing wiki pages, you will receive a security warning when attempting to erase the wiki. If you deny permission to the browser, you will receive a message that saving the file failed. The orginal wiki should then be automatically reloaded from the file..\n\
 ',
-'The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when you are writing CSS customization.\n\
-\n\
-\x3C\x3C\x3Cwoas.note: A tutorial about CSS is available at [[http://www.w3schools.com/css/]].\x3E\x3E\x3E\n\
+'The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use the WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when writing your own custom CSS.\n\
+\x3C\x3C\x3Cwoas.note: Many CSS tutorials are freely available on the web, like this [[http://htmldog.com/guides/cssbeginner/|CSS beginner tutorial]] from /HTML Dog/ or the [[http://www.csstutorial.net|CSS tutorial videos]] by /Stefan Mischook/. CSS is the best way to control the look of your pages and well worth learning.\x3E\x3E\x3E\n\
 == Customizing CSS\n\
 # Access [[WoaS::CSS::Core]] either directly or from [[Special::Advanced]]\n\
 # Copy the CSS definitions you want to customize\n\
@@ -997,7 +996,7 @@ You can always restore WoaS default CSS by deleting the content of [[WoaS::CSS::
 == Import CSS rules into your wiki\n\
 You can import the CSS rules from another copy of WoaS by following the instructions for [[WoaS::Help::Import|importing]] another wiki into the current one and placing a check in the box next to *Import custom CSS.*\n\
 \n\
-Importing from older versions of WoaS can garble the layout of the wiki. There are two ways to avoid this:\n\
+Importing from older versions of WoaS can garble the layout of the wiki if the underlying HTML design has changed. There are two ways to avoid problems:\n\
 # Manually transfer the CSS from the older version of WoaS into the [[WoaS::CSS::Custom]] page by copying and pasting it, checking the class and id of each entry against the default CSS rules on the [[WoaS::CSS::Core]] page to verify that it\'s still in use before saving your changes.\n\
 # Create a new page with style tags in it and paste your CSS into that page to test it before adding it to the [[WoaS::CSS::Custom]] page.\n\
 === Create a test page for your custom CSS\n\
@@ -1005,16 +1004,15 @@ Importing from older versions of WoaS can garble the layout of the wiki. There a
 # Make sure that the box is /not/ checked next to *Remember current page and navigation history*. Save the change if you had to uncheck the box.\n\
 # Create a [[Special::New Page|new page]]\n\
 # Insert this opening tag at the top of the page:\x3Cbr/\x3E{{{\n\
-\x3Cstyle type="text/CSS"\x3E\n\
-}}}\n\
+\x3Cstyle\x3E\n\
+}}}(A properly-formed style tag will be created by the wiki.)\n\
 # Paste your CSS rules beneath the tag.\n\
-# Insert this closing tag at the bottom of the page:\x3Cbr/\x3E{{{\n\
+# Insert this closing tag at the bottom of the page:{{{\n\
 \x3C/style\x3E\n\
 }}}\n\
-# Save changes\n\
-\n\
+# Save your changes\n\
 Once you have tested your CSS on a single page you can choose whether to move such CSS definitions to [[WoaS::CSS::Custom]] or not.\n\
-',
+\x3C\x3C\x3Cwoas.note: A style tag containing custom CSS can also be added, as explained above, to the main [[WoaS::Help::Menu|menu]] or to a [[WoaS::Help::Namespaces#Namespace sub-menu|namespace sub-menu]]. It will then control the layout of the wiki for all pages using that menu!\x3E\x3E\x3E',
 'This page displays a list of pages that contain links to nonexistent pages. Both the link and the page it\'s on are shown in each entry.\n\
 \n\
 Fixing dead pages is a good way to not break end-user browsing experience.\n\
@@ -3191,7 +3189,7 @@ This method is used to import pages that have been exported using the WSIF forma
 # Choose the options to use\n\
 # Click the *Import WSIF* button\n\
 ',
-'\x3Cinput style="font-size:.75em;" id="menu_string_to_search" type="text" size="19" onkeydown="return menu_key_hook(event)" onfocus="menu_search_focus(true)" onblur="menu_search_focus(false)" /\x3E&nbsp;\x3Cinput style="font-size:.75em;" class="woas_button" type="button" value="Search" onclick="menu_do_search()" /\x3E\n\
+'\x3Cinput class="woas_template_search" type="text" size="19" onfocus="woas.ui.search_focus(this, true)" onblur="woas.ui.blur_textbox()" /\x3E&nbsp;\x3Cinput class="woas_button woas_template_search" type="button" value="Search" onclick="woas.do_search()" /\x3E\n\
 ',
 '== Exporting into XHTML static pages\n\
 /See: [[WoaS::Help::Special::Export|Special::Export]] for a more detailed explanation./\n\
@@ -3815,7 +3813,7 @@ pre {\n\
 	padding: 1.25em\n\
 }\n\
 .woas_embedded {\n\
-	background-color: #9E9EFF\n\
+	background-color: #ccf\n\
 }\n\
 .woas_nowiki {\n\
 	padding: 0px 0.25em\n\
@@ -3951,6 +3949,9 @@ img.woas_nav { /* woas logo */\n\
 .woas_search_head {\n\
 	font-weight: bold;\n\
 	font-family: sans-serif\n\
+}\n\
+.woas_template_search{\n\
+	font-size:.75em\n\
 }\n\
 \n\
 /* TABLE OF CONTENTS */\n\
@@ -7536,7 +7537,6 @@ woas._cache_search = function( str ) {
 	}
 	pt_arr.sort();
 	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
-
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
@@ -7547,26 +7547,31 @@ woas._cache_search = function( str ) {
 			this._cached_title_search.push(pt);
 		}
 
-		// look for string in body
+		// ensure page is valid
 		tmp = this.get_page(pi);
 		if (tmp === null) {
-			return
+			continue
 		}
-		/*
-		// IF NO SCRIPTS/HTML WANTED
-		// needs tidying up, but I don't see the need for it.
+
+		// look for string in body
+
+		// IF NO PAGE SCRIPTS WANTED (html included as it is markup).
+		// I don't see the need for it.
 		// (having spent hours making it all work!)
-		var s = [], wp = woas.parser;
-		tmp = tmp.replace(wp.reDry, function(str) {
+		// May add an option for this later as it's fairly cheap to use.
+		/*var s = [], wp = woas.parser;
+		tmp = tmp.replace(/\{{3}[\s\S]*?\}{3}/, function(str) {
 				s.push(str);return wp.marker+(s.length-1)+';'})
-			.replace(reScriptTags, '').replace(reAnyXHTML, '');
+			.replace(reScriptTags, '');
+			// if also don't want html tags (except those in nowiki)
+			//.replace(reAnyXHTML, '');
 		if (s.length) {
 			tmp = tmp.replace(wp.reBaseSnippet, function (str, $1) {
 				return s[parseInt($1)];
 			});
 		}
-		s = null;
-		*/
+		s = null;*/
+
 		res_body = tmp.match(reg);
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
@@ -9882,7 +9887,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2531"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2534"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -13539,32 +13544,33 @@ PVHL: FIX; this needs to be changed as
 */
 	_keyboard_event_hook: function(orig_e) {
 		var e = orig_e || window.event,
-			ck = e.keyCode || e.which;
-		if (!woas.ui.edit_mode) {
+			ck = e.keyCode || e.which,
+			ui = woas.ui;
+		if (!ui.edit_mode) {
 			// there is a custom focus active, call the hook
 			// and return if it told us to do so
-			if (!woas.ui._custom_key_hook(orig_e))
+			if (!ui._custom_key_hook(orig_e))
 				return orig_e;
-			if (woas.ui._textbox_focus) {
+			if (ui._textbox_focus) {
 				// return key
 				if (ck == 13) {
 					// clear focus
 					ff_fix_focus();
 					// run attached event
-					(woas.ui._textbox_enter_event)();
+					(ui._textbox_enter_event)();
 					return false;
 				}
 				return orig_e;
 			}
 			// back or cancel keys
 			if ((ck == woas.hotkey.all.back) || (ck == woas.hotkey.all.cancel)) {
-				woas.ui.back();
+				ui.back();
 				ff_fix_focus();
 				return false;
 			}
 		} else if (ck == woas.hotkey.all.cancel) {
 			// cancel key in edit mode
-			woas.ui.cancel();
+			ui.cancel();
 			ff_fix_focus();
 			return false;
 		}
@@ -13597,8 +13603,8 @@ PVHL: FIX; this needs to be changed as
 	clear_search: function(no_render) {
 //		woas.log("Clearing search"); //log:0
 		if (current === "Special::Search") {
-			d$("string_to_search").value = "";
-			d$("string_to_search").focus();
+			d$("special_search").value = "";
+			d$("special_search").focus();
 		}
 		// clear search
 		woas._last_search = null;
@@ -13867,10 +13873,11 @@ woas.ui._textbox_enter_event = woas.ui._textbox_enter_event_dummy;
 woas.go_to = function(cr) {
 	var parts = cr.split('#'), section = parts[1], r = true, mv = 0, el;
 	cr = parts[0];
-	if (cr.indexOf(this.help_system._pfx) === 0 && cr.substr(-2) !== '::'
-			&& current && page_titles.indexOf(parts[0]) !== -1) {
+	if (!this.tweak.edit_override && cr.indexOf(this.help_system._pfx) === 0 &&
+			cr.substr(-2) !== '::' && current &&
+			page_titles.indexOf(parts[0]) !== -1) {
 		// help system handles all help pages except WoaS::Help and namespace
-		// listings unless loading wiki (current is empty)
+		// listings unless loading wiki (current not set) or in developer mode
 		parts[0] = cr.substr(this.help_system._pfx.length);
 		if (!parts[1]) {
 			parts[1] = '';
@@ -14087,63 +14094,44 @@ function page_dblclick() {
 	return true;
 }
 
-/** Used by search box **/
-function menu_do_search() {
-	var str = d$('menu_string_to_search').value;
-	// directly use the search page if it is active
-    if (current === "Special::Search") {
-		d$('string_to_search').value = str;
-    }
-    woas.do_search(str);
-}
-
-// Used by Special::Search
-// make the actual search and cache the results
-function ssearch_do_search() {
-	var str = d$("string_to_search").value;
-	woas.do_search(str);
-}
-
-function menu_key_hook(orig_e) {
-	var e = orig_e || window.event,
-		ck = e.keyCode || e.which;
-    if (ck == 13) {
-		ff_fix_focus();
-		menu_do_search();
-        return false;
-     }
-     return orig_e;
-}
-
-//FIXME: this is entirely a bad hack
-function menu_search_focus(f) {
-	if (f) {
-		// prevent focus on the menu search box when the search page is active
-		if (current == "Special::Search") {
-//		ff_fix_focus();
-			d$('string_to_search').focus();
-			woas.ui.top();
-		} else {
-			woas.ui.focus_textbox();
-		}
+// Used by search boxes
+// PVHL: any custom search box sets 'custom' flag
+// More than one may be active at a time now.
+// 'el' is used by woas.do_search to get the search string
+woas.ui.search_focus = function (el, custom) {
+	// next two should be optional params to focus_textbox
+	if (custom && current === "Special::Search") {
+		// trigger focus event
+		d$('special_search').select();
+		woas.ui.top();
 	} else {
-		if (current != "Special::Search")
-			woas.ui.blur_textbox();
+		woas.ui._textbox_enter_event = woas.do_search;
+		woas.ui._textbox_enter_el = el;
+		woas.ui.focus_textbox();
 	}
 }
 
-// PVHL: noclear was never used in current code; removed
-//   progress doesn't work; removed
+// PVHL: method retained for compatibility' sake, but should be in ui
+//   or a search namespace; can still be used as before with str.
+//   - noclear was never used in current code; removed
+//   - progress doesn't work; removed
+//   'this' may belong to a key handler
 woas.do_search = function(str) {
+	// assume keyboard call
+	if (!str) {
+		// el should have been set by search box
+		var el = woas.ui._textbox_enter_el;
+		str = el ? el.value : '';
+	}
 	if (!str) {
 		return;
 	}
 	// clear previous search results
-	this.ui.clear_search(true);
+	woas.ui.clear_search(true);
 	// cache new search results
-	this._cache_search(str);
+	woas._cache_search(str);
 	// refresh the search page, or go to it if we are not there
-	this.ui._search_render();
+	woas.ui._search_render();
 };
 
 // Used by Special::Options page
@@ -14494,17 +14482,7 @@ woas.progress_finish = function(section) {
 	this._progress_section = false;
 };
 
-function search_focus(focused) {
-	if (focused) {
-		woas.ui._textbox_enter_event = ssearch_do_search;
-		woas.ui.focus_textbox();
-	} else {
-		woas.ui.blur_textbox();
-	}
-}
-
 woas._hl_marker = _random_string(10)+":%d:";
-
 woas._hl_marker_rx = new RegExp(woas._hl_marker+":(\\d+):", "g");
 
 // display search results
@@ -14546,12 +14524,12 @@ woas._search_load = function() {
 		= woas.ui.blur_textbox;
 
 	if (this._last_search) {
-		// position cursor back in search box with highlighted text
-		tmp = d$("string_to_search");
+		// position cursor back in search box with text selected
+		tmp = d$("special_search");
 		tmp.value = this._last_search;
-		tmp.focus();
 		tmp.select();
 
+		// prepare search term
 		tmp = woas.xhtml_encode(this._last_search);
 		if (this.search_word) {
 			tmp = tmp.replace(/\s+/g, hl);
