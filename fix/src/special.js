@@ -144,7 +144,6 @@ woas._cache_search = function( str ) {
 	}
 	pt_arr.sort();
 	//pt_arr.sort(this.strnatcmp); // natural sort, but need case insensitive; NRFPTY
-
 	for (i = 0, l = pt_arr.length; i < l; i++) {
 		pt = pt_arr[i], tmp = pt.lastIndexOf('_');
 		pi = pt.substr(tmp + 1);
@@ -155,26 +154,31 @@ woas._cache_search = function( str ) {
 			this._cached_title_search.push(pt);
 		}
 
-		// look for string in body
+		// ensure page is valid
 		tmp = this.get_page(pi);
 		if (tmp === null) {
-			return
+			continue
 		}
-		/*
-		// IF NO SCRIPTS/HTML WANTED
-		// needs tidying up, but I don't see the need for it.
+
+		// look for string in body
+
+		// IF NO PAGE SCRIPTS WANTED (html included as it is markup).
+		// I don't see the need for it.
 		// (having spent hours making it all work!)
-		var s = [], wp = woas.parser;
-		tmp = tmp.replace(wp.reDry, function(str) {
+		// May add an option for this later as it's fairly cheap to use.
+		/*var s = [], wp = woas.parser;
+		tmp = tmp.replace(/\{{3}[\s\S]*?\}{3}/, function(str) {
 				s.push(str);return wp.marker+(s.length-1)+';'})
-			.replace(reScriptTags, '').replace(reAnyXHTML, '');
+			.replace(reScriptTags, '');
+			// if also don't want html tags (except those in nowiki)
+			//.replace(reAnyXHTML, '');
 		if (s.length) {
 			tmp = tmp.replace(wp.reBaseSnippet, function (str, $1) {
 				return s[parseInt($1)];
 			});
 		}
-		s = null;
-		*/
+		s = null;*/
+
 		res_body = tmp.match(reg);
 		if (res_body !== null)
 			this._cached_body_search.push( {title:pt, matches: res_body} );
