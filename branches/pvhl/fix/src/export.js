@@ -140,9 +140,10 @@ woas.exporter = {
 					woas.scripting.activate("menu");
 				}
 				// fix also the encoding in the menus
-				exp_menu = 'div id="woas_menu_wrap"><'+'div id="woas_menu_pad"><'+
-					'div id="woas_menu">'+woas.utf8.do_escape(exp_menu)+'<'+
-					'/div><'+'/div><'+'/div><';
+				exp_menu = 'div id="woas_menu_wrap"><'+
+					'div id="woas_menu_jar"><'+'div id="woas_menu">'+
+					woas.utf8.do_escape(exp_menu)+'<'+'/div><'+'/div><'+
+					'/div><';
 			}
 		}
 		data = '<'+'div id="woas_header_wrap"><'+'div id="woas_header"><'+

@@ -272,13 +272,11 @@ PVHL: FIX; this needs to be changed as
 	},
 	set_header: function(fixed) {
 		if (!woas.browser.ie6) {
-			//d$("woas_header_wrap").style.position = (fixed ? "fixed" : "absolute");
 			this.display({fix_h: fixed}, true);
 		}
 	},
 	set_menu: function(fixed) {
 		if (!woas.browser.ie6) {
-			//d$("woas_menu_wrap").style.position = (fixed ? "fixed" : "absolute");
 			this.display({fix_m: fixed}, true);
 		}
 	},

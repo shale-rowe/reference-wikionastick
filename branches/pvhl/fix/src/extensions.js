@@ -1,6 +1,33 @@
 // @module scripting
 // @description manages custom scripts declared in menu and main page
 // All custom scripts can be defined in one of the two
+/*
+PVHL:
+  scripting needs to be rethought; Javascript tags can be removed from the DOM
+  without affecting the code that the tag initialized; it survives. Would need
+  to have all scripts added to a namespace closure so that the namespace could
+  be cleared. Facebook does something like this (by renaming variables), as
+  does adSafe, I believe, but it is not a trivial implementation task.
+
+  Also, because scripts are activated after the page is parsed and rendered,
+  (presumably to allow HTML to be accessed), macros are run before scripts.
+  This means that a macro cannot react to variable changes a page script makes,
+  resulting in unexpected behaviour as scripts aren't ever really cleared (the
+  expected change shows up the next time the macro is run).
+
+  I would also prefer if menu script was run BEFORE page script. Menu script
+  can change environment for entire namespace, so I want that done before my
+  page does its thing.
+
+  New code should add an attribute to script tag that tells it to run before
+  parsing. Could also have one that flags running on unload. Lastly, could have
+  one that only adds script if a certain namespace isn't already present.
+  <script[ run="[un]load"][ if="expression"][ src="name"]>
+  The if expression could be eval'ed to see whether or not to load:
+    if="!woas.custom.stuff",
+  or simply checked for existence:
+    if="woas.custom.stuff ... if (!window["if"]) scripting.add...
+*/
 woas.scripting = {
 	menu: [],	// scripts active in menu
 	page: [],	// scripts active in page
@@ -8,14 +35,6 @@ woas.scripting = {
 	_page_stacked: 0,	// ''
 
 	// remove all scripts from specified array (can be 'menu' or 'page')
-/*
-PVHL:
-  scripting needs to be rethought; Javascript tags can be removed from the DOM
-  without affecting the code that the tag initialized; it survives. Would need
-  to have all scripts added to a namespace closure so that the namespace could
-  be cleared. Facebook does something like this, as does adSafe, I believe,
-  but it is not a trivial implementation task.
-*/
 	clear: function(which) {
 		for(var i=0;i < this["_"+which+"_stacked"];++i) {
 			woas.dom.remove_script(which, i);
@@ -519,7 +538,7 @@ woas.hotkey = {
 		this._update_accesskeys(new_custom_accesskeys);
 	},
 
-	reHotkeys: /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_]+\))?\s+([\S]+)\s*$/gm
+	reHotkeys: /^\$([A-Za-z0-9_]{2,})(\([A-Za-z0-9_\.]+\))?\s+([\S]+)\s*$/gm
 };
 
 // call once during code setup to store the current default hotkeys
@@ -613,8 +632,12 @@ woas.macro = {
 				// analyze return value
 				if (rv === false) {
 					// when macro returns false we automatically highlight it
+					// PVHL: changed to use returned text instead of original text
+					//    Allows macro error reporting; will improve concept later
+					//    Macro can still just return original text if it wants to
 					macro.reprocess = false;
-					macro.text = woas.parser._make_preformatted(text, "color:#f00;font-weight:bold");
+					macro.text = woas.parser._make_preformatted(macro.text,
+						"color:#f00;font-weight:bold");
 				} else {
 					if (M[3] && macro.reprocess) {
 						// allows block level syntax to be used (headings, lists, etc.)
