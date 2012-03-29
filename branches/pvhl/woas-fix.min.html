@@ -3551,7 +3551,6 @@ body {\n\
 #woas_footer {\n\
 	*position: relative;\n\
 	border: 1px solid #F0F0F5; /* same as header */\n\
-	margin-top: 0.75em;\n\
 	padding: .375em\n\
 }\n\
 #woas_footer a {\n\
@@ -3731,7 +3730,7 @@ img.woas_img_list {\n\
 \n\
 /* LAST MODIFIED TIMESTAMP */\n\
 #woas_mts {\n\
-	margin-top: 0.75em;\n\
+	margin-bottom: 0.75em;\n\
 	color: #F0F0F5; /* same as header */\n\
 	font-size: small;\n\
 }\n\
@@ -4498,6 +4497,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
+* fix legacy d$.clone function error (mine) and footer margin CSS\n\
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)\n\
 * small change to macro code allows simple error reporting from macro\n\
 * more HTML/CSS fine-tuning; menu width control altered; #woas_menu_pad renamed to #woas_menu_jar\n\
@@ -5391,7 +5391,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2536"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2538"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5758,7 +5758,7 @@ var rv=this._native_wsif_load(path+d_fn,locking,_native,1,import_hook,title_filt
 this.wsif.do_error("Failed import of external "+path+d_fn);return rv;}
 break;default:this.wsif.do_error("Page "+title+" has invalid disposition: "+disposition);return false;}
 var NP={"title":title,"attrs":attrs,"body":page,"mts":last_mod};if(import_hook(NP)){this.wsif.imported.push(NP.i);return true;}
-return false;};d$.clone=function(o){woas.log("WARNING: Called deprecated function: d$.clone (now woas.clone)");woas.clone(o);};function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
+return false;};d$.clone=function(o){woas.log("WARNING: Called deprecated function: d$.clone (now woas.clone)");return woas.clone(o);};function bool2chk(b){woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");woas.bool2chk(b);}
 function _set_layout(fixed){woas.log("WARNING: Called deprecated function: _set_layout (now woas.ui.set_layout)");woas.ui.set_layout(fixed);}
 function home(){woas.log("WARNING: Called deprecated function: home (now woas.ui.home)");woas.ui.home();}
 function help(){woas.log("WARNING: Called deprecated function: help (now woas.ui.help)");woas.ui.help();}
