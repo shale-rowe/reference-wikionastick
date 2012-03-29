@@ -36,7 +36,6 @@ woas.page.boundary: DFQRCTsKlU
 
 
 [[Include::WoaS::Template::Search]]
-
 --DFQRCTsKlU
 woas.page.title: Special::Advanced
 woas.page.attributes: 0
@@ -163,33 +162,37 @@ WoaS is a great project and an incredibly useful tool -- and if you use Firefox 
 Perhaps I should have done this a long time ago ... I have been increasingly frustrated over the past months to see thousands of people downloading this broken code, but have not wanted to make this move, just as I tried hard not to fork the WoaS project itself: I have been waiting for the owner to come back. He did appear for a day a few months ago and gave me permission to add to these files, but has since disappeared again. No emails are answered and the official forums have been down for months. I don't know why this is -- I hope everything is fine with him -- but I finally decided to create a new project. Some of *[[http://sourceforge.net/p/woas/blog/2011/09/welcome-332/|my reasons for doing this are explained in this blog post]]*.
 
 The WoaS 0.12.0 code has not been updated in almost one-and-a-half years, though it corrupts files in Chrome, Opera, and Safari, and one of the previously included files (I have removed it to make room for this file) doesn't even load! So, this file is my current work as of when I uploaded it. The current code is in *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/|my SVN branch]]*, and that version should be used instead of this file. The easiest way right now is to *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/?view=tar|download the tarball]]*.
-
-*This file still has some unfixed issues:*
-* The Special::Export code is still being updated/fixed. It currently works about as well as the 0.12.0 version and so is, essentially, usable. I still have a few more fixes to do.
-
+\
+= Future work
 I am almost finished with my updating work. Once this is done I will be moving permanently to my new projects.
 
 * The *[[http://sourceforge.net/p/woas|Woas project]]* will one day be a very capable new system that is able to do all that WoaS does and much more. It will not be compatible with WoaS 0.12.0, though it will be able to import WoaS [[WoaS::Help::WSIF|WSIF]] files.
 
-* The *[[http://sourceforge.net/p/woas/legacy|Woas Legacy project]]* will use the final version of my fixed WoaS code and remain essentially compatible with WoaS 0.12.0
+* The *[[http://sourceforge.net/p/woas/legacy|Woas Legacy project]]* will use the final version of my fixed WoaS code and remain essentially compatible with WoaS 0.12.0; this means that the internal code design may change, but the overall look and feel will remain the same. I intend to bring this code to a {{{1.0}}} status and then help maintain it while I shift my focus to the Woas project.
 
 The next section details some of the changes I have made to the 0.12.0 code, and tonight I started a page that will detail [[Improvements|major changes]]; I've also included a [[log.txt|copy of the log.txt]] for this version, along with some additional information.
 
 Hope to see you there! Paul.
 \
-= Buyer Beware!
-*Please be aware* that this version is still unfinished. I believe it is safe with data (much safer than the original 0.12.0 version!), but it is still being updated. Almost done.
+= Current status
+*Please be aware* that this version is still unfinished. I believe it is safe with data (much safer than the original 0.12.0 version!), but it is still being updated. Almost done. I personally use it with my most important content.
 
-* *Check out the nice jump to [[Improvements#Layout|sections]] (and the folding TOC once you get to that page).* Also improved:
+*This file still has some unresolved issues:*
+* The Special::Export code is still being updated/fixed. It currently works about as well as the 0.12.0 version and so is, essentially, usable. I still have a few more fixes to do.
+* There is a macro parsing bug I introduced that I will get to very soon.
+* Some of the 'official' macros and plugins have not been updated to work with /woas-fix/ yet.
+* Not all the help pages have been updated to current capabilities.
+* Much of the layout HTML and IDs have changed during this phase, and there may be a few more yet. This has been done to improve the layout design, stability, and future theming capability.
+
+*But also some nice [[Improvements|fixes and enhancements]]:*
+* Chrome/Safari Java saving in Windows should now be properly fixed.
+* *Check out the nice jump to [[Improvements#Enhancements|sections]] (and the folding TOC once you get to that page).* Also improved:
 ** Long page names don't hide content
 ** Erasing the wiki (better menu layout)
 ** Using the [[WoaS::Help::Javascript#Using the Javascript:: namespace in a link|Javascript]] namespace is more powerful
 ** Image namespace listing allows better selecting and improved layout possibilities
-
-* Chrome/Safari Java saving in Windows should now be properly fixed.
 * The sub-menu system has been changed. Sub-menus now use their own page to replace the main menu; this allows much more versatile designs.
-* This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try plugins that change the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up. This new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that  mess up version control and diffs.
-* I haven't finished with export to HTML yet; much of the layout and IDs have changed during this phase. I will make it right before release.
+* This version uses a completely new way to control the layout (adding CSS classes to the HTML tag). It works very well but means that if you try an old plugin that changes the display style (block/hidden) of the main HTML it will likely break the file. This will be fixed later by loading layout from a page (or code) on start up, and existing plugins are being adapted for this version. The new code makes future theming and skinning much easier to implement. (This is a key issue for me.) It also stops the multiple changes that mess up version control and diffs.
 * The /Orphaned Pages/ list is now many times faster in larger files (time is square root of original time).
 * I found it took a few hours to get used to the new page/tag list format, because it works differently from 0.12.0 (so I kept going to pages instead of toggling DIVs); once used to it I found it much easier to use. And I think it looks much better. (The 0.12.0 look actually breaks in one major browser on my system.)
 * I have rearranged some icons to make the code simpler and because it is more consistent to my eyes. I will be modifying this slightly before I'm finished so that the icons can be in any order (for Little Girl)
@@ -201,14 +204,18 @@ Again, some things are in transition. Some pages are not finished (like Export),
 Do let me know what you think and any issues you find. Be sure to check out some of the new options. Sorry to have taken so long to get the code up. Hopefully I'll be more or less finished with this soon. I have tested quite a bit with a quite large WoaS file and things seem to be working well, but I haven't tested every function exhaustively; I will before release.
 
 Some of these changes will have broken some plug-ins; future changes will break some more. They can be fixed once things are stable. Thanks for your patience.
-
-By the way, if you want to change the menu width the CSS you need to add to [[WoaS::CSS::Custom]] looks like this
+\
+= Menu width
+By the way, if you want to change the menu width the CSS you need to add to [[WoaS::CSS::Custom]] is shown below. The width of {{{#woas_menu_wrap}}} is set to the footer|page wrap margin-left value minus the gutter width desired ({{{#woas_content}}} padding default is {{{.75em}}}, {{{13 - .75 = 12.25}}}, so a width of {{{12.25em}}} gives the same gutter width between the menu and the page as the display padding contains, giving a consistent look; it can, of course, be set to whatever value you prefer). The new project will use a different method, allowing these values to be set as options.
 {{{
 #woas_footer_wrap, #woas_page_wrap {
-	margin-left: 13em;
+	margin-left: 13em
 }
+/*
+matches #woas_page_wrap margin-left value minus desired spacing
+*/
 #woas_menu_wrap {
-	width: 13em; /* to match page and footer wrap */
+	width: 12.25em;
 }
 }}}
 They should be specified in {{{em}}} values for best cross-browser compatibility and both need to be the same value (this is also much more usable than the old {{{%}}} CSS). I have spent a lot of time testing most popular browsers, but only in Windows 7 and Windows XP. I didn't realize before that WoaS really only works at its best in /Firefox/.
@@ -700,9 +707,9 @@ woas.page.boundary: DFQRCTsKlU
 *W*iki on a *S*tick *I*nterchange *F*ormat is the preferred format for exporting full WoaS data into a single file and share it with whoever you like.
 == Format description
 WSIF format is similar to MIME email attachments format; each line is formatted like an /email header/ definition:
-
-{{{header.name: header-value}}}
-
+{{{
+header.name: header-value
+}}}
 All WSIF content must be ASCII, so /header-value/ must be ECMA-escaped when necessary; this corresponds to escaping slashes "\" to "\\" and any UTF-8 sequence to the corresponding "\u0000" string, where /0000/ is the lowercase hexadecimal value of the UTF-8 character (like in ECMAScript).
 
 WSIF files can contain custom headers, given that the following namespaces are currently reserved for official WSIF format support:
@@ -710,7 +717,6 @@ WSIF files can contain custom headers, given that the following namespaces are c
 * *woas*
 
 For example you could define a new namespace for header definitions called /custom/:
-
 {{{
 custom.x: 100
 custom.y: 200
@@ -721,7 +727,6 @@ It is then up to you to parse such header-value couples and give them proper rep
 A line starting with two dashes (/--/) introduces an *inline boundary*, which is a properly encoded snippet.
 
 Example boundary:
-
 {{{
 --my-random-id
 this is the inline snippet
@@ -1049,7 +1054,7 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 The look and feel of WoaS can be customized by specifying custom CSS in the [[WoaS::CSS::Custom]] reserved page. You can use the WoaS core CSS definitions available in [[WoaS::CSS::Core]] as a reference when writing your own custom CSS.
-<<<woas.note: Many CSS tutorials are freely available on the web, like this [[http://htmldog.com/guides/cssbeginner/|CSS beginner tutorial]] from /HTML Dog/ or the [[http://www.csstutorial.net|CSS tutorial videos]] by /Stefan Mischook/. CSS is the best way to control the look of your pages and well worth learning.>>>
+<<<woas.note: Many CSS tutorials are freely available on the web, like this [[http://htmldog.com/guides/cssbeginner/|CSS beginner tutorial]] from /HTML Dog/ or the [[http://www.csstutorial.net|CSS tutorial videos]] by /Stefan Mischook/. [[http://reference.sitepoint.com/css|Sitepoint]] is an excellent reference resource. CSS is the best way to control the look of your pages and well worth learning.>>>
 == Customizing CSS
 # Access [[WoaS::CSS::Core]] either directly or from [[Special::Advanced]]
 # Copy the CSS definitions you want to customize
@@ -1385,7 +1390,6 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 Below are examples on how to use wiki markup to create headings in this wiki. There are six levels of supported headings.
-
 {{{
 = Heading level 1
 }}}
@@ -3674,7 +3678,7 @@ You can define custom hotkeys here and the associated
 Javascript function in a plugin (see Help).
 This example is disabled:
 
-;$CUSTOM(home)    m
+;$CUSTOM(woas.ui.home)    m
 
 --DFQRCTsKlU
 woas.page.title: WoaS::CSS::Core
@@ -3704,19 +3708,26 @@ body, div, textarea, pre, ul, ol, li {
 	padding: 0px;
 	border-width: 0px
 }
+/* sets spacing around outer edge; padding-top is set dynamically by resize */
+#woas_content {
+	padding: .75em
+}
 #woas_header_wrap {
 	width: 100%;
 	z-index: 1
 }
 #woas_footer_wrap, #woas_page_wrap {
-	margin-left: 13em; /* to match menu wrap */
+	margin-left: 13em; /* to match menu wrap + gutter */
+	overflow: hidden
 }
 .woas_edit #woas_footer_wrap {
 	margin-left: 0em
 }
 #woas_menu_wrap {
-	width: 13em; /* to match page and footer wrap */
+	 /* page|footer wrap - woas_content padding (or desired gutter) */
+	 width: 12.25em;
 	_float: left; /* for IE6 */
+	overflow: hidden
 }
 #woas_header_wrap, #woas_menu_wrap {
 	position: absolute
@@ -3863,11 +3874,6 @@ body {
 .woas_button_menu {
 	margin-top: 0.438em;
 	width: 100%
-}
-
-/* CONTENT (page layout) */
-#woas_content {
-	padding: .75em
 }
 
 /* DEBUG CONSOLE */
@@ -4134,10 +4140,8 @@ a:hover {
 
 /* MAIN TEXT AREA */
 #woas_page {/* main text area */
-	overflow: hidden;
 	margin-bottom: 0.75em;
 	background-color: #fff; /* white */
-	border: 1px solid #000; /* black */
 	padding: 1em
 }
 
@@ -4154,29 +4158,27 @@ instead of the current text icon. I find the text less distracting.
 }
 
 */
-#woas_menu_pad {
-	margin-right: 1.25em;
-	background-color: #fff; /* white */
-	border: 1px solid #000; /* black */
+#woas_menu {
 	font-size: .75em;
 	padding: 1em
 }
 #woas_menu_edit {
-	font-size: .833em;
+	font-size: .625em;
 	float: right;
-	margin: -0.25em -0.75em 0px 0.25em;
+	margin-right: .4em;
 }
 #woas_menu_edit img {
 	margin-top: -.5em;
 	background-color: none; /* remove temporary IE8 background */
 }
+#woas_menu_jar { /* container for menu and menu_edit */
+	background-color: #fff; /* white */
+	padding-bottom: .875em
+}
 
 /* MONOSPACED TEXT (except search) */
 pre {
 	white-space: pre-wrap; /* CSS 3 */
-}
-.woas_core_page, .woas_nowiki_multiline {
-	border: 1px solid #808080; /* grey */
 }
 .woas_core_page {
 	background-color: #F0F0F5; /* same as header */
@@ -4188,14 +4190,13 @@ pre {
 	background-color: #ccf
 }
 .woas_nowiki {
-	padding: 0px 0.25em
-}
-.woas_nowiki, .woas_nowiki_multiline {
-	background-color: #F5F5F5
+	padding: 0px 0.125em
 }
 .woas_nowiki_multiline {
 	margin: 1em 0px;
-	padding: .5em
+	padding: .5em;
+	border: 1px solid #808080; /* grey */
+	background-color: #F5F5F5
 }
 
 /* NAVIGATION BAR */
@@ -4367,15 +4368,16 @@ img.woas_nav { /* woas logo */
 }
 
 /* TABLES */
-#woas_page table {
+table {
+	margin: .75em 0px;
 	border: 1px solid #000; /* black */
 	border-spacing: 0px
 }
-#woas_page table td {
+td {
 	border: 1px solid;
 	padding: .313em
 }
-#woas_page table caption {
+caption {
 	font-style: italic;
 	font-weight: bold
 }
@@ -4448,6 +4450,9 @@ img.woas_nav { /* woas logo */
 .woas_export #woas_menu_wrap {
 	position: relative;
 	float: left
+}
+.woas_export #woas_menu_jar {
+	padding-bottom: 0
 }
 .woas_export .woas_broken_link {
 	color: #000;
@@ -4559,17 +4564,18 @@ woas.page.disposition: inline
 woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
-All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active during WoaS usage. The WoaS project has plugin examples available for code syntax highlighting, MathML display, and charting; these are found in the /Plugins/ directory of the download. One powerful use of plugins is to load a [[WoaS::Help::Macros|macro]], or a set of macros, that will be available to all pages. The plugins directory also contains an Italian translation plug-in, though translation support is not yet fully capable in WoaS.
+All pages of the [[WoaS::Plugins::]] namespace are WoaS plugins; plugins are executed when loading WoaS and remain active for the entire session. The WoaS project has plugin examples available for code syntax highlighting, MathML display, and charting; these are found in the /Plugins/ directory of the download. One powerful use of plugins is to load a [[WoaS::Help::Macros|macro]], or a set of macros, that will be available to all pages. The plugins directory also contains Italian and German translation plugins, though translation support is not yet fully capable in WoaS.
 
 You can share WoaS plugins as [[WoaS::Help::WSIF|WSIF]] files by exporting them.
 == External plugins
 A WoaS plugin is just Javascript code, unless you create a plugin whose name starts with '@'. Such plugins are made up of external file references and a specific notation to force the browser into a specific inclusion mode.
 
 Example:
-{{{path/to/mylib1.js = +*
-path/to/mylib2.js = @*}}}
-
-The first resource, {{{path/to/mylib1.js}}}, will be included as an inline Javascript (e.g. like source code inside a {{{<script >}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included using an external ({{{<script>}}} tag with proper 'src' attribute).
+{{{
+path/to/mylib1.js = +*
+path/to/mylib2.js = @*
+}}}
+The first resource, {{{path/to/mylib1.js}}}, will be included as an inline Javascript (e.g. like source code inside a {{{<script >}}} tag), while the second, {{{path/to/mylib2.js}}}, will be included using a {{{<script>}}} tag with an external 'src' attribute.
 === Inclusion operators
 There are two inclusion operators which are valid for resource definitions:
 * *+* - which leads to inline inclusion
@@ -4588,10 +4594,10 @@ The word which directly follows such inclusion operator can be any of the follow
 *Note: * tokens marked with (-) do not support version matching
 
 Now let's consider a more complex example:
-
-{{{path/to/mylib1.js = +* @gecko(1.9+)
-path/to/mylib2.js = @*}}}
-
+{{{
+path/to/mylib1.js = +* @gecko(1.9+)
+path/to/mylib2.js = @*
+}}}
 {{{path/to/mylib1.js}}} will be loaded as inline for all browsers except those which have a Gecko engine with version 1.9 or above (i.e. Firefox 3.6 and above).
 
 --DFQRCTsKlU
@@ -4609,9 +4615,9 @@ If /$JD/ is defined in [[WoaS::Aliases]] as {{{John Doe}}} then the link {{{[[$J
 Aliases can turn out to be particularly useful to shorten typing of long page names.
 == Add an alias
 An alias is added by editing the [[WoaS::Aliases]] reserved page and adding an alias line to the page. For example:
-
-{{{$JD    John Doe}}}
-
+{{{
+$JD    John Doe
+}}}
 *$JD* is the alias, which will be replaced when found in wiki page title references, and /"John Doe"/ is the text which will replace *$JD*. You can specify any part of page titles in aliases, like namespaces or page prefixes/suffixes.
 
 --DFQRCTsKlU
@@ -5024,8 +5030,24 @@ woas.page.boundary: DFQRCTsKlU
 
 --DFQRCTsKlU
 [[Special::TOC]]
-= Improvements made
+= Bug Fixes
+/See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can easily get an idea of the changes I have made./
+== Major
+* Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).
+* Fixed Firefox 7+ breaking file selection.
+\
+== Minor
+* Many parser spacing fixes.
+
+* Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
+
+* Most history, navigation, and lock/unlock icon errors are fixed.
+
+* Special::Search layout bugs are fixed.
+= Enhancements
 == Operation
+* /Table of Contents/ links ({{{[[Special::TOC]]}}}) no longer create borwser history.
+
 * The Help system has been improved in capability, style, and content (the last in large part thanks to Little Girl).
 ** Every Help page now opens in the Help system, except the [[WoaS::Help::|namespace listing]] and the [[WoaS::Help]] information page. This allows the Help system to become an active guide to using the wiki, as links to the main wiki clicked from within a Help page open in the main wiki (they always did, but the Help page could have been using the wiki page for display).
 ** Help page links can now target page sections in the Help system and also in the main wiki.
@@ -5055,22 +5077,6 @@ woas.page.boundary: DFQRCTsKlU
 * Most URLs, like https://example.com/page?hi#there, will be recognized and kept from being seen as text markup (try this page in 0.12.0). If /Automatically convert URLs to hyperlinks/ is turned on in the [[Special::Options#User Interface|User Interface]] section of [[Special::Options]], and the URL is recognized (http, https, file, ftp) then the URL will also be automatically turned into an external wiki link. This doesn't fix UNIX paths, but as long as the path doesn't have a leading slash, it should be rendered correctly: my/path/t. In my new project I want to add syntax, consistent with Creole 1, that stops the next character (or perhaps next syntax block; e.g: '{|') from being interpreted as markup. (There are many other ways to accomplish this as well, like recognizing backslash escapes within the line.)
 
 * In-line syntax for text styling -- italics, bold, underline -- all work the same in that they cannot cross lines of text (in 0.12.0 underline would work across lines). Other than that I have now returned to the original parsing rules for 0.12.0 with the exception that bold markup can start after "/" and "\"; I can't see why this existed other than for file path display (where it fails in many instances). Italics cannot start after a colon (':'), presumably also to protect file paths; this is standard behaviour in 0.12.0. I am considering protecting file paths in my new project in much the same way as I have now protected URLs (by removing them from parsing).
-\
-= Bug Fixes
-/See my *[[http://stickwiki.svn.sourceforge.net/viewvc/stickwiki/branches/pvhl/fix/log.txt|log.txt]]* in SVN for a fuller list of fixes. The file, as it was when I uploaded this file, is also [[log.txt|included in this wiki]], so you can get an idea of the changes made./
-== Major
-* Fixed the file corruption that happened in WoaS.0.12.0 when using Java for saving (Chrome, Safari, Opera).
-* Fixed Firefox 7+ breaking file selection.
-\
-== Minor
-* Many parser spacing fixes.
-
-* Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
-
-* Most history, navigation, and lock/unlock icon errors are fixed.
-
-* Special::Search layout bugs are fixed.
-
 --DFQRCTsKlU
 woas.page.title: log.txt
 woas.page.attributes: 0
@@ -5088,6 +5094,10 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)
+* small change to macro code allows simple error reporting from macro
+* more HTML/CSS fine-tuning; menu width control altered; #woas_menu_pad renamed to #woas_menu_jar
+* fix hotkeys to work with namespaced functions (e.g. woas.ui.home)
 * Search improvements; much faster and includes all page contents in search
 * Macros now use two brackets instead of three (three are now deprecated). This matches Creole 1 syntax
 * Fix broken Javascript:: parsing (really sorry this error crept in; perhaps because of lost laptop code?); change the way it works slightly and adjust Help page; fix so far means HTML now allowed in links (link formatting!), as is nowiki, but not any other formatting. This is not quite finished yet so nowiki cannot be used in Javascript links yet.

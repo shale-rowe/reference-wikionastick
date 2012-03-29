@@ -182,7 +182,7 @@ woas.erase_wiki = function() {
 		"* [[Special::New Page|New Page]]\n"+
 		"* [[Special::Duplicate Page|Duplicate Page]]\n"+
 		"* [[Special::Delete Page|Delete Page]]\n\n\n"+
-		"[[Include::WoaS::Template::Search]]\n",
+		"[[Include::WoaS::Template::Search]]",
 		"Lines that do not start with '$' are ignored\n\n$JS  Javascript",
 		this.hotkey._cache_default(),
 		"/* Your CSS customization goes here */"];

@@ -95,13 +95,19 @@ woas._server_mode = (document.location.toString().match(/^file:\/\//) ? false:tr
 // PVHL: changed to anything we don't know how to handle
 woas.use_java_io = !woas.browser.ie && !woas.browser.firefox;
 
-// returns the DOM element object given its id - enables a try/catch mode when debugging
-if (woas.config.debug_mode) {
-	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
-	function d$(id){ try{return document.getElementById(id);}catch(e){woas.crash("d$('"+id+"') invalid reference:\n\n"+e);} }
-} else {
-	// much faster version
-	function d$(id){return document.getElementById(id);}
+// returns the DOM element object given its id - logs errors when debugging
+// PVHL: have removed try/catch as very slow in JS; also changed alert to
+//   log entry - some code uses d$ to check existence of node. Should be
+//   refactored as debug_mode can change during session. Should also change
+//   others to add error capability; they mostly assume the node exists.
+//   This no longer catches reference errors, but these are programming errors
+//   and any developer is using a debugger; simply can't see the need.
+function d$(id){
+	var el = document.getElementById(id);
+	if (el === null && woas.config.debug_mode) { // only one test if OK
+		woas.log("Invalid reference for d$(id): '"+id+"'");
+	}
+	return el;
 }
 
 d$.checked = function(id) {
@@ -112,23 +118,32 @@ d$.checked = function(id) {
 	return false;
 };
 
+// obviated; 'd$.set' replaces
 d$.hide = function(id) {
 	d$(id).style.display = 'none';
 };
 
-d$.show = function(id, inline) {
-	d$(id).style.display = inline ? 'inline' : 'block';
+d$.is_visible = function(id) {
+	var el = d$(id);
+	return !!(el && el.offsetWidth);
 };
 
-d$.set = function(id, show, inline) {
+// displays id if show is true (optional), otherwise hides id
+// sets display to block if type not given or 0, inline if type is 1 or true,
+// and inline-block if type is 2.
+// (inline-block is not well supported by old browsers; use with care.)
+d$.set = function(id, show, type) {
 	if (show)
-		d$(id).style.display = inline ? 'inline' : 'block';
+		d$(id).style.display = type
+			? type === 2 ? 'inline-block' : 'inline'
+			: 'block';
 	else
 		d$(id).style.display = 'none';
 };
 
-d$.is_visible = function(id) {
-	return !!d$(id).offsetWidth;
+// obviated; 'd$.set' replaces
+d$.show = function(id, inline) {
+	d$(id).style.display = inline ? 'inline' : 'block';
 };
 
 // always resizes to be safe
