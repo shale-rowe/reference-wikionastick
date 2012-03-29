@@ -7,7 +7,7 @@
 
 d$.clone = function(o) {
 	woas.log("WARNING: Called deprecated function: d$.clone (now woas.clone)");
-	woas.clone(o);
+	return woas.clone(o);
 };
 function bool2chk(b) {
 	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
