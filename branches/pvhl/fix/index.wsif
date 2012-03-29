@@ -3923,7 +3923,6 @@ body {
 #woas_footer {
 	*position: relative;
 	border: 1px solid #F0F0F5; /* same as header */
-	margin-top: 0.75em;
 	padding: .375em
 }
 #woas_footer a {
@@ -4103,7 +4102,7 @@ img.woas_img_list {
 
 /* LAST MODIFIED TIMESTAMP */
 #woas_mts {
-	margin-top: 0.75em;
+	margin-bottom: 0.75em;
 	color: #F0F0F5; /* same as header */
 	font-size: small;
 }
@@ -5094,6 +5093,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* fix legacy d$.clone function error (mine) and footer margin CSS
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)
 * small change to macro code allows simple error reporting from macro
 * more HTML/CSS fine-tuning; menu width control altered; #woas_menu_pad renamed to #woas_menu_jar
