@@ -3551,7 +3551,6 @@ body {\n\
 #woas_footer {\n\
 	*position: relative;\n\
 	border: 1px solid #F0F0F5; /* same as header */\n\
-	margin-top: 0.75em;\n\
 	padding: .375em\n\
 }\n\
 #woas_footer a {\n\
@@ -3731,7 +3730,7 @@ img.woas_img_list {\n\
 \n\
 /* LAST MODIFIED TIMESTAMP */\n\
 #woas_mts {\n\
-	margin-top: 0.75em;\n\
+	margin-bottom: 0.75em;\n\
 	color: #F0F0F5; /* same as header */\n\
 	font-size: small;\n\
 }\n\
@@ -4498,6 +4497,7 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
+* fix legacy d$.clone function error (mine) and footer margin CSS\n\
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)\n\
 * small change to macro code allows simple error reporting from macro\n\
 * more HTML/CSS fine-tuning; menu width control altered; #woas_menu_pad renamed to #woas_menu_jar\n\
@@ -9912,7 +9912,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2536"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2538"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -13477,7 +13477,7 @@ woas._native_page_def = function(path,ct,p,last_p,import_hook,
 
 d$.clone = function(o) {
 	woas.log("WARNING: Called deprecated function: d$.clone (now woas.clone)");
-	woas.clone(o);
+	return woas.clone(o);
 };
 function bool2chk(b) {
 	woas.log("WARNING: Called deprecated function: bool2chk (now woas.bool2chk)");
