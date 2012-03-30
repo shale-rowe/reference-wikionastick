@@ -3581,7 +3581,8 @@ body {\n\
 /* (PVHL: do we really need woas_heading style? Not using so x-browser better) */\n\
 h1, h2, h3, h4, h5, h6 {\n\
 	margin: .75em 0px .325em;\n\
-	padding: 0px\n\
+	padding: 0px;\n\
+	overflow: hidden\n\
 }\n\
 /* this misses IE6 */\n\
 h1:first-child, #woas_toc + h1, h2:first-child, #woas_toc + h2,\n\
@@ -3823,7 +3824,8 @@ pre {\n\
 	margin: 1em 0px;\n\
 	padding: .5em;\n\
 	border: 1px solid #808080; /* grey */\n\
-	background-color: #F5F5F5\n\
+	background-color: #F5F5F5;\n\
+	overflow: hidden\n\
 }\n\
 \n\
 /* NAVIGATION BAR */\n\
@@ -3864,11 +3866,11 @@ img.woas_nav { /* woas logo */\n\
 \n\
 /* NOTE MACRO & TEMPLATE::INFO */\n\
 .woas_note { /* could be multiples, so use class */\n\
-	display: inline-block;\n\
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;\n\
 	border: 1px solid #000;\n\
 	margin: 1em 1.25em;\n\
-	padding: .75em .75em .75em 2.5em\n\
+	padding: .75em .75em .75em 2.5em;\n\
+	overflow: hidden\n\
 }\n\
 .woas_no_img .woas_note {\n\
 	padding-left: .75em\n\
@@ -4448,6 +4450,8 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 * Fixed Firefox 7+ breaking file selection.\n\
 \\\n\
 == Minor\n\
+* Help and print pages can now be open in multiple WoaS files.\n\
+\n\
 * Many parser spacing fixes.\n\
 \n\
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./\n\
@@ -4497,6 +4501,11 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
+* prevent heading, nowiki_multiline, and woas_note boxes from extending under TOC.\n\
+* change save mode back to ASCII_TEXT unless using Java (was changed to UTF_TEXT to fix Java saves)\n\
+* backlinks page now counts \'Include::\' links\n\
+* allow multiple Woas files to use popup windows\n\
+* let Javascript:: pages go to help page section\n\
 * fix legacy d$.clone function error (mine) and footer margin CSS\n\
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)\n\
 * small change to macro code allows simple error reporting from macro\n\
@@ -4921,8 +4930,8 @@ return tz;};woas.strnatcmp=function(a,b){var aa=woas.chunkify(a),bb=woas.chunkif
 return aa.length-bb.length;};woas.file_mode={UTF8_TEXT:0,ASCII_TEXT:1,DATA_URI:2,BINARY:3,BASE64:4,UTF16_TEXT:8};woas._guess_mime=function(filename){var m=filename.match(/\.(\w+)$/);if(m===null)m="";else m=m[1].toLowerCase();var guess_mime="image";switch(m){case"png":case"gif":case"bmp":guess_mime+="/"+m;break;case"jpg":case"jpeg":guess_mime="image/jpeg";break;}
 return guess_mime;};woas._data_uri_enc=function(filename,ct,guess_mime){if(typeof guess_mime!="string")
 guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode(ct);};woas._data_uri_enc_array=function(filename,arr,guess_mime){if(typeof guess_mime!="string")
-guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode_array(arr);};woas._save_this_file=function(new_data,old_data){var filename=_get_this_filename();var r=woas.save_file(filename,this.file_mode.UTF8_TEXT,this.DOCTYPE+this.DOC_START+"<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
-+new_data+"\n"+old_data+"<"+"/html>");if(r)
+guess_mime=this._guess_mime(filename);return"data:"+guess_mime+";base64,"+this.base64.encode_array(arr);};woas._save_this_file=function(new_data,old_data){var filename=_get_this_filename();var r=woas.save_file(filename,this.use_java_io?this.file_mode.UTF8_TEXT:this.file_mode.ASCII_TEXT,this.DOCTYPE+this.DOC_START+"<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"+
+new_data+"\n"+old_data+"<"+"/html>");if(r)
 woas.log("NOTICE: \""+filename+"\" saved successfully");else{var msg=this.i18n.SAVE_ERROR.sprintf(filename)+"\n\n";if(this.use_java_io){if(typeof document.applets.TiddlySaver=="undefined")
 msg+=this.i18n.NO_TIDDLY_SAVER+" "+this.i18n.TIDDLY_HELP;else if(typeof java=="undefined")
 msg+=this.i18n.NO_JAVA+" "+this.i18n.TIDDLY_HELP;else
@@ -5118,9 +5127,10 @@ if(!pg.length)
 return"/No orphaned pages/";else
 return this._join_list(pg);};woas.special_backlinks=function(){var pg=[],pg_title,tmp;if(this.parser.render_title===null)
 pg_title=current;else{pg_title=this.parser.render_title;this.parser.render_title=null;}
-var reg=new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])","gi");for(var j=0,l=pages.length;j<l;j++){if(this.is_reserved(page_titles[j]))
+var reg=new RegExp("\\[\\[(?:Include::)?"+RegExp.escape(pg_title)+"(?:\\||\\]\\])");woas.log(reg)
+for(var j=0,l=pages.length;j<l;j++){if(this.is_reserved(page_titles[j]))
 continue;tmp=this.get_src_page(j);if(tmp===null)
-continue;if(tmp.match(reg))
+continue;if(reg.test(tmp))
 pg.push(page_titles[j]);}
 if(pg.length===0)
 return"/No user page links to [["+pg_title+"]]/";else
@@ -5391,7 +5401,7 @@ if(this.help_system.popup_window&&!this.help_system.popup_window.closed){this.he
 if(this.save_queue.length)
 this.commit(this.save_queue);else{if(this.config.save_on_quit&&this.cfg_changed)
 this.cfg_commit();}
-return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2538"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
+return true;};woas.getHTMLDiv=function(elem){return elem.innerHTML;};woas.setHTMLDiv=function(elem,html){elem.innerHTML=html;};woas._on_load=function(){this._set_debug(this.config.debug_mode,this.config.debug_closed);d$("woas_debug_log").value="";woas.log("*** WoaS v"+this.version+"-pvhl-r2540"+" started");this._old_wsif_ds=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds;if(this.browser.ie&&Number(this.browser.ie)<9){this.setHTML=function(elem,html){elem.text=html;};this.getHTML=function(elem){return elem.text;};}else{this.setHTML=this.setHTMLDiv;this.getHTML=this.getHTMLDiv;}
 if(this.log()&&this.tweak.integrity_test&&!this.integrity_test()){return;}
 if(this.config.wsif_ds.length){var path=is_windows?this.config.wsif_ds.replace(reFwdSlash,'\\'):this.config.wsif_ds.replace(/\\/g,'/');if(!this._wsif_ds_load(path,this.config.wsif_ds_lock)){if(this.wsif.emsg!==null){this._set_debug(true);this.crash("Could not load WSIF pages data!\n"+this.wsif.emsg);}
 return;}}
@@ -5778,9 +5788,9 @@ woas.ui={edit_mode:false,_textbox_focus:false,focus_textbox:function(){woas.ui._
 return orig_e;if(ui._textbox_focus){if(ck==13){ff_fix_focus();(ui._textbox_enter_event)();return false;}
 return orig_e;}
 if((ck==woas.hotkey.all.back)||(ck==woas.hotkey.all.cancel)){ui.back();ff_fix_focus();return false;}}else if(ck==woas.hotkey.all.cancel){ui.cancel();ff_fix_focus();return false;}
-return orig_e;},help:function(){var pg;if(this.edit_mode){pg="Editor";}else{pg=current;if(pg.lastIndexOf('::')===pg.length-2){pg=pg.substring(0,pg.length-2);}
-if(pg.indexOf('WoaS::')===0&&woas.help_system._help_lookup.indexOf(pg.substr(6))!==-1){pg=pg.substr(6);}}
-woas.help_system.go_to([pg,'']);},tables_help:function(){woas.help_system.go_to(["Tables",'']);},clear_search:function(no_render){if(current==="Special::Search"){d$("special_search").value="";d$("special_search").focus();}
+return orig_e;},help:function(){var pg,sect='';if(this.edit_mode){pg="Editor";}else{pg=current;if(pg.lastIndexOf('::')===pg.length-2){pg=pg.substring(0,pg.length-2);}
+if(pg.indexOf('WoaS::')===0&&woas.help_system._help_lookup.indexOf(pg.substr(6))!==-1){pg=pg.substr(6);}else if(current.indexOf('Javascript::')===0){pg='Javascript';sect='S82489';}}
+woas.help_system.go_to([pg,sect]);},tables_help:function(){woas.help_system.go_to(["Tables",'']);},clear_search:function(no_render){if(current==="Special::Search"){d$("special_search").value="";d$("special_search").focus();}
 woas._last_search=null;if(!no_render)
 this._search_render();},about:function(){if(!this.edit_mode)
 woas.go_to("Special::About");},_search_render:function(){if(current==="Special::Search"){woas._search_load();}else
@@ -5925,7 +5935,7 @@ woas._customized_popup=function(page_title,page_body,additional_js,additional_cs
 additional_js=woas.raw_js(additional_js);return woas.popup("print_popup",Math.ceil(screen.width*0.75),Math.ceil(screen.height*0.75),",status=yes,menubar=yes,resizable=yes,scrollbars=yes","<"+"title>"+page_title+"<"+"/title>"+"<"+"style type=\"text/css\">"+woas.css.get()+additional_css+"<"+"/sty"+"le>"+additional_js,page_body,body_extra);};woas.export_wiki_wsif=function(){var path,fname,author,single_wsif,inline_wsif,all_wsif,done,pos;try{path=d$("woas_ep_path").value;pos=path.lastIndexOf('/')+1||path.lastIndexOf('\\')+1;if(pos){fname=path.substring(pos);path=woas.ROOT_DIRECTORY+path.substring(0,pos);}else{fname=path;path=woas.ROOT_DIRECTORY;}
 author=this.trim(d$("woas_ep_author").value);single_wsif=!d$("woas_cb_multi_wsif").checked;inline_wsif=true;all_wsif=!!d$("woas_cb_all_wsif").checked;}catch(e){this.crash(e);return false;}
 done=this._native_wsif_save(path,fname,false,single_wsif,inline_wsif,author,all_wsif,[]);if(done){this.alert(this.i18n.EXPORT_OK.sprintf(done,this.wsif.expected_pages));}else{this.alert(this.i18n.SAVE_ERROR.sprintf(fname));}
-return true;};woas.popup=function(name,fw,fh,extra,head,body,body_extra,html_extra){body_extra=body_extra||"";html_extra=html_extra||"";var hpos=Math.ceil((screen.width-fw)/2);var vpos=Math.ceil((screen.height-fh)/2);var wnd=window.open("about:blank",name,"width="+fw+",height="+fh+",left="+hpos+",top="+vpos+extra);wnd.focus();wnd.document.writeln(this.DOCTYPE+"<"+"html"+html_extra+"><"+"head>"+head+"<"+"/head><"+"body"+body_extra+">"+body+"<"+"/body><\/"+"html>\n");wnd.document.close();return wnd;};woas.progress_status=function(ratio){if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),this._progress_section+"\n"+
+return true;};woas.popup=function(name,fw,fh,extra,head,body,body_extra,html_extra){name+='_'+_random_string(5);body_extra=body_extra||"";html_extra=html_extra||"";var hpos=Math.ceil((screen.width-fw)/2);var vpos=Math.ceil((screen.height-fh)/2);var wnd=window.open("about:blank",name,"width="+fw+",height="+fh+",left="+hpos+",top="+vpos+extra);wnd.focus();wnd.document.writeln(this.DOCTYPE+"<"+"html"+html_extra+"><"+"head>"+head+"<"+"/head><"+"body"+body_extra+">"+body+"<"+"/body><\/"+"html>\n");wnd.document.close();return wnd;};woas.progress_status=function(ratio){if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),this._progress_section+"\n"+
 Math.ceil(ratio*100)+"% done");};woas._progress_section=false;woas.progress_init=function(section){if(this._progress_section!==false){this.crash("Progress indicator already started for "+this._progress_section+", will not start a new one for "+section);return;}
 this._progress_section=section;if(typeof section=="undefined")
 section="";else section="\n"+section;if(this.config.debug_mode)return;this.setHTML(d$("woas_wait_text"),section);document.body.style.cursor="wait";this.ui.display({"wait":true});d$("loading_overlay").focus();};woas.progress_finish=function(section){document.body.style.cursor="auto";this.setHTML(d$("woas_wait_text"),this.i18n.LOADING);if(this.ui.display('wait')){this.ui.display({wait:false});}

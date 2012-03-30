@@ -3581,7 +3581,8 @@ body {\n\
 /* (PVHL: do we really need woas_heading style? Not using so x-browser better) */\n\
 h1, h2, h3, h4, h5, h6 {\n\
 	margin: .75em 0px .325em;\n\
-	padding: 0px\n\
+	padding: 0px;\n\
+	overflow: hidden\n\
 }\n\
 /* this misses IE6 */\n\
 h1:first-child, #woas_toc + h1, h2:first-child, #woas_toc + h2,\n\
@@ -3823,7 +3824,8 @@ pre {\n\
 	margin: 1em 0px;\n\
 	padding: .5em;\n\
 	border: 1px solid #808080; /* grey */\n\
-	background-color: #F5F5F5\n\
+	background-color: #F5F5F5;\n\
+	overflow: hidden\n\
 }\n\
 \n\
 /* NAVIGATION BAR */\n\
@@ -3864,11 +3866,11 @@ img.woas_nav { /* woas logo */\n\
 \n\
 /* NOTE MACRO & TEMPLATE::INFO */\n\
 .woas_note { /* could be multiples, so use class */\n\
-	display: inline-block;\n\
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;\n\
 	border: 1px solid #000;\n\
 	margin: 1em 1.25em;\n\
-	padding: .75em .75em .75em 2.5em\n\
+	padding: .75em .75em .75em 2.5em;\n\
+	overflow: hidden\n\
 }\n\
 .woas_no_img .woas_note {\n\
 	padding-left: .75em\n\
@@ -4448,6 +4450,8 @@ If the wiki is erased the menu contents are slightly reduced, with less often us
 * Fixed Firefox 7+ breaking file selection.\n\
 \\\n\
 == Minor\n\
+* Help and print pages can now be open in multiple WoaS files.\n\
+\n\
 * Many parser spacing fixes.\n\
 \n\
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./\n\
@@ -4497,6 +4501,11 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don\'t have th
 \n\
 Changes since Revision pvhl-2317 (git: 3d939c7)\n\
 \n\
+* prevent heading, nowiki_multiline, and woas_note boxes from extending under TOC.\n\
+* change save mode back to ASCII_TEXT unless using Java (was changed to UTF_TEXT to fix Java saves)\n\
+* backlinks page now counts \'Include::\' links\n\
+* allow multiple Woas files to use popup windows\n\
+* let Javascript:: pages go to help page section\n\
 * fix legacy d$.clone function error (mine) and footer margin CSS\n\
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)\n\
 * small change to macro code allows simple error reporting from macro\n\
@@ -5796,16 +5805,19 @@ woas._data_uri_enc_array = function(filename, arr, guess_mime) {
 };
 
 // save the currently open WoaS
-// PVHL: file_mode has to be UTF8, or Java saves in Windows with CRLF, except
-//   Opera which saves LFCRLF. A note somewhere says some browsers can't do this
-//   but I haven't been able to find one that doesn't. Which ones? Java should
-//   be the same for all, and supported IE & FF can save UTF8 AFAIK. Will test
+// PVHL: Java file_mode has to be UTF8, or Java saves in Windows with CRLF,
+// except Opera which saves LFCRLF. A note somewhere says some browsers can't
+// do this, but not which ones. I changed to UTF8_TEXT for saves, but IE8 saves
+// are then twice the size. Using UTF8 for Java only until better testing
+// possible, back to ASCII_TEXT setting for others.
 woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
-	var r = woas.save_file(filename, this.file_mode.UTF8_TEXT, // was ASCII_TEXT
-		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
-		+ new_data + "\n" + old_data + "<"+"/html>");
+	var r = woas.save_file(filename,
+		this.use_java_io ? this.file_mode.UTF8_TEXT : this.file_mode.ASCII_TEXT,
+		this.DOCTYPE + this.DOC_START + "<"+
+		"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"+
+		new_data + "\n" + old_data + "<"+"/html>");
 	if (r)
 		woas.log("NOTICE: \""+filename+"\" saved successfully");	// log:1
 	else {
@@ -7498,7 +7510,9 @@ woas.special_backlinks = function() {
 		pg_title = this.parser.render_title;
 		this.parser.render_title = null;
 	}
-	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
+	// PVHL: make backlinks find included pages that aren't orphaned or dead.
+	var reg = new RegExp("\\[\\[(?:Include::)?"+RegExp.escape(pg_title)+
+		"(?:\\||\\]\\])");woas.log(reg)
 	for(var j=0,l=pages.length; j < l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
@@ -7507,7 +7521,7 @@ woas.special_backlinks = function() {
 		// encrypted w/o key
 		if (tmp===null)
 			continue;
-		if (tmp.match(reg))
+		if (reg.test(tmp))
 			pg.push( page_titles[j] );
 	}
 	if(pg.length === 0)
@@ -9912,7 +9926,7 @@ woas._on_load = function() {
 	this._set_debug(this.config.debug_mode, this.config.debug_closed);
 	d$("woas_debug_log").value = ""; // for Firefox
 	// output platform information - note that revision is filled in only in releases
-	woas.log("*** WoaS v"+this.version+"-pvhl-r2538"+" started");	// log:1
+	woas.log("*** WoaS v"+this.version+"-pvhl-r2540"+" started");	// log:1
 	// needed to check if data source changes; forces full save when entering/exiting
 	// WSIF datasource mode or changing the name of the data source file
 	this._old_wsif_ds = is_windows
@@ -13628,7 +13642,7 @@ PVHL: FIX; this needs to be changed as
 	//  PVHL: This function now sends help system just the help page name
 	//  (everything after WoaS::Help)
 	help: function() {
-		var pg;
+		var pg, sect = '';
 		// we are editing
 		if (this.edit_mode) {
 			pg = "Editor";
@@ -13642,9 +13656,14 @@ PVHL: FIX; this needs to be changed as
 					woas.help_system._help_lookup.indexOf(pg.substr(6)) !== -1) {
 				// change the target page in some special cases
 				pg = pg.substr(6);
+			} else if (current.indexOf('Javascript::') === 0) {
+				// go to the Javascript:: section of help page
+				pg = 'Javascript';
+				sect = 'S82489';
 			}
+
 		}
-		woas.help_system.go_to([pg, '']);
+		woas.help_system.go_to([pg, sect]);
 	},
 	tables_help: function() {
 		woas.help_system.go_to(["Tables", '']);
@@ -14466,6 +14485,7 @@ woas.export_wiki_wsif = function () {
 
 // create a centered popup given some options
 woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
+	name += '_'+_random_string(5); // allow multiple Woas files to be active
 	body_extra = body_extra || "";
 	html_extra = html_extra || "";
 	var hpos=Math.ceil((screen.width-fw)/2);
