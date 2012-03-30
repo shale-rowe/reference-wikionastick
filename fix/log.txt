@@ -7,6 +7,11 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* prevent heading, nowiki_multiline, and woas_note boxes from extending under TOC.
+* change save mode back to ASCII_TEXT unless using Java (was changed to UTF_TEXT to fix Java saves)
+* backlinks page now counts 'Include::' links
+* allow multiple Woas files to use popup windows
+* let Javascript:: pages go to help page section
 * fix legacy d$.clone function error (mine) and footer margin CSS
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)
 * small change to macro code allows simple error reporting from macro

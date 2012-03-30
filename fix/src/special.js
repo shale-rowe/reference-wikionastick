@@ -80,7 +80,9 @@ woas.special_backlinks = function() {
 		pg_title = this.parser.render_title;
 		this.parser.render_title = null;
 	}
-	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
+	// PVHL: make backlinks find included pages that aren't orphaned or dead.
+	var reg = new RegExp("\\[\\[(?:Include::)?"+RegExp.escape(pg_title)+
+		"(?:\\||\\]\\])");woas.log(reg)
 	for(var j=0,l=pages.length; j < l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
@@ -89,7 +91,7 @@ woas.special_backlinks = function() {
 		// encrypted w/o key
 		if (tmp===null)
 			continue;
-		if (tmp.match(reg))
+		if (reg.test(tmp))
 			pg.push( page_titles[j] );
 	}
 	if(pg.length === 0)

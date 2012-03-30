@@ -71,7 +71,7 @@ PVHL: FIX; this needs to be changed as
 	//  PVHL: This function now sends help system just the help page name
 	//  (everything after WoaS::Help)
 	help: function() {
-		var pg;
+		var pg, sect = '';
 		// we are editing
 		if (this.edit_mode) {
 			pg = "Editor";
@@ -85,9 +85,14 @@ PVHL: FIX; this needs to be changed as
 					woas.help_system._help_lookup.indexOf(pg.substr(6)) !== -1) {
 				// change the target page in some special cases
 				pg = pg.substr(6);
+			} else if (current.indexOf('Javascript::') === 0) {
+				// go to the Javascript:: section of help page
+				pg = 'Javascript';
+				sect = 'S82489';
 			}
+
 		}
-		woas.help_system.go_to([pg, '']);
+		woas.help_system.go_to([pg, sect]);
 	},
 	tables_help: function() {
 		woas.help_system.go_to(["Tables", '']);
@@ -909,6 +914,7 @@ woas.export_wiki_wsif = function () {
 
 // create a centered popup given some options
 woas.popup = function(name,fw,fh,extra,head,body, body_extra, html_extra) {
+	name += '_'+_random_string(5); // allow multiple Woas files to be active
 	body_extra = body_extra || "";
 	html_extra = html_extra || "";
 	var hpos=Math.ceil((screen.width-fw)/2);

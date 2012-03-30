@@ -42,16 +42,19 @@ woas._data_uri_enc_array = function(filename, arr, guess_mime) {
 };
 
 // save the currently open WoaS
-// PVHL: file_mode has to be UTF8, or Java saves in Windows with CRLF, except
-//   Opera which saves LFCRLF. A note somewhere says some browsers can't do this
-//   but I haven't been able to find one that doesn't. Which ones? Java should
-//   be the same for all, and supported IE & FF can save UTF8 AFAIK. Will test
+// PVHL: Java file_mode has to be UTF8, or Java saves in Windows with CRLF,
+// except Opera which saves LFCRLF. A note somewhere says some browsers can't
+// do this, but not which ones. I changed to UTF8_TEXT for saves, but IE8 saves
+// are then twice the size. Using UTF8 for Java only until better testing
+// possible, back to ASCII_TEXT setting for others.
 woas._save_this_file = function(new_data, old_data) {
 	var filename = _get_this_filename();
 
-	var r = woas.save_file(filename, this.file_mode.UTF8_TEXT, // was ASCII_TEXT
-		this.DOCTYPE + this.DOC_START + "<"+"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"
-		+ new_data + "\n" + old_data + "<"+"/html>");
+	var r = woas.save_file(filename,
+		this.use_java_io ? this.file_mode.UTF8_TEXT : this.file_mode.ASCII_TEXT,
+		this.DOCTYPE + this.DOC_START + "<"+
+		"script woas_permanent=\"1\" type=\"tex"+"t/javascript\">"+
+		new_data + "\n" + old_data + "<"+"/html>");
 	if (r)
 		woas.log("NOTICE: \""+filename+"\" saved successfully");	// log:1
 	else {

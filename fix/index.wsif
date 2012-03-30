@@ -3953,7 +3953,8 @@ body {
 /* (PVHL: do we really need woas_heading style? Not using so x-browser better) */
 h1, h2, h3, h4, h5, h6 {
 	margin: .75em 0px .325em;
-	padding: 0px
+	padding: 0px;
+	overflow: hidden
 }
 /* this misses IE6 */
 h1:first-child, #woas_toc + h1, h2:first-child, #woas_toc + h2,
@@ -4195,7 +4196,8 @@ pre {
 	margin: 1em 0px;
 	padding: .5em;
 	border: 1px solid #808080; /* grey */
-	background-color: #F5F5F5
+	background-color: #F5F5F5;
+	overflow: hidden
 }
 
 /* NAVIGATION BAR */
@@ -4236,11 +4238,11 @@ img.woas_nav { /* woas logo */
 
 /* NOTE MACRO & TEMPLATE::INFO */
 .woas_note { /* could be multiples, so use class */
-	display: inline-block;
 	background: #FFFFAA url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADtElEQVR42rWWXUxbZRjHBwx0G9go7GJixCXDLQZZjEa9W4yKi04vtnhlsrg4E5Mp2TQu0cyZuESNEmVENseYQNduKx+FApWuUEopLYwPoRvQscGAjrFCP2gpbWkL/HzTxCszOMnYkzwX5+Sc/+99/89z3udsmC/4/pGmpIdEIJLULamkp2ew6fFN/HfvoQAi2Lx5C4c+Pky1qharuQerqZcGdTMFP//BG3veJjExcVXQquK7c3fTaelmKQrhYIQ5r5+Z+27GRhz0dg5hMdr48YdCnnoy/YGQB4rn5LyIY+IerMBCYCGec3N+XDOeOOT6P3a0dW0YdD2cLigjLVUWh0gCbNyYjKHZxHJshXAozPLSMpHFCPPzC7hdXmadbm70j6DXWlCr9DSqLXz+2TfSACI4sP9DAr4wft+8EI4Si8VYDC+K6wAe9xxTDidd5gFamqzUVbVyqVyLvFTL9qzsOGRNQHFRCf65oPDcRyi4QCQSEDuZx+/34xE7uGUfxT50neFBG1cb24V4PVcqmtn/wUdrA0RXiFVpcTm9cTuCQR+RaFBAgoTDogazd5mcvInLNcX09BjXrF2Ul9SjuKDj6JFv1wakpKQIX7U47kyLYrrw+TxEoyFi0QihkJ9AwCNq4cXrnWFi3I6x2UzpGbUA/M2J46ekWVRyRo6tdwTH+LTYhUuIeoWoB4fDztTUbSYnbjI81I/JYEEp/P/zdBVVF5v56ovj0gD5R77G2maj3dBDf+8g43eGRYHd3HXcoq+7lxZdB/U1BhR/ablwto6zhSp0tSbe27tPGmBn9gs0aTrQVBtEr5uw9fcJ7+/hvD9Jl6WLK3IdijItZec08dWryhuplKuRPSFD8of26aF89I3dXKrQInwWfo/g8cwIWA8qRRPni9VCvBJ5iRrz1U727X0f8Z50QFJSEl/mn6RWZabmsp7BG304Jm8zIAAV5zWcK6qhRqnDrO/kk4OHJRwV/4MkkJCQwLvvHKCoQCla14Cl3Sr6vhWVXENDtQZFqZI397wl4bBbJQWErRkZtOgv4nReY2a2g9HRGtqMv/Daq7vi4usyD9pMPxFb6cbtNTJgk1NVeZJt29LIzXllfQDmjkJCi114fe0M2y/ToDnF9ufS2bUzd30ArcbfWcKGP2BhdKwao+FXduzYyvPZOesD6O75jUCwHZfHRIuhmO9OHEQme4yXX3r94QFpaWkkJ2/g6cwMlEoFeXl5CChZWc9KmsmSMzPzGdG68RnMsWNHkfpX8UjzX78dQm6UDc/yAAAAAElFTkSuQmCC) no-repeat .5em .5em;
 	border: 1px solid #000;
 	margin: 1em 1.25em;
-	padding: .75em .75em .75em 2.5em
+	padding: .75em .75em .75em 2.5em;
+	overflow: hidden
 }
 .woas_no_img .woas_note {
 	padding-left: .75em
@@ -5036,6 +5038,8 @@ woas.page.boundary: DFQRCTsKlU
 * Fixed Firefox 7+ breaking file selection.
 \
 == Minor
+* Help and print pages can now be open in multiple WoaS files.
+
 * Many parser spacing fixes.
 
 * Many changes to fix layout issues across browsers in Windows, including IE 6&7. Layout is now consistent at all text sizes and zoom levels in all major browsers (in Windows; I have done only limited testing for Linux, and none at all for Mac). I have been able to test early versions of IE and Firefox, but have no ability (or real desire) to test early versions of Chrome, Opera, and Safari. /I also had not realized how many load|save related WoaS features only work in Firefox! I have code to make image embedding work in IE, but adding such capabilities to the other browsers will have to be limited and based either on a new Java system, or HTML 5./
@@ -5093,6 +5097,11 @@ I am near to having a finished, fixed 0.12.0. to upload. I simply don't have the
 
 Changes since Revision pvhl-2317 (git: 3d939c7)
 
+* prevent heading, nowiki_multiline, and woas_note boxes from extending under TOC.
+* change save mode back to ASCII_TEXT unless using Java (was changed to UTF_TEXT to fix Java saves)
+* backlinks page now counts 'Include::' links
+* allow multiple Woas files to use popup windows
+* let Javascript:: pages go to help page section
 * fix legacy d$.clone function error (mine) and footer margin CSS
 * refactored d$ slightly, reordered functions, and added a d$.set function that combines show & hide (more versatile)
 * small change to macro code allows simple error reporting from macro
