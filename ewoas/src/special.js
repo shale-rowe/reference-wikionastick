@@ -57,7 +57,7 @@ woas.special_backlinks = function() {
 	var pg = [], pg_title, tmp;
 	pg_title = current;
 
-	var reg = new RegExp("\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
+	var reg = new RegExp("[^\[]\\[\\["+RegExp.escape(pg_title)+"(\\||\\]\\])", "gi");
 	for(var j=0,l=pages.length; j < l; j++) {
 		if (this.is_reserved(page_titles[j]))
 			continue;
@@ -272,7 +272,7 @@ woas.special_all_pages = function() {
 };
 
 // Returns a index of all dead pages
-var reAllWikiLinks = /\[\[([^\]\]]*?)(\|([^\]\]]+))?\]\]/g;
+var reAllWikiLinks = /[^\[]\[\[([^\[\]]*?)(\|([^\[\]]+))?\]\]/g;
 woas.special_dead_pages = function() {
 	var dead_pages = [];
 	var from_pages = [];
@@ -306,6 +306,8 @@ woas.special_dead_pages = function() {
 				if ((p.substr(0, 9) === "Special::") &&
 					(woas.shortcuts.indexOf(p.substr(9)) !== -1))
 					return;
+				if (p.substr(0, 9) === "Include::")
+					p=p.substr(9);
 				if (!woas.page_exists(p) && (p!==page_titles[j])) {
 					// true when page has been scanned for referrals
 					page_done = false;
@@ -325,6 +327,7 @@ woas.special_dead_pages = function() {
 					if (!page_done) {
 						dead_pages.push(p);
 						from_pages.push(new Array(page_titles[j]));
+						page_done = true;
 					}
 				}
 	        }

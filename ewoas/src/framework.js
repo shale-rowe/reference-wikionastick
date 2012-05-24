@@ -99,7 +99,7 @@ if (woas.config.debug_mode) {
 	// returns the DOM element object given its id, alerting if the element is not found (but that would never happen, right?)
 	function d$(id){ try{return document.getElementById(id);}catch(e){woas.crash("d$('"+id+"') invalid reference:\n\n"+e);} }
 } else {
-	// much faster version
+	// much faster version ( function d$(id){return document.all ? document.all[id] : document.getElementById(id);} )
 	function d$(id){return document.getElementById(id);}
 }
 
@@ -135,6 +135,10 @@ d$.is_visible = function(id) {
 
 d$.toggle = function(id, asBlock) {
 	d$[ d$.is_visible(id)? 'hide':'show'](id, asBlock);
+};
+
+d$.toggle_ni = function(id) {
+	d$[ d$.is_visible(id)? 'hide_ni':'show_ni'](id);
 };
 
 d$.clone = function(obj) {
@@ -270,12 +274,12 @@ String.prototype.sprintf = function() {
 	// next argument to pick
 	var i_pos = 0, max_pos = arguments.length - 1;
 	var fmt_args = arguments;
-	return this.replace(/%[sd]/g, function(str) {
+	return this.replace(/%(\d*)([sd])/g, function(str,n,t) {
 		// replace with the original unparsed token in case of undefined parameter
 		if (i_pos > max_pos)
 			return str;
-/*		if (str == '%d')
-			return Number(arguments[i_pos++]); */
+/*		if (n && t == 'd')
+			return Number(arguments[i_pos++]).toFixed(n); */
 		// return '%s' string
 		return fmt_args[i_pos++];
 	});
@@ -307,6 +311,11 @@ function _get_this_filename() {
 		}
 	}
 	return filename;
+}
+
+function _get_this_path() {
+	var slash_c = (navigator.appVersion.indexOf("Win")!=-1)?"\\\\":"/";
+	return _get_this_filename().replace(new RegExp("("+slash_c+")"+"[^"+slash_c+"]*$"), "$1");
 }
 
 function ff_fix_focus() {
@@ -595,9 +604,8 @@ Array.prototype.natsort = function(caseInsensitive) {
 }
 */
 
-
 // read or set the vertical scrollbar. Should work for IE6 in quircks and nonquircks mode.  sigh!
-function scrollTop(v) {
+woas.scrollTop = function(v) {
 	var x=0;
 	function f_filterResults(w, d, b) {
 		var r = w || 0;
@@ -618,14 +626,26 @@ function scrollTop(v) {
 	);
 	if(v===undefined)
 		return F;
-	if(firefox) return window.scrollBy(0,v);
+	if(woas.browser.firefox) {window.scrollBy(0,v);return F+v}
 	switch(x){
 		case(0): return window.pageYOffset+=v; break;
 		case(1): return document.documentElement.scrollTop+=v; break;
 		case(2): return document.body.scrollTop+=v; break;
 	}
 }
-
+// Scroll page by the size of the header (aka toolbar, where the buttons are)
+woas.rescroll = function(){ woas.scrollTop(-d$('woas_wiki_header').offsetHeight);};
+woas.scrollTo= function(id,steps){
+	var pos = typeof id=="number"? id: typeof d$(id)=="object"?d$(id).offsetTop:woas.scrollTop();
+//	alert("pos="+pos+" scrollTop="+document.body.scrollTop+" scrollHeight=" + document.body.scrollHeight+" offsetHeight=" + document.body.offsetHeight);
+	var step = Math.floor((pos - woas.scrollTop()) / (steps>0?steps:1));
+	if(step>0)
+		while((pos>step+woas.scrollTop())&&(woas.scrollTop(step)==woas.scrollTop())){}
+	if(step<0)
+		while((pos<step+woas.scrollTop())&&(woas.scrollTop(step)==woas.scrollTop())){}
+	if(step=pos - woas.scrollTop())
+		woas.scrollTop(step);
+} 
 // put a function in here that waits until the DOM has been loaded. (similar to jscript $(document).ready())
 woas.ready = function(func,interval){
 	if(func){

@@ -520,13 +520,13 @@ woas._edit_plugin = function(name) {
 		woas.edit_page(current);
 };
 
-var reAliases = /^(\^?\$[A-Za-z0-9_%]+)\s+(.*?)$/gm;
+var reAliases = /^(\^?)(\$\S+)\s+(.*?)$/gm;
 // match all aliases defined in a page
-woas._load_aliases = function(s) {
-	this.aliases = [];
+woas._load_aliases = function(s,append) {
+	if(!append)this.aliases = [];
 	if (s==null || !s.length) return;
-	s.replace(reAliases, function(str, alias, value) {
-		var cpok = [ new RegExp(RegExp.escape(alias), "g"), value];
+	s.replace(reAliases, function(str, nonlit, alias, value) {
+		var cpok = [ new RegExp(nonlit? "^\\"+alias:RegExp.escape("^"+alias), "g"), value];
 		woas.aliases.push(cpok);
 	});
 };
@@ -534,10 +534,13 @@ woas._load_aliases = function(s) {
 woas.aliases = [];
 
 woas.title_unalias = function(aliased_title) {
+	if(aliased_title.indexOf("$") !==0) return aliased_title;
 	// apply aliases on title, from newest to oldest
 	var i=this.aliases.length;
-	while(i-->0)
+	while(i-->0){
 		aliased_title = aliased_title.replace(this.aliases[i][0], this.aliases[i][1]);
+//		alert(i+"(" +this.aliases[i][0]+")="+aliased_title)
+	}
 	return aliased_title;
 };
 
@@ -616,13 +619,14 @@ woas.macro = {
 				var _print="";
 				function print(t){_print+=t;}
 				function println(t){print(t+"<br/>");}
-				function say(t){_print+=t+"<br/>";}
+				function calc(t){say(macro.text+"="+t)}
+				function say(t){if(typeof t !="undefined")_print+=t+"<br/>"; return say}
 				function shiftArgs() {x=[].shift.call(arguments); return arguments;} 
  				function printf(f){
 					// A = Array.apply(null, shiftArgs.apply(null, arguments));
 					_print+=String.prototype.sprintf.apply(f, shiftArgs.apply(null, arguments) );
 				}
-				function wiki(){macro.reprocess = 1;};
+				function wiki(t){macro.reprocess=1; if(t)print(t)};
 				try{
 					eval(macro.text);
 					macro.text = _print;
