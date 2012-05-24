@@ -68,7 +68,7 @@ function TextAreaSelectionHelper(obj) {
 	this.target.onblur=woas.ui.kbd_blur;
 	if(!document.selection)
 		this.target.onSelect=_textareaSaver; // ?
- 
+	if(document.attachEvent) this.target.onselect = _textareaSaver;
 	this.start=-1;
 	this.end=-1;
 	this.scroll=-1;
@@ -79,25 +79,49 @@ TextAreaSelectionHelper.prototype.getSelectedText=function() {
 	if(this.iesel)
 		return this.iesel.text;
 	// Fixes a problem in FF3 where the selection was not being stored in this.start and this.end when selecting multilines with mouse (still happens)
-	this.start = d$("woas_editor").selectionStart;
-	this.end = d$("woas_editor").selectionEnd;
-	return ((this.start>=0)&&(this.end>this.start))? this.target.value.substring(this.start,this.end): "";
+	if(woas.browser.firefox){
+		this.start = d$("woas_editor").selectionStart;
+		this.end = d$("woas_editor").selectionEnd;
+	}
+	return (this.start>=0&&this.end>this.start)? this.target.value.substring(this.start,this.end): "";
 };
+
+// Temporal for debugging. Works in IE8
+function getSelText()
+{
+    var txt = '';
+     if (window.getSelection)
+		txt = window.getSelection();
+	 else if (document.getSelection)
+		txt = document.getSelection();
+	else if (document.selection)
+        txt = document.selection.createRange().text;
+    else return "";
+	return txt;
+}
 
 TextAreaSelectionHelper.prototype.setSelectedText=function(text, secondtag,multilines) {
 	if(this.iesel) {
+	var SEL = this.iesel.text;
 	if(typeof(secondtag)=="string") {
-		if(multilines&&this.iesel.text.match(/\n/)){
-			var R=new Array();
-			this.iesel.text.split("\n").forEach(function(s){ s=s.replace(/(.*)(\s*)$/, text+"$1"+secondtag+"$2");R.push(s)});
-			this.iesel.text=R.join("\n");
-		}else
-			this.iesel.text = this.iesel.text.replace(/(\s+)$/, function (str, $1) {secondtag += $1; return ""}); 
-//		alert("T=("+this.iesel.text+")$1=("+$1+")"+$secondtag) // TODO TEST IN IE8 and IE9
-		var l=this.iesel.text.length;
-		this.iesel.text=text+this.iesel.text+secondtag;
-		this.iesel.moveEnd("character", -secondtag.length);
-		this.iesel.moveStart("character", -l);   
+		var R = SEL.split("\n");
+		if(multilines){		
+			//forEach not in IE8, alternative code:
+			var i=R.length;
+			while(i--)
+				R[i] =text+R[i].replace(/(\s*)$/, secondtag+"$1");
+			SEL=R.join("\n");
+		}else{
+			SEL=SEL.replace(/(\s+)$/, function (str, $1) {secondtag += $1; return ""}); 
+			SEL=text+SEL+secondtag;
+		}
+		var l=SEL.length;
+		this.iesel.text=SEL;
+		alert(";SEL="+SEL+";this.iesel.text="+this.iesel.text+";");
+//		this.iesel.moveEnd("character", 0);
+
+this.iesel.moveStart("character",-SEL.length+(text.length+secondtag.length-1)*(R.length-1)); 
+
 	} else {
 	  this.iesel.text=text;
 	}
@@ -171,6 +195,38 @@ function AddThis(starttag, endtag,multilines){
 
 
 
+TextAreaSelectionHelper.prototype.autoenter=function(e) {
+if(woas._editor.getSelectedText()) return; //there was text selected, keep standard behavior
+	if(this.iesel) {
+		// TODO: add for IE
+	}else{
+		var left=this.target.value.substring(0,this.start);
+		var search = "\n"+left; // make sure there is always an enter in the pattern
+		var linestart = Math.max(search.lastIndexOf("\n"),search.lastIndexOf("\r")); //IE workaround
+		search = search.substr(linestart);
+		var match = search.match(/(\n[@\*#]\S*\s)(.*)/);
+		if(match === null) return true;
+		var right=this.target.value.substr(this.end);
+		var len=0;
+		if(!match[2]){ // 2 enters pressed -> remove the list markup
+			left= left.substr(0,linestart);
+			len=1-match[1].length;
+			match[1]="";
+		}else
+			len=match[1].length;
+		this.target.value=left+match[1]+right;
+		this.end=this.target.selectionEnd=this.start+len;
+		this.start=this.target.selectionStart=this.start+len;
+		this.target.scrollTop=this.scroll;
+		this.target.focus();
+
+		e.preventDefault();
+		return false;
+	}
+};
+
+
+
 
 
 woas.ui.button = new Array();
@@ -196,12 +252,18 @@ woas.ui.button.setMETA = function(meta) {
 		id="pb"+j;
 		d$(id).value = b.label;
 		d$(id).title = b.desc;
-		d$(id).onclick = b.onclick;
+		d$(id).onclick = b.onclick; // TODO: NOT IMPLEMENTED IN IE8, wrap around a function?
+		// woas.ui.button.get(1,woas.ui.button.META).onclick()
 	}
 }
 woas.ready( function(){ woas.ui.button.setMETA(0)} ); // Delay execution until all editor buttons are loaded.
 
 WUB=woas.ui.button;
+
+WUB.set(0,0, WUB.make("wURL", "[link]", "Table of Content", function(){woas.ui.editor.setWikiIUrl()} ))
+
+
+
 WUB.set(0,0, WUB.make("TOC", "TOC", "Table of Content", function(){TagThis("[[Special::TOC]]")} ))
 WUB.set(0,1, WUB.make("sig", "sig", "signature", function(){woas._editor.setSelectedText("<br/>kind regards,<br/>The *WOAS* team.");} ))
 WUB.set(1,0, WUB.make("note", "note", "gray-boxed text", function(){FullTagThis("div", "class=\"text_area\""); } ))

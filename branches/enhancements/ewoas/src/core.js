@@ -63,6 +63,7 @@ woas._prompt_title = function(msg, def_title) {
 	return null;
 };
 
+woas.pg={}; //Used in _Template pages
 woas._new_page_direct = function(title, fill_mode) {
 	// properly split page title in (namespace, title) -> (ns, cr)
 	var ns = this.get_namespace(title, true), cr;
@@ -76,8 +77,29 @@ woas._new_page_direct = function(title, fill_mode) {
 		return title;
 	}
 	// create and edit the new page
-	var ct=(cr == "Menu")?"\n": "= "+cr+"\n";
-
+	var ct="";
+	if(cr != "Menu"){
+		// check for _Template
+		var P = title.split("::"), T;
+		if(P.length>1){
+			woas.pg={'cr':cr,'ns':ns,'title':title, 'date':Date()};
+			woas.pg.name = P.pop(); woas.pg.base=P.join("::");
+			while(P.length>0 &&!ct){
+				T = P.join("::") + "::" + "_Template";
+				if(page_titles.indexOf(T)>-1)
+					ct = woas.get_text(T)
+					.replace(reMacros, function(t,a,d){return woas.macro.parser(a).text+(d?d:'');})
+					.replace(/%PAGE%(\w+)%/g, function(t,a){return woas.pg[a]});
+				P.pop();
+			};
+			cr=woas.pg.cr;ns=woas.pg.ns;title=woas.pg.title;
+		}else{
+			ct = "= " + cr;
+			ct+="\n"
+		}
+	}else{
+		ct="\n";
+	}
 	this._create_page_direct(ns, cr, fill_mode, ct);
 
 	var upd_menu = (cr==='Menu');

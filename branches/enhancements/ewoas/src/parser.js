@@ -42,11 +42,10 @@ woas.parser = {
 	reNormHeader: /[^a-zA-Z0-9]/g,
 	sTOC: "[[Special::TOC]]",
 	reHasDNL: new RegExp("^([ \\t]*\\n)"),
-	_MAX_TRANSCLUSION_RECURSE: 256,
+	_MAX_TRANSCLUSION_RECURSE: 16,
 
 	marker: null,
 	reBaseSnippet: null,
-	_HR: "<"+"hr class=\"woas_ruler\" />",
 	NL_MARKER: null,
 	reNL_MARKER: null,
 	_init: function() {
@@ -65,8 +64,8 @@ woas.parser.header_replace = function(str, $1, $class, header, xtra) {
 		that = woas.parser;
 		// automatically build the TOC if needed
 		if (that.has_toc)
-			that.toc += String("#").repeat(len)+" <"+'a class="woas_link" href="#' +
-			that.header_anchor(header) + "\">" + header + "<\/a>\n";
+			that.toc += String("#").repeat(len)+" <"+'a class="woas_link" href="javascript:woas.scrollTo(\''
+			+that.header_anchor(header)+'\')'+"\">" + header + "<\/a>\n";
 		return "<"+"h"+len+' class="'+($class||"woas_header")+'" id="'+that.header_anchor(header)+'">'+header+"<"+"/h"+len+">"+xtra;
 };
 
@@ -76,14 +75,16 @@ woas.parser.header_replace = function(str, $1, $class, header, xtra) {
 // @{disc;list-style-image:url (/images/icons/bullet.gif);} hii
 // @{bullet.png}   @{$BULLET}  
 // @{square} Square List Item
-var reReapLists = /^(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)[ \t].*(?:\n(?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+[ \t].+)*$/gm,
-	reItems = /^((?:\*|#|@(?:[iIaA1#\*]|{[^}]+})?)+)[ \t](.*)$/im,
+var reReapLists = /\n?^(?:\*|#|@).*(?:\n\*.*|\n#.*|\n@.*)*/gm,
+	reItems = /^((?:\*|#|@(?:[iIaA1#\*]|{[^}]*})?)+)[ \t](.*)$/im,
 	reItem = /^(?:\*|#|@)/im;
 woas.parser.parse_lists = function(s) {
 	var A=s.replace(/\\\\\n/, "<br/>").split(/\n/);
 	var firstline = A.shift();
+	if(!firstline && A.length>0) firstline = A.shift();
 	var fl= "";
 	var close="";
+	if(!firstline.match(reItems))return s;
 	firstline=firstline.replace(reItems,
 			function(str,a,b,c){
 					fl=a;
@@ -100,12 +101,14 @@ woas.parser.parse_lists = function(s) {
 									open= '<ol '+ a +'>'
 								else if(a.match(":"))
 									open= '<ol style="'+ a +';">'
-								else if(a.match(/\./)){
+								else if(a.match(/\./))
 									open= '<ol class="woas_img" style="list-style-image:url('+ escape(a) +');">'
-								}else
-									open= '<ol style="list-style-image:none;list-style-type:'+ a +';">'
+								else if(a)
+									open= '<ol style="' +(a == "inherit"? '':'list-style-image:none;')+'list-style-type:'+ a +';">'
+								else
+									open=close="";
 							}else
-								open="<ol style=\"list-style-image:none\" TYPE=\""+(w[1]?w[1]:(a=="@"?'a':a))+"\">"; // TODO: TYPE is Deprecated must be replaced
+								open='<ol style="list-style-image:none" TYPE="'+(w[1]?w[1]:(a=="@"?'a':a))+'">'; // TODO: TYPE is Deprecated must be replaced
 						}else{
 						 // # no values needed.
 						}
@@ -116,16 +119,17 @@ woas.parser.parse_lists = function(s) {
 	// Search for brothers and children
 	while(A.length>0){
 		var CHILD= "";
+		var R = new RegExp("^"+RegExp.escape(fl));
 		if(A[0] == ""){
-			A.shift();		
+			A.shift();
 		}else{
-			while (A.length>0 && A[0].replace(fl,"").match(reItem)) {
-				CHILD += A.shift().replace(fl,"")+"\n";
+			while (A.length>0 && A[0].replace(R,"").match(reItems)) {
+				CHILD += A.shift().replace(R,"")+"\n";
 			}
 			if(CHILD)
 				firstline += woas.parser["parse_lists"](CHILD);
-			else
-				firstline += "<li>" + A.shift().replace(fl,"");
+			else 
+				firstline += "<li>" + A.shift().replace(R,"").replace(/^[ \t]+/,"");
 		}
 	}
 	return firstline+close;
@@ -151,7 +155,7 @@ woas.parser.parse_tables_new = function (str, prop, p1) {
 		switch (pp1) {
 			case '-': // comment
 				return;
-			case '+':
+			case '+': //caption
 				return caption = caption || ('<'+'caption' + (stk.length > 0 ? ' style="caption-side:bottom">' : '>') + pp2 + '<'+'/caption>');
 			case '*':
 				return colgroup = pp2;
@@ -227,17 +231,16 @@ woas.split_tags = function(tlist) {
 // elements which can have one dynamic newline
 var reScripts = new RegExp("<"+"script([^>]*)>([\\s\\S]*?)<"+"\\/script>([ \t]*\n)?", "gi"),
 	reStyles = new RegExp("<"+"style([^>]*)>[\\s\\S]*?<"+"\\/style>([ \t]*\n)?", "gi"),
-	//DEPRECATED rulers with 3 hyphens (shall be 4)
-	reRuler = /(\n\s*\-{3,4}[ \t]*){1,}(\n|$)/g,
-	reNowiki = /\{\{\{([\s\S]*?)\}\}\}([ \t]*\n)?/g,
+	reRuler = /^[ \t]*\-{4,}[ \t]*$/gm,
+	reNowiki = /\{\{\{(\n?)([\s\S]*?)\1\}\}\}([ \t]*\n)?/g,
 	//TODO: FBnil: Quick hack to allow Aliases in transclusions, needs to be tested though
 	reTransclusion = /\[\[(Include::|\$)([\s\S]+?)\]\]([ \t]*\n)?/g,
 	reMacros = /<<<([\s\S]*?)>>>([ \t]*\n)?/g,
 	reComments = /<\!--([\s\S]*?)-->([ \t]*\n)?/g,
 // the others have not
-	reWikiLink = /\[\[([^\[\]\]]*?)(?:\|(.*?))?\]\]/g,
+	reWikiLink = /\[\[(.*?)(?:\|(.*?))?\]\]/g,
 	reMailto = /^mailto:\/\//,
-	reCleanupNewlines = new RegExp('((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g');
+	reCleanupNewlines = new RegExp('\n?((<\\/h[1-6]>)|(<\\/[uo]l>))(\n+)', 'g');
 
 	// PVHL commented out the following section: TODO: Remove this as well.
 woas.parser.place_holder = function (i, separator, dynamic_nl) {
@@ -252,14 +255,13 @@ woas.parser.place_holder = function (i, separator, dynamic_nl) {
 };
 
 // create a preformatted block ready to be displayed
-woas._make_preformatted = function(text, add_style) {
-	var cls = "woas_nowiki", tag, p = text.indexOf("\n");
-	if (p === -1) {
+woas._make_preformatted = function(text, add_style,isBlock) {
+	var cls = "woas_nowiki", tag,p=text.indexOf("\u21B5");
+//	alert("TEXT("+text+")")
+	if (text.indexOf("\n") == -1 && p != 0) {
 		tag = "tt";
 	} else {
-		// remove the first newline to be compliant with old parsing
-		if (p===0)
-			text = text.substr(1);
+		if (p === 0) text = text.substr(1);
 		cls += " woas_nowiki_multiline";
 		tag = "pre";
 	}
@@ -425,10 +427,10 @@ woas.parser.parse_macros = function(P, snippets) {
 
 //NOTE: XHTML comments cannot be contained in nowiki or macro blocks
 woas.parser.pre_parse = function(P, snippets) {
-	// put away stuff contained in inline nowiki blocks {{{ }}}
-	P.body = P.body.replace(reNowiki, function (str, $1, dynamic_nl) {
-		snippets.push(woas._make_preformatted($1));
-		return woas.parser.place_holder(snippets.length-1, "", dynamic_nl)+(dynamic_nl && $1.indexOf("\n")==-1?"<br>":"");
+	// put away stuff contained in inline nowiki blocks {{{ }}}     // \u21B5 is &crarr;
+	P.body = P.body.replace(reNowiki, function (str, isBlock,$1,dynamic_nl) {
+		snippets.push(woas._make_preformatted((dynamic_nl? "\u21B5":"")+$1,"",isBlock));
+		return woas.parser.place_holder(snippets.length-1, "", dynamic_nl);
 	})
 	// put away XHTML-style comments
 	.replace(reComments, function (str, comment, dynamic_nl) {
@@ -438,11 +440,10 @@ woas.parser.pre_parse = function(P, snippets) {
 		snippets.push(str);
 		return woas.parser.place_holder(snippets.length-1, "", dynamic_nl);
 	})
-	// Escape wiki TODO: Escape http urls (now we http:~//escaped.com)
+	// Escape wiki with tilde. TODO: Escape http urls (now we http:~//escaped.com, but should be ~http://escaped.com)
 	.replace(/~([^\nA-Za-z0-9])/g, function (str, $1) {
-		r = woas.parser.place_holder(snippets.length, "", "");
 		snippets.push(woas.xhtml_encode($1));
-		return r;
+		return woas.parser.place_holder(snippets.length-1, "", "");
 	})
 	// allow non-wrapping newlines
 	.replace(/\\\\\n/g, "<br/>").replace(/\\\n/g, "")
@@ -451,13 +452,14 @@ woas.parser.pre_parse = function(P, snippets) {
 		if($1.indexOf(":")==-1 || $1.substr(0, 1) === "$")
 			$1=woas.title_unalias($1); 
 		if(!$1) $1= woas.eval($2,1);
-		var t= $3.match(":")? 'class="woas_img" style="'+$3+'"' : 'class="'+($3?$3:'woas_img')+'"';
+		$3= $3||""; // required for IE8
+		var t= $3? ($3.match("=")?$3:($3.match(":")?'class="woas_img" style="'+$3+'"':'class="'+$3+'"')) :'class="woas_img"';
 		if($l+$r)
 			t = t.replace(/class="/, 'class="'+['w_left', 'w_right', 'w_center'][$l?$r?2:1:0]+' ');
-		$1 = $1.replace(/\?(\d*?)(?:x(\d+))?(?:\:(.+))?$/, function(mstr, w,h,v){
-			t+= (w?' width="'+w+'"':'')+(h?' height="'+h+'"':'')+(v?' style="vertical-align:'+v+'"':'');return "";});
+		$1 = $1.replace(/\?(\d*?)(?:x(\d+))?(?:\:(.+))?$/,
+			function(mstr, w,h,v){t+= (w?' width="'+w+'"':'')+(h?' height="'+h+'"':'')+(v?' style="vertical-align:'+v+'"':'');return "";});
 		if($1.match(/^=/)){
-			if($1.indexOf(".")!=-1)
+			if($1.indexOf(".")!=-1 && $1.indexOf("Image::")==-1)
 				$1="=Image::"+$1.substr(1);
 			if($1.indexOf("::")!=-1)
 				return '[[Include::'+$1.substr(1)+'|'+t+($2? ' alt="'+$2+'"':'')+']]'; //transclude embedded image
@@ -485,8 +487,10 @@ woas.parser._snippets = null;
 woas.parser._transcluding = 0;
 woas.parser._transclude = function (str, $2, $1, dynamic_nl) {
 	if($2 == "$") {
-		$1=woas.title_unalias($2+$1);
-		if($1.indexOf("Include::")==-1) return str;
+		$1=$2+$1;
+		var v = $1.split("|",2);
+		$1=woas.title_unalias(v[0]) + (v[1]?"|"+v[1]:"");
+		if($1.indexOf("Include::")==-1) return "[["+$1+"]]"+dynamic_nl;
 		$1=$1.substring(9);
 	}else if(!$1) $1=$2
 	var that = woas.parser,
@@ -607,45 +611,114 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 	// strikethrough
 	P.body = P.body.replace(/(^|[^\w\/\\\<\>!\-])\-\-([^ >\-].*?[^ !])\-\-/mg, "$1<strike class=\"woas_strike\">$2</strike>")
 
-	.replace(/^;(.*|^[;:].*)/gm, function (str, $1,$2) {
-		var A=$1.split(/[:;]/);
-	//alert($1+"="+A.join("|")+">>>"+$2);
-		return '<dl class="w_dl">' +$1+"</div>";
+	//definition list
+	.replace(/^;(.*(?:\n[^\n].*)+)\n?/gm, function (str,$1) {
+		var D=$1.split(/;/), l,A,dt;
+		function entag(tag,text,pv){return '<'+tag+(pv?' '+pv:'')+'>'+text+'</'+tag+'>';}
+		var M="";
+		while(D.length){
+			A=D.shift().replace(/^([^\n]+):/, "$1\n:").split(/\n:/);
+			M+=entag('dt',A.shift());
+			while(A.length)
+				M+=entag('dd',A.shift());
+		}
+		return entag('dl',M,'class="w_dl"')
 	})
 	
 	// Indent :  <div style="margin-left:2em"> or http://meyerweb.com/eric/css/tests/css2/sec08-03c.htm
 	.replace(/(^|\n|<br\/>)(:+)\s*([^\n]+)/mg, function (str, $1,$2,$3) {
-		return $1+"<span style=\"margin-left:"+($2.length)+"em\">"+$3+"</span>";
+		return $1+'<span style="margin-left:'+($2.length)+'em">'+$3+'</span>';
 	})
 	
-	// Footnotes((this is a footnote))
-	.replace(/([^\s]+)\(\((.*?)\)\)/g,  function (str, $1, $2) {
-		if($2){
-			if(typeof(woas["FOOTNOTES_COUNTER"])!='number')
-				{woas["FOOTNOTES"] = []; woas["FOOTNOTES_COUNTER"]=0;}
-			if($1.match(/\+\d+$/)){
-				$1.replace(/\+(\d+)$/, function(str,d){if(d>0)woas["FOOTNOTES"][d-1]+=woas.parser.parse($2);})
+	// Footnotes((this is a footnote)) and(({symbol}This is another footnote with symbol instead of numbering)) 
+	// also: +4((add this text to footnote 4)) and +(())  -(())  (feature creeped footnote)
+	.replace(/\(\((?:\{([^\{\}]+)\})?(.*?)\)\)/g,  function (str, xu, txt) {
+			// Reset footnotes
+		if(typeof(woas["fn_counter"])!='number'){
+			woas["fn"] = []; woas["fnu"] = [];  woas["fnuH"]= {}; woas["fn_counter"]=0; woas["fnN"]={};
+		}
+		woas["fn_N"] = woas["fn_N"] || 0;
+		function addfr(n,x){return '<em><sup><a class="footref" name="'+woas["fn_N"]+'_notefoot'+n+'" onclick="window.setTimeout(woas.rescroll,0);return true;" href="#'+woas["fn_N"]+'_footnote'+n+'">'+x+'</a></sup></em>';}
+	
+		if(txt){ //We have a message, so we add a footnote reference
+			P.footnote= P.footnote? ++P.footnote:1;
+			
+			// Check adding text (({+ID}TXT))
+			if(xu.match(/^\+(\d+|\S+)$/)){
+				xu.replace(/^\+(\d+|\S+)$/, function(str,d){
+					if(d>0)
+						woas["fn"][d-1]+=woas.parser.parse(txt);
+					else if(woas["fnu"][d])
+						woas["fnu"][d]+=woas.parser.parse(txt);
+				});
 				return "";
 			}
-			woas["FOOTNOTES"].push(woas.parser.parse($2));
-			var n =woas["FOOTNOTES"].length + woas["FOOTNOTES_COUNTER"];
-			var m = woas["FOOTNOTES_N"] || '';
-			return ($1 + '<em><sup><a class="footref" name="'+m+'_notefoot'+n+'" href="#'+m+'_footnote'+n+'">'+n+'</a></sup></em>');		
-		}else{
-			if(typeof(woas["FOOTNOTES_COUNTER"])!='number')
-				{woas["FOOTNOTES"] = []; woas["FOOTNOTES_COUNTER"]=0;}
-			var fn = "";
-			var m = woas["FOOTNOTES_N"] || '';
-			for(var i=0,l=woas["FOOTNOTES"].length;i<l;i++){
-				var n = i + woas["FOOTNOTES_COUNTER"] + 1;
-				fn += '<tr><td VALIGN="top" class="wiki_footnote_n"><a class="woas_link" name="'+m+'_footnote'+n+'" href="#'+m+'_notefoot'+n+'">' +n+ '</a>)</td><td class="wiki_footnote_d">' + woas["FOOTNOTES"][i]  +"</td></tr>";
+			var xuu="";
+			if(xu.match(/^@[IiAa]$/)){
+				woas["fnN"][xu] = woas["fnN"][xu] || 0;
+				var n = ++woas["fnN"][xu];
+				xuu = xu + (10+n); // add 10 to solve sorting order (numerical versus ascii sort)
+				function rome(N,s,b,a,o,t){t=N/1e3|0;N%=1e3;for(s=b='',a=5;N;b++,a^=7) for(o=N%a,N=N/a^0;o--;) s='IVXLCDM'.charAt(o>2?b+N-(N&=~1)+(o=1):b)+s; return Array(t+1).join('M')+s;}
+				if(xu=="@I"){
+					xu = rome(n);
+				}else if(xu=="@i"){
+					xu = rome(n).toLowerCase();
+				}else if(xu=="@A"){
+					xu = String.fromCharCode("A".charCodeAt(0)+n-1)
+				}else if(xu=="@a"){
+					xu = String.fromCharCode("a".charCodeAt(0)+n-1)
+				}else{
+					xu += n
+				}
 			}
-			if($1 == "+")
-				woas["FOOTNOTES_COUNTER"]=woas["FOOTNOTES"].length;
+
+			// Add to footnotes, if new
+			var n;
+			if(xu){
+				if(!woas["fnuH"][xu]){
+					woas["fnu"].push("{"+(xuu||(10+woas["fnu"].length))+":"+woas.parser.parse(xu)+"}"+woas.parser.parse(txt));
+					woas["fnuH"][xu] = woas["fnu"].length;
+				}
+				n =woas["fnuH"][xu] + "u"+ (10+woas["fn_counter"]);
+			}else{
+				woas["fn"].push(woas.parser.parse(txt));
+				n =woas["fn"].length + woas["fn_counter"];
+			}
+			
+			// Add footref
+			return addfr(n, (xu?xu:n));
+			
+		}else if(xu.match(/^[^+\-]$/)){ // No text, but has (({ID})), print as footref
+			var n =xu>0?xu:woas["fnuH"][xu]? woas["fnuH"][xu]+ "u"+ woas["fn_counter"]: "ERROR UNDEFINED"+woas["fnuH"][xu];
+			return addfr(n,xu);
+		}else{ // either (({+})) or (({-})), print the footnotes
+			// no footnotes defined, but we still want to print the header, to show that it is empty
+			if(typeof(woas["fn_counter"])!='number')
+				return('<br/><div class="wiki_footnote"><table class="wiki_footnote" border=0>'+'</table></div>');
+
+			P.footnote=0;
+//			alert(P.footnote+">>>>>"+woas["fnu"].join("|")+ ";"+woas["fn"].join("|"));
+			var fn = "", fnu = "",f;
+			function addfn(n,id,v){return '<tr><td VALIGN="top" class="wiki_footnote_n"><a class="woas_link" name="'+woas["fn_N"]+'_footnote'+n+'" onclick="window.setTimeout(woas.rescroll,0);return true;" href="#'+woas["fn_N"]+'_notefoot'+n+'">' +id+ '</a>)</td><td class="wiki_footnote_d">' + v  +"</td></tr>"}
+			var i=1;
+			woas["fnu"] = woas["fnu"].sort();
+			while(f=woas["fnu"].shift()){
+				var xu="";
+				f=f.replace(/^\{([^\{\}]*):([^\{\}]+)\}/, function(s,u,x){xu=x;return "";})
+				n = (i++) + "u" +(10+woas["fn_counter"]);
+				fn += addfn(n,xu,f);
+			};
+			i=1;
+			while(f=woas["fn"].shift()){
+				n = (i++) +woas["fn_counter"] ;
+				fn += addfn(n,n,f);
+			};
+			if(xu == "+")
+				woas["fn_counter"]=woas["fn"].length;
 			else
-				woas["FOOTNOTES_COUNTER"]= 0;
-			woas["FOOTNOTES"] = [];
-			woas["FOOTNOTES_N"] = (woas["FOOTNOTES_N"] || 0)+1;
+				woas["fn_counter"]= 0;
+			woas["fn"] = [];
+			woas["fn_N"] = (woas["fn_N"] || 0)+1;
 			return(fn?'<br/><div class="wiki_footnote"><table class="wiki_footnote" border=0>' +fn+ '</table></div>' :'');
 		}
 	})
@@ -656,10 +729,21 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 		return "<"+t+">"+$2+"<"+"/"+t+">";
 	})
 
-	// put away code contained in multi-line "emphasized paragraph" blocks [[[ ]]]  and ,, '' (polish quotes)
-		.replace(/(\[{3}|,,)([\s\S]*?)(\]{3}|'')/g, function (str, $1, $2) {
-			var multiline = !($2.indexOf("\n")==-1);
-			var T= $1=='[[[' ? (multiline?["div","note"]:["span","snote"]) : (multiline?['blockquote', 'citation']:["q","citation"]);
+	// put away notes contained in multi-line "emphasized paragraph" blocks [[[ ]]] 
+		.replace(/(?:!?\{([^\{\}]+)\})?\[{3}([\s\S]*?)\]{3}/g, function (str, cl,$1) {
+			var multiline = $1.indexOf("\n")!=-1;
+			var T= multiline?["div","note"]:["span","snote"];
+			if(cl){
+				cl=woas.title_unalias(cl).split("|");
+				T[1]=cl[0];
+			}
+			return "<"+T[0]+(T[1]?' class="'+T[1]+'"':'')+(cl&&cl[1]?' style="'+cl[1]+'"':'')+(cl&&cl[2]?' id="'+cl[2]+'"':'')+'>'+$1+"</"+T[0]+">";
+	})
+	
+	// put away ""quotes"" and ,,citations'' (polish quotes). Quotes are always inline, so no blockquote
+		.replace(/(""|,,)([\s\S]*?)(""|'')/g, function (str, $1, $2) {
+			var multiline = $2.indexOf("\n")!=-1;
+			var T= $1=='""' ? (multiline?["q","quote"]:["q","quote"]) : (multiline?['blockquote', 'citation']:["q","citation"]);
 			return "<"+T[0]+" class=\""+T[1]+"\">"+$2+"</"+T[0]+">";
 	})
 	
@@ -672,65 +756,58 @@ woas.parser.syntax_parse = function(P, snippets, tags, export_links, has_toc) {
 		snippets.push(tags);
 		return r;
 	}) */
-	.replace(/(<\/?\w+[^>]*>[ \t]*)+/g, function (tag) {
+	.replace(/(<\w+[^>]*>[ \t]*|[ \t]*<\/\w+[^>]*>)+/g, function (tag) {
 		r = woas.parser.place_holder(snippets.length);
 		snippets.push(tag);
 		return r;
 	})
 //IMAGES WAS HERE, MOVED TO BEFORE TRANSCLUSION
 	// links  [[Page|Title]] and [[Page]]
-	.replace(reWikiLink, function(str, $1, $2) {
-		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links);
+	.replace(reWikiLink, function(str, $1, $2, title) {
+		return woas.parser._render_wiki_link($1, $2, snippets, tags, export_links, title);
 	})
 
-	// Acronyms (TODO: acronym vs abbr ?)  should not match list-style-image:url(mammoth.jpg)
-	.replace(/(^|\s)([\w\.\-\~]+)\(([^"\(\)]{4,})\)/mg,  function(str,$1,$2,$3){
-		snippets.push($1+'<acronym class="woas_acronym" title="'+$3+'">'+$2+'</acronym>');
-		return woas.parser.place_holder(snippets.length-1);
-	})	
-	
+	// Acronyms (TODO: acronym vs abbr ?)  should not match list-style-image:url(mammoth.jpg)  [^\s\~]+
+	.replace(/(^|\s)([\w\.\-\~]+)\(([^"'\(\)][^\)]{3,})\)/mg,  function(str,$1,$2,$3){
+		snippets.push('<acronym class="woas_acronym" title="'+$3+'">'+$2+'</acronym>'); // +woas.parser.NL_MARKER+dynamic_nl
+		return $1+woas.parser.place_holder(snippets.length-1);
+	})
+
 	// underline
 	.replace(/(^|[^\w])_([^_]+)_/mg, "$1"+woas.parser.marker+"uS#$2"+woas.parser.marker+"uE#")
 	// http url's (could be extended to other protocols than http(s), maybe ftp, or even gopher?
 	.replace(/((?:https?|ftps?|news):\/\/\w+\S*[^,\. \n])/ig, function(str, $1) {
 		return woas.parser._render_wiki_link($1, "", snippets, tags, export_links);
 	})
-
+	//CamelCase Links (TODO:add option to disable it) BUG: Random marker fubars
+//	.replace(/(~?)\b([A-Z][a-z]+[A-Z]\w+)\b/g, function(str, nocamel,$1) {
+//		if(nocamel)return $1;
+//		return woas.parser._render_wiki_link($1, "", snippets, tags, export_links);
+//	})
 	// italics - code by Stanky
-	.replace(/(^|[^\w:])\/([^\n\/]+)\/($|[^\w])/mg, function (str, $1, $2, $3) {
+	.replace(/(^|[^\w:])\/([^\n \/][^\n\/]*)\/($|[^\w])/mg, function (str, $1, $2, $3) {
 		if (str.indexOf("//")!=-1)
 			return str;
 		return $1+"<em>"+$2+"</em>"+$3;
 	})
 	
-	// Quoted ''monospace''
+	// Quoted ''monospace'' (multi-line)
 	.replace(/''(\S[\s\S]*?)''/g, "<span class=\"woas_quoted\">$1</span>")
-	
-	// ordered/unordered lists parsing (code by plumloco)
-	.replace(reReapLists, this.parse_lists)
 	// headers - only h1~h6 are parsed
 	.replace(this.reHeaders, this.header_replace)
+	// ordered/unordered lists parsing (code by plumloco)
+	.replace(reReapLists, this.parse_lists)
 	// note ! or !{class}
-	.replace(/^!(?:\{([ \w]+)\})?\s*(.+)\n?$/gm, function (str, $1,$2) {
+	.replace(/^!(?:\{([ \w\$]+)\})?\s*(.+)$\n?/gm, function (str, $1,$2) {
+		if($1&&$1.substr(0,1)=="$")$1=woas.title_unalias($1);
 		return "<div class=\"" + ($1?$1:"note") + "\">"+$2+"</div>"; // TODO: maybe rewrite as "<"+"div>$1<"+"/div>"? seems ok now?
-	});
+	})
+	// Indented blocks
+	.replace(/(^|\n|<br\/>)  ([^\n]+)((?:\n  [^\n]+)*)\n?/mg, function (str, $1,$2,$3) {
+		return $1+'<div class="indentedblock">'+$2+($3?$3:"")+'</div>';
+	})
+
 	
-/*
-; First title of definition list
-: Definition of first item.
-; Second title: Second definition
-beginning on the same line.
-
-
-Recommended XHTML:
-
-<dl>
-<dt>First title of definition list</dt>
-<dd>Definition of first item.</dd>
-<dt>Second title</dt>
-<dd>Second definition beginning on the same line.</dd>
-</dl>
-*/
 	// other custom syntax should go into this callback
 	this.extend_syntax(P);
 	
@@ -748,6 +825,7 @@ Recommended XHTML:
 		this.toc = "";
 	}
 
+
 	// add a dynamic newline at start to have consistent newlines for the ruler and other syntax regex
 	P.body = this.NL_MARKER + "\n" + P.body;
 
@@ -760,16 +838,18 @@ Recommended XHTML:
 		return ($1=='u')? "<"+"span style=\"text-decoration:underline;\">" : "<"+"strong>";
 	})
 
-	// 'hr' horizontal rulers made with 3 hyphens, 4 suggested
+	// 'hr' horizontal rulers made with 4 hyphens
 	// only white spaces are allowed before/after the hyphens
 	.replace(reRuler, function () {
+		return "<"+"hr class=\"woas_ruler\" />" + woas.parser.NL_MARKER ;
+/*
 		var n = woas.trim(arguments[0].replace(/\s+/g, " ")).split(/\ /g).length,
 			last_nl;
 		if (arguments[arguments.length-3].length)
 			last_nl = woas.parser.NL_MARKER+arguments[arguments.length-3];
 		else last_nl = "";
 		return woas.parser._HR.repeat(n)+last_nl;
-	})
+*/	})
 	// tables-parsing pass  TODO: woas.config.new_tables_syntax REMOVE reReapTables
 	.replace(woas.config.new_tables_syntax ? reReapTablesNew : reReapTables,
 				woas.config.new_tables_syntax ? this.parse_tables_new : this.parse_tables)
@@ -839,7 +919,8 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 		else
 			// PVHL: line below was causing hash location encoding to fail.
 //			gotohash = "; window.location.hash= \"" + page.substr(hashloc) + "\"";
-			gotohash = "; window.location.hash= '" + page.substr(hashloc) + "'";
+			//gotohash = "; window.location.hash='" + page.substr(hashloc) + "'" + ';woas.rescroll();';
+			gotohash = "; woas.scrollTo('"+page.substr(hashloc+1)+"');";
 		page = page.substr(0, hashloc);
 	}
 
@@ -848,7 +929,9 @@ woas.parser._render_wiki_link = function(arg1, label, snippets, tags, export_lin
 	// create a title attribute only when page URI differs from page title
 	var _c_title = (page !== label) ? ' title="'+woas.xhtml_encode(page)+'"' : '', wl;
 	if (hashloc === 0) { // section reference URIs
-		snippets.push("<"+"a"+_c_title+" class=\"woas_link\" href=\""+page+"\">" + r_label + "<\/a>");
+		snippets.push("<"+"a"+_c_title+' class="woas_link" '
+		+ ' onclick="window.setTimeout(woas.rescroll,0);return true;" '
+		+ " href=\""+page+"\">" + r_label + "<\/a>");
 	} else { // normal pages
 		if (woas.page_exists(page)) {
 			if (export_links) {
